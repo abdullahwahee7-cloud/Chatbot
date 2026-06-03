@@ -13,13 +13,13 @@ interface message {
 // Abdullah's part
 
 const App: React.FC = () => {
-    const [messages, setMessages] = useState<any[]>([]); // The setMessages is the function used to update the messages
+    const [messages, setMessages] = useState<any[]>([]); // the setMessages is the function used to update the messages
     const [input, setInput] = useState(''); 
-    const [ws, setWs] = useState<WebSocket | null>(null); // This is used to build a connection between backend and frontend, So it can be smooth 
+    const [ws, setWs] = useState<WebSocket | null>(null); // this is used to build a connection between backend and frontend, So it can be smooth 
     const messagesEnd = useRef<HTMLDivElement>(null); 
 
     useEffect(() => {
-        const socket = new WebSocket('ws://localhost:8080'); // This is used for a WebSocket connection, I used 8080 although 8000 was also an option
+        const socket = new WebSocket('ws://localhost:8080'); // this is used for a WebSocket connection, I used 8080 although 8000 was also an option
 
         socket.onopen = () => {
             setMessages([{
@@ -31,7 +31,7 @@ const App: React.FC = () => {
         socket.onmessage = (event) => {
             try {
             const chatbotReply = JSON.parse(event.data);
-            setMessages(prev => [...prev,chatbotReply]); // Used for taking the existing messages and add the new messages at the end and then update it 
+            setMessages(prev => [...prev,chatbotReply]); // used for taking the existing messages and add the new messages at the end and then update it 
             } catch (error) {
              console.error("Error parsing message:", error, "Please fix this.");
             }
