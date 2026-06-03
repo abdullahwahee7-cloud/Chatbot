@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // comments are added so the other teammates can understand who were doing backend
 
-interface message {
+interface Message {
     sender: 'user' | 'chatbot';
     text: string;
     time: string; 
@@ -13,7 +13,7 @@ interface message {
 // Abdullah's part
 
 const App: React.FC = () => {
-    const [messages, setMessages] = useState<any[]>([]); // the setMessages is the function used to update the messages
+    const [messages, setMessages] = useState<Message[]>([]); // the setMessages is the function used to update the messages, i used any instead of message because of error
     const [input, setInput] = useState(''); 
     const [ws, setWs] = useState<WebSocket | null>(null); // this is used to build a connection between backend and frontend, So it can be smooth 
     const messagesEnd = useRef<HTMLDivElement>(null); 
@@ -50,7 +50,7 @@ const App: React.FC = () => {
     const sendMessage = () => {
         if (!input.trim() || !ws) return;
 
-        const userMessage = {
+        const userMessage: Message = {
             sender: 'user',
             text: input.trim(), 
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) // shows hour and minutes in 2 digits
@@ -71,7 +71,7 @@ const App: React.FC = () => {
                   className="btn btn-danger btn-sm"
                   onClick={() => { // when user clicks this button then this function runs
                     setMessages([{
-                        sender: 'bot',
+                        sender: 'chatbot',
                         text: "The chat has been reset. Hello again, how can I help you?", // This resets the message and opens a new chat which user can start a new convo
                         time: new Date().toLocaleDateString()
                     }]);
@@ -124,7 +124,7 @@ const App: React.FC = () => {
 
 
 
-        <div className="col-13 p-3 bg-white border-top">
+        <div className="col-12 p-3 bg-white border-top">
           <div className="input-group">
             <input 
               type="text"
