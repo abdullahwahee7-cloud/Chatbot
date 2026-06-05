@@ -63,7 +63,7 @@ const App: React.FC = () => {
     
     return (
         <div className="container-fluid vh-100 bg-light p-0">
-            <div className="row h-100">
+            <div className="row h-95">
                 <div className="col-12 bg-dark text-white p-3 d-flex justify-content-between align-items-center">
                  <h4 className="mb-0">🏙️ Deggendorf ChatBot</h4>
                  
@@ -95,19 +95,19 @@ const App: React.FC = () => {
                     a.download = "chat-history.json";
                     a.click(); // browser downloads JSON for te user
                  }}
-                 style={{ padding: '7px 16px', backgroundColor: '#27ae60', color: 'white', border: 'none', borderRadius: '5px' }}
+                 style={{ padding: '9px 18px', backgroundColor: '#27ae60', color: 'white', border: 'none', borderRadius: '5px' }}
                >
                 Export JSON
                </button>
 
                 </div>
                 
-                <div className="col-12 p-3" style={{height: '75vh', overflowY: 'auto' }}>
+                <div className="col-12 p-3" style={{height: '65vh', overflowY: 'auto' }}>
                     {messages.map((msg,index) => (   // it takes every messages in the array and then show as a chat bubble 
                         <div key={index} className="mb-3">
                             <div className={`p-3 rounded ${msg.sender === 'user' ? 'bg-primary text-white ms-auto' : 'bg-white border'}`}
-                                 style={{ maxWidth: '70%', width: 'fit-content'}}>
-                             <small style={{ opacity: 0.65, fontSize: '0.8rem'}}> // adding timestamps, and make it 65% visible so it alligns and doesn't become bold
+                                 style={{ maxWidth: '65%', width: 'fit-content'}}>
+                             <small style={{ opacity: 0.68, fontSize: '0.7rem'}}> // adding timestamps, and make it 65% visible so it alligns and doesn't become bold
                                 {msg.time}
                              </small><br />
 
