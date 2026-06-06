@@ -1,6 +1,5 @@
-import Button from 'react-bootstrap/Button';
 import React, { useState, useEffect, useRef } from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css'; I tried importing this but for some reason it becomes red
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // comments are added so the other teammates can understand who were doing backend
 
@@ -13,9 +12,9 @@ interface Message {
 // Abdullah's part
 
 const App: React.FC = () => {
-    const [messages, setMessages] = useState<Message[]>([]); // the setMessages is the function used to update the messages, i used any instead of message because of error
+    const [messages, setMessages] = useState<Message[]>([]); // the setMessages is the function used to update the messages.
     const [input, setInput] = useState(''); 
-    const [ws, setWs] = useState<WebSocket | null>(null); // this is used to build a connection between backend and frontend, So it can be smooth 
+    const [ws, setWs] = useState<WebSocket | null>(null); 
     const messagesEnd = useRef<HTMLDivElement>(null); 
 
     useEffect(() => {
@@ -65,7 +64,7 @@ const App: React.FC = () => {
         <div className="container-fluid vh-100 bg-light p-0">
             <div className="row h-100">
                 <div className="col-12 bg-dark text-white p-3 d-flex justify-content-between align-items-center">
-                 <h4 className="mb-0">🏙️ Deggendorf ChatBot</h4>
+                 <h4 className="mb-0">Deggendorf ChatBot</h4>
                  
                  <button
                   className="btn btn-danger btn-sm"
