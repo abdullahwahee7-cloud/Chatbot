@@ -1,7 +1,7 @@
 /*We are using the keywords strategy to make the bot understand and reply the message*/
 
 /*The topics*/
-function replyTopic (message){
+function replyTopic (message,session) {
    const text = message.toLowerCase();
 
    return (
@@ -134,14 +134,15 @@ function Historyinfo(text){
 }
 
 /*Transportation*/
-function Transportation (text,session) {
-   if (text.includes("how to get to deggendorf?")||
-       text.includes("travel")||
-       text.includes("transportation")||
-
-      )
-    
+function Transportation(text, session) {
+   if (
+      text.includes("how to get to deggendorf?") ||
+      text.includes("travel") ||
+      text.includes("transportation")
+   ) {
+      session.topic = "transportation";
+      return "You can reach Deggendorf by train, bus, or car.";
+   }
 }
-
  
 
