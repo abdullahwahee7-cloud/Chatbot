@@ -1,6 +1,6 @@
-import Button from 'react-bootstrap/Button';
 import React, { useState, useEffect, useRef } from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css'; I tried importing this but for some reason it becomes red
+import Header from './Components/Header';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 // comments are added so the other teammates can understand who were doing backend
 
@@ -10,12 +10,66 @@ interface Message {
     time: string; 
 }
 
+
+const MessageBubble = ({ msg }: { msg: Message }) => {
+    return (
+        <div className="mb-3">
+            <div
+                className={`p-3 rounded ${msg.sender === 'user' ? 'bg-primary text-white ms-auto' : 'bg-white border'}`}
+                style={{ maxWidth: '70%'}}
+            >
+                <small style={{ opacity: 0.65, fontSize: '0.8rem' }}>
+                    {msg.time}
+                </small>
+                <br />
+                {msg.text}
+            </div>
+        </div>
+    );
+};
+
+
+// Taha's part
+
+const MessageArea = ({ messages, messagesEnd }: any) => {
+    return (
+        <div className="col-12 p-3" style={{height: '75vh', overflowY: 'auto' }}>
+            {messages.map((msg: Message, index: number) => (
+                <MessageBubble key={index} msg={msg} />
+            ))}
+            <div ref={messagesEnd} />
+        </div>
+    );
+};
+
 // Abdullah's part
 
+const UserInput = ({ input, setInput, sendMessage }: any) => {
+  return (
+    <div className="col-12 p-3 bg-white border-top">
+      <div className="input-group">
+        <input
+          type="text"
+          className="form-control"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+          placeholder="Enter your message here..."
+        />
+        <button className="btn btn-primary" onClick={sendMessage}>
+          Send
+        </button>
+      </div>
+    </div>
+  );
+};
+
+
+
 const App: React.FC = () => {
-    const [messages, setMessages] = useState<Message[]>([]); // the setMessages is the function used to update the messages, i used any instead of message because of error
+    const [messages, setMessages] = useState<Message[]>([]); // the setMessages is the function used to update the messages.
     const [input, setInput] = useState(''); 
-    const [ws, setWs] = useState<WebSocket | null>(null); // this is used to build a connection between backend and frontend, So it can be smooth 
+    const [ws, setWs] = useState<WebSocket | null>(null); 
     const messagesEnd = useRef<HTMLDivElement>(null); 
 
     useEffect(() => {
@@ -64,83 +118,23 @@ const App: React.FC = () => {
     return (
         <div className="container-fluid vh-100 bg-light p-0">
             <div className="row h-100">
-                <div className="col-12 bg-dark text-white p-3 d-flex justify-content-between align-items-center">
-                 <h4 className="mb-0">🏙️ Deggendorf ChatBot</h4>
-                 
-                 <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => { // when user clicks this button then this function runs
-                    setMessages([{
-                        sender: 'chatbot',
-                        text: "The chat has been reset. Hello again, how can I help you?", // This resets the message and opens a new chat which user can start a new convo
-                        time: new Date().toLocaleDateString()
-                    }]);
-                    setInput('')
+                <Header
+                messages = {messages}
+                setMessages = {setMessages}
+                setInput = {setInput}
+                />
 
-                  }}
-                > Reset Chat
-                </button>
+                <MessageArea messages={messages} messagesEnd={messagesEnd} />
 
-                <button 
-                 className="btn btn-success btn-sn"
-                 onClick={() => {
-                    const json = JSON.stringify({ conversation: messages }, null, 2) // with an indention space of 2, so it can be presented well
-
-                    const url = URL.createObjectURL(
-                    new Blob([json], { type: "application/json" })
-                );
-                // it creates a temporary download link
-                    const a = document.createElement("a"); // link element 
-                    a.href = url;
-                    a.download = "chat-history.json";
-                    a.click(); // browser downloads JSON for te user
-                 }}
-                 style={{ padding: '7px 16px', backgroundColor: '#27ae60', color: 'white', border: 'none', borderRadius: '5px' }}
-               >
-                Export JSON
-               </button>
-
-                </div>
-                
-                <div className="col-12 p-3" style={{height: '75vh', overflowY: 'auto' }}>
-                    {messages.map((msg,index) => (   // it takes every messages in the array and then show as a chat bubble 
-                        <div key={index} className="mb-3">
-                            <div className={`p-3 rounded ${msg.sender === 'user' ? 'bg-primary text-white ms-auto' : 'bg-white border'}`}
-                                 style={{ maxWidth: '70%', width: 'fit-content'}}>
-                             <small style={{ opacity: 0.65, fontSize: '0.8rem'}}> // adding timestamps, and make it 65% visible so it alligns and doesn't become bold
-                                {msg.time}
-                             </small><br />
-
-                             {msg.text}
-                            </div>
-                        </div>
-                    ))}
-                    <div ref={messagesEnd} />
-                </div>
-
-
-
-// Abdullah's part
-
-
-
-        <div className="col-12 p-3 bg-white border-top">
-          <div className="input-group">
-            <input 
-              type="text"
-              className="form-control"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && sendMessage()} // Listens to keyboard input 
-              placeholder="Enter your message here..."
-            />
-            <button className="btn btn-primary" onClick={sendMessage}>Send</button>
-          </div>
-        </div>
+      <UserInput input={input} setInput={setInput} sendMessage={sendMessage} />
 
       </div>
     </div>
+
   );
 };
 
 export default App;
+
+
+
