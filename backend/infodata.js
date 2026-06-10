@@ -1,7 +1,7 @@
 /*We are using the keywords strategy to make the bot understand and reply the message*/
 
 /*The topics*/
-function replyTopic (message){
+function replyTopic (message, session){
    const text = message.toLowerCase();
 
    return (
@@ -10,7 +10,7 @@ function replyTopic (message){
       Weather(text,session) ||
       Historyinfo (text) ||
       Transportation (text,session) ||
-      Shopping (text) ||
+      Shopping (text,session) ||
       Healthcare (text) ||
       Accomdation (text) ||
       Restaurant (text) ||
@@ -109,9 +109,9 @@ function Weather (text, session){
  
     /*if we have time we can update this by using API*/
     if (session.topic == 'weather' &&
-        (text.includes("today")||
-        text.includes("temperature")||
-        text.includes("current"))
+        (text.includes('today')||
+        text.includes('temperature')||
+        text.includes('current'))
        )
        {return "For today's weather, you can check from here: https://openweathermap.org/city/2938540"
        }
@@ -135,13 +135,105 @@ function Historyinfo(text){
 
 /*Transportation*/
 function Transportation (text,session) {
-   if (text.includes("how to get to deggendorf?")||
-       text.includes("travel")||
-       text.includes("transportation")||
-
+   if (text.includes('how to get to deggendorf?')||
+       text.includes('travel')||
+       text.includes('transportation')||
+       text.includes('how to arrive to deggendorf')
       )
-    
+      {session.topic = 'transportation';
+       return "You can reach Deggendorf by train, bus, plane or car."+
+              "Which option would you like to know more about?"+
+              "If you need find a parking place, please reply with 'parking'"+
+              "If you need information about public transportation in Deggendorf, please reply with 'citybus'"            
+      }
+
+      if (session.topic == 'transportation' &&
+          (text.includes('car') ||
+           text.includes('auto'))
+          )
+         {return "A3: Cologne - Frankfurt - Nuremberg - Regensburg - Deggendorf"+
+                 "A92: Munich - Deggendorf"
+         }
+
+      if (session.topic == 'transportation' &&
+          (text.includes('train')||
+           text.includes('DB'))
+         )
+         {return "The nearst ICE-Station is Bahnhof Plattling, you can reach Plattling from many cities in Germany."+
+                 "From Plattling, take RB35 to Deggendorf Hauptbahnhof (main station). The journey takes about 10 minutes." +
+                 "Ticket booking: https://www.bahn.de/service/fahrplaene/reiseauskunft"
+         }
+
+      if (session.topic == 'transportation' &&
+         (text.includes ('bus') && !text.includes ('citybus'))
+         )
+         {return "You can reach Deggendorf by FlixBus from many cities, "+
+                "for ticket booking please check: https://www.flixbus.com/bus/deggendorf"
+         }
+        
+      if (session.topic == 'transportation' &&
+         (text.includes ('plane'))
+         )
+         {return "Deggendorf is located about 100km (about 1 hour's drive) from the Franz-Josef-Strauss airport in Munich."
+         }
+      
+      if (session.topic =='transportation' &&
+         (text.includes ('park'))
+         )
+         {return "With over 1500 parking spaces, shopping and strolling without parking stress,"+
+                 "inexpensive and protected from the weather, central and no time limit." +
+                 "Simply follow our parking guidance system: https://stadtparken-deggendorf.de/?article_id=4"
+         }
+
+      if (session.topic == 'transportation' &&
+          (text.includes ('citybus'))
+         )
+         {return "With four lines in the city bus service, we can transport you across the city area!"+
+                 "Timetables and network map can be find : https://www.deggendorf.de/leben/mobilitaet-verkehr/stadtbusverkehr" 
+         }
 }
 
  
+/*Shopping*/
+function Shopping (text,session) {
+   if (text.includes('shop')||
+       text.includes('mall')||
+       text.includes('market') ||
+       text.includes('buy') ||
+       text.includes('store')
+      )
+      {session.topic = 'shop';
+       return "There are many shopping opportunities in Deggendorf, including supermarkets, fashion stores or local market."+
+              "Which one would you like to know more?"
+      }
+
+      if (session.topic == 'shop' &&
+          (text.includes('supermarket'))
+          )
+         {return "We have Lidl, Aldi, Rewe and Edeka."
+         }
+      
+      if (session.topic == 'shop' &&
+          (text.includes('fashion') ||
+           text.includes('cloth') ||
+           text.includes('beauty')||
+           text.includes('make-up')||
+           text.includes('store'))
+          )
+         {return "The city center around Luitpoldplatz offers a variety of shops." +
+                 "For example: Tk Maxx, Tedi, Muller, H&M, New Yorker, etc."
+         }
+
+           
+      if (session.topic == 'shop' &&
+          (text.includes('local') ||
+           text.includes('farm'))
+          )
+         {return "We also have the Deggendorf farmers' market. You can buy not only vegetables, fruit, juices,"+
+                 "but also meant, sausage specialties, flowers. Herbs and baked goods are also offered."+
+                 "The vegetables usually come from organic farming."+
+                 "Time: Saturday 08:00- 13:00"+
+                 "Location: Stadtplatz Deggendorf, Oberer Stadtplatz"
+         } 
+}
 
