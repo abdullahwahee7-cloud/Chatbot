@@ -361,7 +361,7 @@ function Restaurant(text,session){
 
    if(
       session.topic == 'restaurant'&&
-      (text.includes('mensa')||text.includes('student')||text.includes('canpus'))
+      (text.includes('mensa')||text.includes('student')||text.includes('campus'))
    ){
       return "For students, the Mensa at THD is a goood option. You can check THD information here"+
       "THD: https://www.th-deg.de/"
@@ -380,7 +380,7 @@ function Restaurant(text,session){
       session.topic == 'restuarant'&&
       (text.includes('syrian')||text.includes('arabic')||text.includes('shawarma'))
    ){
-      return "For Syrian Food or Arabic Food in Deggendorf, it is best to search current optiioons here"+
+      return "For Syrian Food or Arabic Food in Deggendorf, it is best to search current options here"+
       "Google Maps: https://www.google.com/maps/search/syrian+restaurant+Deggendorf"
    }
 
