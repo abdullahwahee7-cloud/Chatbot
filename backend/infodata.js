@@ -340,4 +340,56 @@ function Restaurant(text,session){
 
       return "Deggendorf has many food options. You can ask about indian, italian, mensa, german, syrian or turkish food. Which one would you like?"
    }
+
+   if(
+      session.topic == 'restaurant'&&
+      (text.includes('indian')||text.includes('curry'))
+   ){
+      return "For indian food in Deggendorf,you can try Taj Mahal or Shiva" +
+      "Taj Mahal:  https://tajmahaldeggendorf.de/de "+
+      "Shiva: https://www.indisches-restaurant-deggendorf.de/"
+   }
+
+   if(
+      session.topic == 'restaurant'&&
+      (text.includes('italain')||text.includes('pizza')||text.includes('pasta'))
+   ){
+      return "For italain food in Deggendorf,you can check MamaMia or search italian restaurants here" +
+      "MamaMia: : https://www.tripadvisor.com/Restaurant_Review-g811095-d3532960-Reviews-MamaMia-Deggendorf_Lower_Bavaria_Bavaria.html"+
+      "Google Maps: https://www.google.com/maps/search/italian+restaurant+Deggendor"
+   }
+
+   if(
+      session.topic == 'restaurant'&&
+      (text.includes('mensa')||text.includes('student')||text.includes('canpus'))
+   ){
+      return "For students, the Mensa at THD is a goood option. You can check THD information here"+
+      "THD: https://www.th-deg.de/"
+   }
+
+   if(
+      session.topic == 'restaurant'&&
+      (text.includes('german')||text.includes('bavarain')||text.includes('traditional'))
+   ){
+      return "For German or Bavarian Food, you can try traditional restaurants around Stadtplatz"+
+      "You can also check Gasthaus zur Knödelwerferin mentioned in the Deggendorf youth map"+
+      "Youth Map: https://www.th-deg.de/Studieninteressierte/infos-fuer-internationale-studieninteressierte/youth-map-deggendorf_web.pdf"
+   }
+
+   if(
+      session.topic == 'restuarant'&&
+      (text.includes('syrian')||text.includes('arabic')||text.includes('shawarma'))
+   ){
+      return "For Syrian Food or Arabic Food in Deggendorf, it is best to search current optiioons here"+
+      "Google Maps: https://www.google.com/maps/search/syrian+restaurant+Deggendorf"
+   }
+
+   if(
+      session.topic == 'restaurant'&&
+      (text.includes('turkish')||text.includes('kebab')||text.includes('doner')||text.includes('döner'))
+   ){
+      return "For Turkish Food or döner in Deggendorf, you can check Ankara Grill or search here"+
+      "Ankara Grill: https://www.tripadvisor.com/Restaurant_Review-g811095-d23507287-Reviews-Ankara_Grill-Deggendorf_Lower_Bavaria_Bavaria.html"+
+      "Google Maps:  https://www.google.com/maps/search/turkish+restaurant+Deggendorf"
+   }
 }
