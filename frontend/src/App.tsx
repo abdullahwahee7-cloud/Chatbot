@@ -14,7 +14,7 @@ interface Message {
 const MessageBubble = ({ msg }: { msg: Message }) => {
     return (
         <div className="mb-3">
-            <divgit ad
+            <div
                 className={`p-3 rounded ${msg.sender === 'user' ? 'bg-primary text-white ms-auto' : 'bg-white border'}`}
                 style={{ maxWidth: '70%', width: 'fit-content'}}
             >
