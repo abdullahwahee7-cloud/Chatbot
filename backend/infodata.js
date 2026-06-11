@@ -11,8 +11,8 @@ function replyTopic (message, session){
       Historyinfo (text) ||
       Transportation (text,session) ||
       Shopping (text,session) ||
-      Healthcare (text) ||
-      Accomdation (text) ||
+      Healthcare (text,session) ||
+      Accomdation (text,session) ||
       Restaurant (text) ||
       Activity (text) ||
       School (text) ||
@@ -196,12 +196,12 @@ function Transportation (text,session) {
  
 /*Shopping*/
 function Shopping (text,session) {
-   if (text.includes('shop')||
+   if ((text.includes('shop')||
        text.includes('mall')||
        text.includes('market') ||
        text.includes('buy') ||
-       text.includes('store')
-      )
+       text.includes('store'))
+       && !text.includes('local market'))
       {session.topic = 'shop';
        return "There are many shopping opportunities in Deggendorf, including supermarkets, fashion stores or local market."+
               "Which one would you like to know more?"
@@ -226,8 +226,9 @@ function Shopping (text,session) {
 
            
       if (session.topic == 'shop' &&
-          (text.includes('local') ||
-           text.includes('farm'))
+          (text.includes('local market') ||
+           text.includes('farm')||
+           text.includes('local')) 
           )
          {return "We also have the Deggendorf farmers' market. You can buy not only vegetables, fruit, juices,"+
                  "but also meant, sausage specialties, flowers. Herbs and baked goods are also offered."+
@@ -237,3 +238,82 @@ function Shopping (text,session) {
          } 
 }
 
+/*Healthcare*/
+function Healthcare (text,session) {
+   if (text.includes('sick') ||
+       text.includes('uncomfortable') ||
+       text.includes('hospital')||
+       text.includes('clinic') ||
+       text.includes('doctor')||
+       text.includes('injure')||
+       text.includes('treatment')||
+       text.includes('pharmacy')||
+       text.includes('healthcare')||
+       text.includes('medic')||
+       text.includes('ill'))
+      {session.topic = 'health';
+       return  "There are varieties healthcare insitituation in Deggendorf."+
+               "For general medical care, you can visit DONAU ISAR Klinikum Deggendorf, the largest general hospital in Deggendorf"+
+               "Please call 112 if any emergency medical needs"
+      }
+
+      if (session.topic == 'health' &&
+          text.includes('donau'))
+         {return "Donau Isar Kinikum is located at Perlasberger Str. 41, 94469, Deggendorf" +
+              "Phone: 0991/ 380-0"+
+              "E-mail: info@donau-isar-klinikum.de" } 
+}
+
+/*Accomdation*/
+function Accomdation(text, session){
+   
+   if (text.includes('hotel')||
+       text.includes('touris')||
+       text.includes('accommoda')|| 
+       text.includes('stay')||
+       text.includes('hostel')||
+       text.includes('apartment')
+       )
+      {session.topic = 'hotel'
+       
+       return "Welcome to Deggendorf! Most accommodations in Deggendorf can be found in our booking portal:"+
+              "https://tportal.tomas.travel/StadtDeggendorf/ukv?globalreset=1"+
+              "If you are a student and looking for a place to stay during your study, please reply 'student' "
+      }
+
+    
+      if (text.includes('student'))
+         {session.topic = 'studdor'}
+
+         if (session.topic == 'studdor' &&
+             (text.includes('student') && !text.includes('student dorm')))
+            {return "Finding a place to stay in Deggendorf is very important for student."+
+                 "You can apply for dormitories or private offers."+
+                 "Which would you like to know more?"}
+      
+         if (session.topic == 'studdor' &&
+             (text.includes('student dormitor') ||
+              text.includes('dorm'))
+             )
+            {return "All apartments are located within easy walking distance of Deggendorf town and the campus of DIT."+
+                    "View your options here: https://www.th-deg.de/accommodation#deggendorf"}
+
+         if (session.topic == 'studdor' &&
+             (text.includes('private') ||
+             text.includes('share'))
+            )
+            {return "DIT has its own flat exchange platform where student or landlords offer apartements for sublease or permanent rent."+
+                    "click here: https://pmit-ext.th-deg.de/wb/search?lang=en"+
+                    "Or you can find offers on public websites."
+            }
+         
+         if (session.topic == 'studdor' &&
+             (text.includes('public')||
+             text.includes('wg'))
+            )
+            {return "Here are some public websites you can find several offers:"+
+                    "WG- Gesucht.de: WG-Gesucht.de: https://www.wg-gesucht.de/en/"+
+                    "Ebay Kleinanzeigen: https://www.ebay-kleinanzeigen.de/simmobilien/94469/c195l16909"+
+                    "Immobilienscout24: https://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html"
+            }
+}
