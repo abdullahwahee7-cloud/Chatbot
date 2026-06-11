@@ -14,7 +14,7 @@ interface Message {
 const MessageBubble = ({ msg }: { msg: Message }) => {
     return (
         <div className="mb-3">
-            <div
+            <divgit ad
                 className={`p-3 rounded ${msg.sender === 'user' ? 'bg-primary text-white ms-auto' : 'bg-white border'}`}
                 style={{ maxWidth: '70%', width: 'fit-content'}}
             >
@@ -67,25 +67,25 @@ const UserInput = ({ input, setInput, sendMessage }: any) => {
 
 
 const App: React.FC = () => {
-    const [messages, setMessages] = useState<Message[]>([]); // the setMessages is the function used to update the messages.
+    const [messages, setMessages] = useState<Message[]>([]); // used to update the messages.
     const [input, setInput] = useState(''); 
     const [ws, setWs] = useState<WebSocket | null>(null); 
     const messagesEnd = useRef<HTMLDivElement>(null); 
 
     useEffect(() => {
-        const socket = new WebSocket('ws://localhost:8080'); // this is used for a WebSocket connection, I used 8080 although 8000 was also an option
+        const socket = new WebSocket('ws://localhost:8080');
 
         socket.onopen = () => {
             setMessages([{
                 sender: 'chatbot',
-                text: "Hey. What's up? How can I help you with your Deggendorf Information?",
-                time: new Date().toLocaleDateString()
+                text: "Hey. What's up? How can I help you with your Deggendorf city Information?",
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
             }]);
         };
         socket.onmessage = (event) => {
             try {
             const chatbotReply = JSON.parse(event.data);
-            setMessages(prev => [...prev,chatbotReply]); // used for taking the existing messages and add the new messages at the end and then update it 
+            setMessages(prev => [...prev,chatbotReply]); // taking the existing messages and add the new messages at the end and then update it 
             } catch (error) {
              console.error("Error parsing message:", error, "Please fix this.");
             }
@@ -107,7 +107,7 @@ const App: React.FC = () => {
         const userMessage: Message = {
             sender: 'user',
             text: input.trim(), 
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) // shows hour and minutes in 2 digits
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
         };
 
         setMessages(prev => [...prev,userMessage]);
