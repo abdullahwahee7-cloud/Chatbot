@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Header from './Components/Header';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // comments are added so the other teammates can understand who were doing backend
 
@@ -16,7 +16,7 @@ const MessageBubble = ({ msg }: { msg: Message }) => {
         <div className="mb-3">
             <div
                 className={`p-3 rounded ${msg.sender === 'user' ? 'bg-primary text-white ms-auto' : 'bg-white border'}`}
-                style={{ maxWidth: '70%'}}
+                style={{ maxWidth: '70%', width: 'fit-content'}}
             >
                 <small style={{ opacity: 0.65, fontSize: '0.8rem' }}>
                     {msg.time}
