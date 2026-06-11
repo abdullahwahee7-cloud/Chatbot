@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { io, Socket } from 'socket.io-client';
 import Header from './Components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -69,32 +70,26 @@ const UserInput = ({ input, setInput, sendMessage }: any) => {
 const App: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]); // used to update the messages.
     const [input, setInput] = useState(''); 
-    const [ws, setWs] = useState<WebSocket | null>(null); 
+    const [socket, setSocket] = useState<Socket | null>(null);
     const messagesEnd = useRef<HTMLDivElement>(null); 
 
     useEffect(() => {
-        const socket = new WebSocket('ws://localhost:8080');
+    const newSocket = io('http://localhost:8080');
 
-        socket.onopen = () => {
-            setMessages([{
-                sender: 'chatbot',
-                text: "Hey. What's up? How can I help you with your Deggendorf city Information?",
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
-            }]);
-        };
-        socket.onmessage = (event) => {
-            try {
-            const chatbotReply = JSON.parse(event.data);
-            setMessages(prev => [...prev,chatbotReply]); // taking the existing messages and add the new messages at the end and then update it 
-            } catch (error) {
-             console.error("Error parsing message:", error, "Please fix this.");
-            }
-        };
+    newSocket.on('connect', () => {
+        console.log('socket connected');
+    });
 
-        setWs(socket);
+    newSocket.on('chat message', (chatbotReply: Message) => {
+        setMessages(prev => [...prev, chatbotReply]);
+    });
 
-        return () => socket.close();
-    }, []);
+    setSocket(newSocket);
+
+    return () => {
+        newSocket.disconnect();
+    };
+   }, []);
 
 
 // Taha's part
@@ -102,7 +97,7 @@ const App: React.FC = () => {
 
 
     const sendMessage = () => {
-        if (!input.trim() || !ws) return;
+        if (!input.trim() || !socket) return;
 
         const userMessage: Message = {
             sender: 'user',
@@ -111,7 +106,7 @@ const App: React.FC = () => {
         };
 
         setMessages(prev => [...prev,userMessage]);
-        ws.send(input.trim());
+        socket.emit('chat message', input.trim());
         setInput('');
     };
     
@@ -135,6 +130,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-
-
