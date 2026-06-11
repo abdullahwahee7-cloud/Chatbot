@@ -317,3 +317,27 @@ function Accomdation(text, session){
                     "Immobilienscout24: https://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html"
             }
 }
+
+/*Restaurant*/
+
+function Restaurant(text,session){
+   if(
+      text.includes("restaurant")||
+      text.includes("food")||
+      text.includes("eat")||
+      text.includes("lunch")||
+      text.includes("dinner")||
+      text.includes("cafe")||
+      text.includes("coffee")||
+      text.includes("mensa")||
+      text.includes("indian")||
+      text.includes("italian")||
+      text.includes("german")||
+      text.includes("syrian")||
+      text.includes("turkish")
+   ){
+      session.topic ='restaurant'
+
+      return "Deggendorf has many food options. You can ask about indian, italian, mensa, german, syrian or turkish food. Which one would you like?"
+   }
+}
