@@ -328,12 +328,48 @@ function Restaurant (text, session){
           text.includes('pasta') ||
           text.includes('burger')||
           text.includes('cafe')||
-          text.includes('cuisine')||
           text.includes('hungry') ||
           text.includes('cuisine') ||
-          text.includes('coffee')
-         )
+          text.includes('coffee')||
+          text.includes('indian')||
+          text.includes('mensa')||
+          text.includes('italian')||
+          text.includes('german')||
+          text.includes('syrian')||
+          text.includes('turkish'))
          {session.topic = 'food'}
+
+      if(session.topic == 'restaurant'&&
+             (text.includes('indian')||text.includes('curry'))
+            )
+             {return "For indian food in Deggendorf,you can try Taj Mahal or Shiva" +
+                      "Taj Mahal:  https://tajmahaldeggendorf.de/de "+
+                      "Shiva: https://www.indisches-restaurant-deggendorf.de/" 
+             }
+         
+      if(session.topic == 'restaurant'&&
+        (text.includes('mensa')||text.includes('student')||text.includes('campus'))
+        )
+        {return "For students, the Mensa at THD is a goood option. You can check THD information here"+
+                "THD: https://www.th-deg.de/"
+        }
+ 
+        if(session.topic == 'restuarant'&&
+          (text.includes('syrian')||text.includes('arabic')||text.includes('shawarma'))
+          )
+          {return "For Syrian Food or Arabic Food in Deggendorf, it is best to search current options here"+
+                  "Google Maps: https://www.google.com/maps/search/syrian+restaurant+Deggendorf"
+          }
+
+        if(session.topic == 'restaurant'&&
+           (text.includes('turkish')||text.includes('kebab')||text.includes('doner')||text.includes('döner'))
+          )
+          {return "For Turkish Food or döner in Deggendorf, you can check Ankara Grill or search here"+
+                  "Ankara Grill: https://www.tripadvisor.com/Restaurant_Review-g811095-d23507287-Reviews-Ankara_Grill-Deggendorf_Lower_Bavaria_Bavaria.html"+
+                  "Google Maps:  https://www.google.com/maps/search/turkish+restaurant+Deggendorf"
+          }
+
+
 
       if (session.topic == 'food' &&
           (text.includes('asia')||
@@ -405,12 +441,17 @@ function Restaurant (text, session){
           text.includes('pasta') ||
           text.includes('burger')||
           text.includes('cafe')||
-          text.includes('cuisine')||
           text.includes('hungry') ||
           text.includes('cuisine') ||
-          text.includes('coffee')
+          text.includes('coffee')||
+          text.includes('indian')||
+          text.includes('mensa')||
+          text.includes('italian')||
+          text.includes('german')||
+          text.includes('syrian')||
+          text.includes('turkish')
          )
-         {return "What kind of food are you looking for? German, Asian or just break tea?"}
+         {return "Deggendorf has many food options. You can ask about indian, italian, mensa, german, syrian or turkish food. Which one would you like?"}
  }
 
 /*Activity*/
