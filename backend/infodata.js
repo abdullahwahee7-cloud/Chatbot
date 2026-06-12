@@ -1,4 +1,4 @@
-/*We are using the keywords strategy to make the bot understand and reply the message*/
+/*We are using the keywords strategy to insure the bot understand and reply the message*/
 
 /*The topics*/
 function replyTopic (message, session){
@@ -13,8 +13,8 @@ function replyTopic (message, session){
       Shopping (text,session) ||
       Healthcare (text,session) ||
       Accomdation (text,session) ||
-      Restaurant (text) ||
-      Activity (text) ||
+      Restaurant (text,session) ||
+      Activity (text,session) ||
       School (text) ||
       THD (text) ||
       Sightseeing (text) ||
@@ -32,7 +32,7 @@ function Greeting (text) {
        )
        {
         return "Hello! Welcome to Deggendorf. What do you want to know about our beautiful city?"+
-               "If you are tourist, you can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation and healthcare";
+               "You can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation and healthcare";
        }
 }
 
@@ -155,10 +155,9 @@ function Transportation (text,session) {
                  "A92: Munich - Deggendorf"
          }
 
-      if (session.topic == 'transportation' &&
-          (text.includes('train')||
-           text.includes('DB'))
-         )
+      if (text.includes('train')||
+           text.includes('db'))
+         
          {return "The nearst ICE-Station is Bahnhof Plattling, you can reach Plattling from many cities in Germany."+
                  "From Plattling, take RB35 to Deggendorf Hauptbahnhof (main station). The journey takes about 10 minutes." +
                  "Ticket booking: https://www.bahn.de/service/fahrplaene/reiseauskunft"
@@ -177,9 +176,7 @@ function Transportation (text,session) {
          {return "Deggendorf is located about 100km (about 1 hour's drive) from the Franz-Josef-Strauss airport in Munich."
          }
       
-      if (session.topic =='transportation' &&
-         (text.includes ('park'))
-         )
+      if (text.includes ('park'))
          {return "With over 1500 parking spaces, shopping and strolling without parking stress,"+
                  "inexpensive and protected from the weather, central and no time limit." +
                  "Simply follow our parking guidance system: https://stadtparken-deggendorf.de/?article_id=4"
@@ -317,3 +314,123 @@ function Accomdation(text, session){
                     "Immobilienscout24: https://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html"
             }
 }
+
+/*Restaurant*/
+function Restaurant (text, session){
+   if (text.includes('restaurant')||
+          text.includes('food')||
+          text.includes('meal')||
+          text.includes('dinner')||
+          text.includes('breakfast')||
+          text.includes('lunch')||
+          text.includes('eat')||
+          text.includes('pizza') ||
+          text.includes('pasta') ||
+          text.includes('burger')||
+          text.includes('cafe')||
+          text.includes('cuisine')||
+          text.includes('hungry') ||
+          text.includes('cuisine') ||
+          text.includes('coffee')
+         )
+         {session.topic = 'food'}
+
+      if (session.topic == 'food' &&
+          (text.includes('asia')||
+           text.includes('chinese')||
+           text.includes('china')||
+           text.includes('japan')||
+           text.includes('sushi')||
+           text.includes('hong kong'))
+         )
+         {return "There are some Asian food resturant worth to try:"+
+                 "Hai Pai Cuisine: https://haipaicuisine.de/"+
+                 "Sen Resraurant: https://www.sen-deggendorf.de/"+
+                 "SAIKYO Restaurant - Asian Fusion & Sushi: https://www.saikyo.de/ "
+         }
+
+      if (session.topic == 'food' &&
+          (text.includes ('italia')||
+           text.includes('pasta')||
+           text.includes('pizza')
+          ))
+          {return "There are some Italy resturant worth to try:"+
+                  "Laurin - Pasta & Pizza: https://www.laurin-deggendorf.de/"+
+                  "Mama Mia Da Max : https://mamamia-max.de/" 
+          }
+      
+      if (session.topic == 'food' &&
+          (text.includes ('local')||
+           text.includes ('germany')||
+           text.includes ('traditional')||
+           text.includes ('bavarian')||
+           text.includes ('european'))
+         )
+         {return "Here are top 3 restaurants of german style in Deggendorf (according to Tripadvisor):"+
+                 "Gasthaus Zur Knodelwerferin: https://www.knoedelwerferin-deggendorf.de/"+
+                 "Hotel Gasthof Hottl: https://www.hoettl.de/" +
+                 "Schober Otto Gaststaette: https://www.schober-otto.de/"
+         }
+
+      if (session.topic == 'food' &&
+          (text.includes ('cafe')||
+           text.includes ('tea')||
+           text.includes ('snack')||
+           text.includes ('cake')||
+           text.includes ('coffee')||
+           text.includes ('tea')||
+           text.includes ('break'))
+         )
+         {return "There are many cafés and coffee shops in Deggendorf where you can enjoy coffee, tea, and snacks." +
+                 "Most cafés are located in the city center and shopping areas."
+         }
+
+      if (session.topic == 'food' &&
+          (text.includes ('fast')||
+           text.includes ('burger')||
+           text.includes ('fried')||
+           text.includes ('sandwich'))
+         )
+         {return "We have MacDonald's, Subway, Kochloffel and Burger King in Deggendorf."
+         }
+
+       if (text.includes('restaurant')||
+          text.includes('food')||
+          text.includes('meal')||
+          text.includes('dinner')||
+          text.includes('breakfast')||
+          text.includes('lunch')||
+          text.includes('eat')||
+          text.includes('pizza') ||
+          text.includes('pasta') ||
+          text.includes('burger')||
+          text.includes('cafe')||
+          text.includes('cuisine')||
+          text.includes('hungry') ||
+          text.includes('cuisine') ||
+          text.includes('coffee')
+         )
+         {return "What kind of food are you looking for? German, Asian or just break tea?"}
+ }
+
+/*Activity*/
+function Activity (text) {
+   if (text.includes('activit') ||
+       text.includes('event')||
+       text.includes('festival')||
+       text.includes('concert')||
+       text.includes('show')||
+       text.includes('happening')||
+       text.includes('exchange')||
+       text.includes('exhibi'))
+
+       {session.topic = 'activity'
+ 
+        return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events and so on."+
+               "You can find more details through our website: https://www.deggendorf.de/veranstaltungen "
+       }
+ }    
+
+ /*School*/
+ /*THD*/
+ /*sightseeing*/
