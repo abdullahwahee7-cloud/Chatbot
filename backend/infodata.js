@@ -46,9 +46,9 @@ function Basicinfo(text,session){
 
        { session.topic = 'basicinfo';
 
-         return {text: "Deggendorf(Degndorf, Deggndorf) is a town in Bavaria, Germany, capital of the Deggendorf district",
+         return "Deggendorf(Degndorf, Deggndorf) is a town in Bavaria, Germany, capital of the Deggendorf district"
                //image: "/image/DEG.jpd"       
-               }
+               
        }
 
     if (session.topic == 'basicinfo' &&
@@ -153,9 +153,10 @@ function Transportation (text,session) {
                  "A92: Munich - Deggendorf"
          }
 
-      if (text.includes('train')||
+      if (session.topic == 'transportation' &&
+          (text.includes('train')||
            text.includes('db'))
-         
+          )
          {return "The nearst ICE-Station is Bahnhof Plattling, you can reach Plattling from many cities in Germany."+
                  "From Plattling, take RB35 to Deggendorf Hauptbahnhof (main station). The journey takes about 10 minutes." +
                  "Ticket booking: https://www.bahn.de/service/fahrplaene/reiseauskunft"
@@ -174,7 +175,7 @@ function Transportation (text,session) {
          {return "Deggendorf is located about 100km (about 1 hour's drive) from the Franz-Josef-Strauss airport in Munich."
          }
       
-      if (text.includes ('park'))
+      if (text.includes ('transportation'))
          {return "With over 1500 parking spaces, shopping and strolling without parking stress,"+
                  "inexpensive and protected from the weather, central and no time limit." +
                  "Simply follow our parking guidance system: https://stadtparken-deggendorf.de/?article_id=4"
@@ -352,7 +353,7 @@ function Restaurant (text, session){
                 "THD: https://www.th-deg.de/"
         }
  
-        if(session.topic == 'restuarant'&&
+        if(session.topic == 'restaurant'&&
           (text.includes('syrian')||text.includes('arabic')||text.includes('shawarma'))
           )
           {return "For Syrian Food or Arabic Food in Deggendorf, it is best to search current options here"+
@@ -369,7 +370,7 @@ function Restaurant (text, session){
 
 
 
-      if (session.topic == 'food' &&
+      if (session.topic == 'restaurant' &&
           (text.includes('asia')||
            text.includes('chinese')||
            text.includes('china')||
@@ -383,7 +384,7 @@ function Restaurant (text, session){
                  "SAIKYO Restaurant - Asian Fusion & Sushi: https://www.saikyo.de/ "
          }
 
-      if (session.topic == 'food' &&
+      if (session.topic == 'restaurant' &&
           (text.includes ('italia')||
            text.includes('pasta')||
            text.includes('pizza')
@@ -393,7 +394,7 @@ function Restaurant (text, session){
                   "Mama Mia Da Max : https://mamamia-max.de/" 
           }
       
-      if (session.topic == 'food' &&
+      if (session.topic == 'restaurant' &&
           (text.includes ('local')||
            text.includes ('germany')||
            text.includes ('traditional')||
@@ -406,7 +407,7 @@ function Restaurant (text, session){
                  "Schober Otto Gaststaette: https://www.schober-otto.de/"
          }
 
-      if (session.topic == 'food' &&
+      if (session.topic == 'restaurant' &&
           (text.includes ('cafe')||
            text.includes ('tea')||
            text.includes ('snack')||
@@ -419,7 +420,7 @@ function Restaurant (text, session){
                  "Most cafés are located in the city center and shopping areas."
          }
 
-      if (session.topic == 'food' &&
+      if (session.topic == 'restaurant' &&
           (text.includes ('fast')||
            text.includes ('burger')||
            text.includes ('fried')||
@@ -681,3 +682,4 @@ function Activity (text, session) {
                "You can find more details through our website: https://www.deggendorf.de/veranstaltungen "
            }
  }    
+
