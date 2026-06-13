@@ -15,9 +15,7 @@ function replyTopic (message, session){
       Accomdation (text,session) ||
       Restaurant (text,session) ||
       Activity (text,session) ||
-      School (text) ||
-      THD (text) ||
-      Sightseeing (text) ||
+      School (text,session) ||
       "I am sorry, I'm not sure if I understand what you're looking for. Could you please try it again with a few words? "+
       "Or you can find us by phone: +49 991 2960 5055 or send us a email: tourismus@deggendorf.de. We will be very happy to help you! :-)"
    )
@@ -379,7 +377,7 @@ function Restaurant (text, session){
            text.includes('sushi')||
            text.includes('hong kong'))
          )
-         {return "There are some Asian food resturant worth to try:"+
+         {return "There are some Asian food restaurant worth to try:"+
                  "Hai Pai Cuisine: https://haipaicuisine.de/"+
                  "Sen Resraurant: https://www.sen-deggendorf.de/"+
                  "SAIKYO Restaurant - Asian Fusion & Sushi: https://www.saikyo.de/ "
@@ -390,7 +388,7 @@ function Restaurant (text, session){
            text.includes('pasta')||
            text.includes('pizza')
           ))
-          {return "There are some Italy resturant worth to try:"+
+          {return "There are some Italy restaurant worth to try:"+
                   "Laurin - Pasta & Pizza: https://www.laurin-deggendorf.de/"+
                   "Mama Mia Da Max : https://mamamia-max.de/" 
           }
@@ -454,8 +452,96 @@ function Restaurant (text, session){
          {return "Deggendorf has many food options. You can ask about indian, italian, mensa, german, syrian or turkish food. Which one would you like?"}
  }
 
-/*Activity*/
-function Activity (text) {
+
+ /*School & THD*/
+function School (text,session){
+        if (text.includes('school')||
+            text.includes('education')||
+            text.includes('college')||
+            text.includes('universit')||
+            text.includes('study')||
+            text.includes('thd')||
+            text.includes('dit')||
+            text.includes('technology')||
+            text.includes('applied sciences'))
+
+           {session.topic = 'school'}
+           
+          /*THD*/ 
+          if (session.topic == 'school' &&
+             (text.includes('universit')||
+              text.includes('thd')||
+              text.includes('dit')||
+              text.includes('applied sciences')||
+              text.includes('technology'))
+           )
+           {session.topic = 'thd'}
+
+             if (session.topic == 'thd' &&
+                ( text.includes('introduc')||
+                text.includes('thd')||
+                text.includes('dit')||
+                text.includes('where')||
+                text.includes('loca')))
+           
+                {return "The Deggendorf Institute of Technology (THD) offers Bachelor's and Master's degree programmes in the fields of civil and environmental engineering, natural sciences, electrical engineering and computer science, mechanical engineering, media as well as health and economics"+
+                   "The THD has 45% international students. 3 study locations. The main campus of THD is located in the center of Deggendorf. "+
+                   "Location: Dieter-Görlitz-Platz 1, 94469 Deggendorf"
+                }
+
+             if (session.topic == 'thd' &&
+                (text.includes('program') ||
+                 text.includes('graduate') ||
+                 text.includes('degree') ||
+                 text.includes('bachelor') ||
+                 text.includes('master')))
+
+                {return "Here you can find all study programmes at THD: https://www.th-deg.de/study-programmes"}
+
+              if (session.topic == 'thd' &&
+                (text.includes('apply') ||
+                 text.includes('join') ||
+                 text.includes('application')))
+
+                {return "To begin your studies at the Deggendorf Institute of Technology, you need applying to study."+
+                     "Step by step to a successful application from here: https://th-deg.de/en/apply"
+                }
+
+
+             if (session.topic == 'thd' &&
+                (text.includes('event') ||
+                 text.includes('activity') ||
+                 text.includes('party')||
+                 text.includes('club')))
+
+                {return "THD is holding a variety of activities, including diversity week, international week, online consultation, career development, sports, party, cinema night, etc. "+
+                "Here you can find event calendar here: https://th-deg.de/en/dit/events"}
+            
+             if (session.topic == 'thd' &&
+                (text.includes('contact') ||
+                 text.includes('email') ||
+                 text.includes('phone')||
+                 text.includes('advice')||
+                 text.includes('support')))
+
+                {return "If you need any advice or support, you can reach us from here: https://th-deg.de/en/advice"
+                } 
+           
+
+        if (text.includes('school')||
+            text.includes('education')||
+            text.includes('college')||
+            text.includes('study'))
+  
+            {return "In the district of Deggendorf, probably one of the most school-friendly in Bavaria, there are almost 80 state, municipal and private institutions for the training, further education and further education of the population in school and work"+
+               "There are schools of general education, Vocation schools, adult education, technical colleges, primary and secondary schools, university, continuing education and special schools" +
+               "For more information, please click: https://www.landkreis-deggendorf.de/leben-arbeiten/bildung/schulen-weiterbildung/"}
+
+}
+
+ 
+ /*Activity & sightseeing*/
+function Activity (text, session) {
    if (text.includes('activit') ||
        text.includes('event')||
        text.includes('festival')||
@@ -463,15 +549,135 @@ function Activity (text) {
        text.includes('show')||
        text.includes('happening')||
        text.includes('exchange')||
-       text.includes('exhibi'))
+       text.includes('exhibi')||
+       text.includes('free time')||
+       text.includes('leisure')||
+       text.includes('fun')||
+       text.includes('hike')||
+       text.includes('cycling')||
+       text.includes('park')||
+       text.includes('nature')||
+       text.includes('ski')||
+       text.includes('bike')||
+       text.includes('family')||
+       text.includes('fish')||
+       text.includes('picnic')||
+       text.includes('camp')||
+       text.includes('golf')||
+       text.includes('dsc')||
+       text.includes('ice')||
+       text.includes('tour')||
+       text.includes('motor')||
+       text.includes('skat')||
+       text.includes('what can i do')||
+       text.includes('what can we do')||
+       text.includes('thins to do')||
+       text.includes('do in deggendorf'))
 
-       {session.topic = 'activity'
+       {session.topic = 'activity'}
+
+       if (session.topic == 'activity' &&
+           text.includes('fish'))
+           {return "Fishing enthusiasts will find optimal conditions in lakes and revier of deggendorf"+
+                   "Further information and booking options can be found on here:https://angeln-in-deggendorf.de/"
+           }
+
+           
+       if (session.topic == 'activity' &&
+           (text.includes('camp')||
+           text.includes('motorhome')))
+           {return "We have four campsite for you:"+
+                   "Campsite Donaustrandhaus, located Eginger Str. 42, 94469 Deggendorf. Tel: 0991 4324"+
+                   "Camping on the farm: Tel: 0991 22027"+
+                   "Motorhome pitches, located Sandnerhofweg 4-6, 94469 Deggendorf. Tel: 0991 28960"+
+                   "Motorhome pitches in the Danube Park, located Neusiedler Str. conner of Ackerloh. 5 free parking space without equipment and can be used all year around."
+           }
+
+        if (session.topic =='activity' &&
+            (text.includes('walk')||
+             text.includes('hike')||
+             text.includes('trail')||
+             text.includes('route'))
+           )
+           {return "Deggendorf is located at the foot of the Bavarian Forest. With this ideal location, the Danube town of Deggendorf is considered the 'gateway of Bavarian Forest'."+
+                   "Here are top 9 hiking routes in Deggendorf, click the link to know more:"+
+                   "1. Danube Panorama Trail: https://deggendorf.travel/freizeit/wandern/donaupanoramaweg"+
+                   "2. Circular hiking trail Greising: https://deggendorf.travel/freizeit/wandern/rundwanderweg-greising"+
+                   "3. Destination hiking trail Landshuter Haus: https://deggendorf.travel/freizeit/wandern/zielwanderweg-muehlbogen"+
+                   "4. Muhlbogen circular hiking trail: https://deggendorf.travel/freizeit/wandern/rundwanderweg-muehlbogen"+
+                   "5. Circular hiking trail Deggendorf- Kulturviertel: https://deggendorf.travel/freizeit/wandern/rundwanderweg-deggendorf-kulturviertel"+
+                   "6. Ruselabsatz Hiking Trail: https://deggendorf.travel/freizeit/wandern/zielwanderweg-ruselabsatz"+
+                   "7. Circular hiking trail Leoprechtstein: https://deggendorf.travel/freizeit/wandern/rundwanderweg-leoprechtstein"+
+                   "8. Seebach circular hiking trail: https://deggendorf.travel/freizeit/wandern/rundwanderweg-seebach"+
+                   "9. Destination hiking trail Franzosenweg: https://deggendorf.travel/freizeit/wandern/zielwanderweg-franzosenweg" +
+                   "You can find more here: https://deggendorf.travel/freizeit/wandern"
+            }
+
  
-        return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events and so on."+
-               "You can find more details through our website: https://www.deggendorf.de/veranstaltungen "
-       }
- }    
+        if (session.topic == 'activity' &&
+            (text.includes('park') ||
+             text.includes('picnic'))
+        )
+        {return "These two parks are highly recommended:"+
+                "Stadtpark:https://www.deggendorf.de/veranstaltungen/ort/stadtpark" +
+                "Donaupark Deggendorf: https://www.bayerischer-wald.de/attraktion/donaupark-deggendorf-d85ad3641c"
+        }
 
- /*School*/
- /*THD*/
- /*sightseeing*/
+        if (session.topic == 'activity' &&
+            text.includes('golf'))
+            {return "In Deggendorf you can improve your handicap on one of the highest golf courses in southern Bavaria."+
+                    "Golf Courses in Deggendorf: Miniature golf course, Am Stadtpark 42. Tel: 0991 29793934"+
+                    "For more detail: https://www.deggendorfer-golfclub.de/"
+            }
+
+        if (session.topic == 'activity' &&
+            (text.includes('bike')||
+             text.includes('cycl')||
+             text.includes('bicycle'))
+           )
+           {return "Whether leisurely family bike tours, sport bike tours or challenging two-wheeler tours and fitness pedal knights"+
+                   "the many cycle path in and around Deggendorf will make every 'cyclist's heart' beat faster."+
+                   "Here are most popular cycling routes, click the link to know more:"+
+                   "Danube Cycle Path: https://deggendorf.travel/freizeit/radfahren/donauradweg"+
+                   "Isar Cycle Path: https://deggendorf.travel/freizeit/radfahren/isarradweg"+
+                   "Cycling in and around Deggendorf: https://deggendorf.travel/freizeit/radfahren/stadtradeln"+
+                   "Danube IIz Cycle Path: https://deggendorf.travel/freizeit/radfahren/donau-ilz-radweg"+
+                   "For more information, please check from here: https://deggendorf.travel/freizeit/radfahren"
+           }  
+           
+        if (session.topic == 'activity' &&
+            (text.includes('ice')||
+             text.includes('skat')||
+             text.includes('hockey')||
+             text.includes('dsc')||
+             text.includes('winter'))
+           )
+           {return "There are plenty of fun for cold and winter at Deggendorf ice stadium. For example: classic ice skating, disco or themed ice skating" +
+                   "And Our Deggendorf ice hockey games are always worth a visit. Come and support our Deggendorfer SC"+
+                   "Click here to know more: https://eisstadion.deggendorf.de/"
+           }  
+
+    if (text.includes('activit') ||
+       text.includes('event')||
+       text.includes('festival')||
+       text.includes('concert')||
+       text.includes('show')||
+       text.includes('happening')||
+       text.includes('exchange')||
+       text.includes('exhibi')||
+       text.includes('free time')||
+       text.includes('leisure')||
+       text.includes('fun')||
+       text.includes('nature')||
+       text.includes('family')||
+       text.includes('tour')||
+       text.includes('motor')||
+       text.includes('what can I do')||
+       text.includes('thins to do')||
+       text.includes('do in deggendorf'))
+
+       {return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events,hiking, cycling, ski, golf and picnic. "+
+               "What would you like to know more?"+
+               "You can find more details through our website: https://www.deggendorf.de/veranstaltungen "
+           }
+ }    
