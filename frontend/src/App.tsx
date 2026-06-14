@@ -17,7 +17,7 @@ const MessageBubble = ({ msg }: { msg: Message }) => {
         <div className="mb-3">
             <div
                 className={`p-3 rounded ${msg.sender === 'user' ? 'bg-primary text-white ms-auto' : 'bg-white border'}`}
-                style={{ maxWidth: '70%', width: 'fit-content'}}
+                style={{ maxWidth: '70%', width: 'fit-content', whiteSpace: 'pre-wrap'}}
             >
                 <small style={{ opacity: 0.65, fontSize: '0.8rem' }}>
                     {msg.time}
@@ -32,7 +32,7 @@ const MessageBubble = ({ msg }: { msg: Message }) => {
 
 // Taha's part
 
-const MessageArea = ({ messages, messagesEnd }: any) => {
+const MessageArea = ({ messages, messagesEnd }: { messages: Message[], messagesEnd: React.RefObject<HTMLDivElement | null> }) => {
     return (
         <div className="col-12 p-3" style={{height: '75vh', overflowY: 'auto' }}>
             {messages.map((msg: Message, index: number) => (
@@ -72,6 +72,12 @@ const App: React.FC = () => {
     const [input, setInput] = useState(''); 
     const [socket, setSocket] = useState<Socket | null>(null);
     const messagesEnd = useRef<HTMLDivElement>(null); 
+
+     useEffect(() => {
+        messagesEnd.current?.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }, [messages]);
 
     useEffect(() => {
     const newSocket = io('http://localhost:8080');
@@ -114,9 +120,9 @@ const App: React.FC = () => {
         <div className="container-fluid vh-100 bg-light p-0">
             <div className="row h-100">
                 <Header
-                messages = {messages}
-                setMessages = {setMessages}
-                setInput = {setInput}
+                   messages={messages}
+                   setMessages={setMessages}
+                   setInput={setInput}
                 />
 
                 <MessageArea messages={messages} messagesEnd={messagesEnd} />
@@ -130,6 +136,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-
-
