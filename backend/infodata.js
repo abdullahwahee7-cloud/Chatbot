@@ -4,25 +4,29 @@
 function replyTopic (message, session){
    const text = message.toLowerCase();
 
-   return (
-      Greeting(text) ||
+   session.failCount = session.failCount || 0;
+
+   const reply = 
+      Greeting(text, session) ||
       Basicinfo(text, session) ||
       Weather(text,session) ||
-      Historyinfo (text) ||
+      Historyinfo (text,session) ||
       Transportation (text,session) ||
       Shopping (text,session) ||
       Healthcare (text,session) ||
       Accomdation (text,session) ||
       Restaurant (text,session) ||
       Activity (text,session) ||
-      School (text,session) ||
-      "I am sorry, I'm not sure if I understand what you're looking for. Could you please try it again with a few words? "+
-      "Or you can find us by phone: +49 991 2960 5055 or send us a email: tourismus@deggendorf.de. We will be very happy to help you! :-)"
-   )
+      School (text,session);
+
+   if (reply) {
+        session.failCount = 0;
+        return reply;
+   }
 }
 
 /*Greeting*/
-function Greeting (text) {
+function Greeting (text,session) {
 
    if (
     text.includes('who are you') ||
@@ -126,7 +130,7 @@ function Weather (text, session){
 }
 
 /*History*/
-function Historyinfo(text){   
+function Historyinfo(text,session){   
     if (text.includes('history')||
         text.includes('historic')||
         text.includes('founded'))
@@ -718,5 +722,26 @@ function Activity (text, session) {
                "You can find more details through our website: https://www.deggendorf.de/veranstaltungen "
            }
  }    
+function HardFallback(session){
+        session.failCount++;
+
+        if (session.failCount >=3) {
+                session.failCount = 0;
+                session.topic = null;
+
+                return "I am still having trouble understanding..\n\n"+
+                "Let's start over.\n\n" +
+                "What would you like to know about Deggendorf?\n\n" +
+                "• Transportation\n" +
+                "• Weather\n" +
+                "• Shopping\n" +
+                "• Restaurants\n" +
+                "• THD\n" +
+                "• Activities";
+        }
+
+        return "I am sorry, I'm not sure if I understand what you're looking for.Could you please try it again with a few words? \n\n"+
+                "Or you can find us by phone: +49 991 2960 5055 or send us a email: tourismus@deggendorf.de. We will be very happy to help you! :-)"
+}
 
 module.exports = { replyTopic };
