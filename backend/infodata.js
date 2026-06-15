@@ -170,7 +170,12 @@ function Transportation (text,session) {
    if (text.includes('how to get to deggendorf?')||
        text.includes('travel')||
        text.includes('transportation')||
-       text.includes('how to arrive to deggendorf')
+       text.includes('how to arrive to deggendorf')||
+       text.includes('how do i get there')||
+       text.includes('how can i get there')||
+       text.includes('how do i travel')||
+       text.includes('how can i travel')
+
       )
       {session.topic = 'transportation';
        return "You can reach Deggendorf by:\n\n" +
@@ -193,7 +198,10 @@ function Transportation (text,session) {
 
       if (session.topic == 'transportation' &&
           (text.includes('train')||
-           text.includes('db'))
+           text.includes('db')||
+           text.includes('train ticket')||
+           text.includes('train station')||
+           text.includes('railway'))
           )
          {return "The nearest ICE-Station is Bahnhof Plattling, you can reach Plattling from many cities in Germany.\n\n"+
                  "From Plattling, take RB35 to Deggendorf Hauptbahnhof (main station). The journey takes about 10 minutes.\n\n" +
@@ -542,7 +550,6 @@ function School (text,session){
         if (text.includes('school')||
             text.includes('education')||
             text.includes('college')||
-            text.includes('universit')||
             text.includes('study')||
             text.includes('thd')||
             text.includes('dit')||
