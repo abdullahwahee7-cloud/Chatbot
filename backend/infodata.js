@@ -565,7 +565,7 @@ function School (text,session){
            
           /*THD*/ 
           if (session.topic == 'school' &&
-             (text.includes('universit')||
+             (text.includes('university')||
               text.includes('thd')||
               text.includes('dit')||
               text.includes('applied sciences')||
