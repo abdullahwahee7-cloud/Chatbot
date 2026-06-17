@@ -644,7 +644,7 @@ function School (text,session){
  
  /*Activity & sightseeing*/
 function Activity (text, session) {
-   if (text.includes('activit') ||
+   if (text.includes('activity') ||
        text.includes('event')||
        text.includes('festival')||
        text.includes('concert')||
@@ -788,7 +788,58 @@ function Activity (text, session) {
                "What would you like to know more?\n\n"+
                "You can find more details through our website: https://www.deggendorf.de/veranstaltungen "
            }
-}    
+}
+
+/*City Registration Details*/
+function CityRegistration(text,session) {
+        if (text.includes('city registration')||
+            text.includes('register address')||
+            text.includes('address registration')||
+            text.includes('anmeldung')||
+            text.includes('meldebescheinigung')||
+            text.includes('bürgeramt')||
+            text.includes('buergeramt')||
+            text.includes('resident registration')||
+            text.includes('resident registration')||
+            text.includes('new address'))
+        {
+                session.topic = 'registration';
+
+                return "For city registration in Deggendorf, you need to register your address at the Bürgeramt after moving in.\n\n" +
+                       "Basic steps:\n\n" +
+                       "1. Move into your apartment first.\n" +
+                       "2. Book an appointment with the Bürgeramt\n" + 
+                       "3. Bring your passport or ID card.\n" +
+                       "4. Bring your landlorf confirmation form here, called Wohnungsgeberbestätigung.\n" +
+                       "5. Go to the Bürgeramt in person and sign the registration form there.\n\n" +
+                       "Official Information:  https://www.deggendorf.de/rathaus/rechts-ordnungsverwaltung/buergeramt/wohnsitz-anmelden.\n\n" +
+                       "You can also ask me about required documents, appointment or locaton.";
+        }
+
+        if (session.topic == 'registration' &&
+            (text.includes('document')||
+             text.includes('bring')||
+             text.includes('required')))
+
+        {
+                return "For city registration, you usually need:\n\n" +
+                       "Passport of ID card\n" +
+                       " Wohnungsgeberbestätigung, which is a confirmation form from your landlord\n" + 
+                       "Your new address\n\n" +
+                       "The registration form is normally prepared at the Bürgeramt and signed there.";
+        }
+
+        if (session.topic == 'registratoin' &&
+            (text.includes('appointment')||
+             text.includes('termin') ||
+             text.includes('book')))
+        
+        {
+                return "You can book an appointment online with the City of Deggendorf here:\n\n" +
+                       "https://termine-reservieren.de/termine/deggendorf/";
+
+        }
+}
 
 function HardFallback(session){
         session.failCount++;
