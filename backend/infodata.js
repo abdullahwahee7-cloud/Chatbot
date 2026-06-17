@@ -837,9 +837,21 @@ function CityRegistration(text,session) {
         {
                 return "You can book an appointment online with the City of Deggendorf here:\n\n" +
                        "https://termine-reservieren.de/termine/deggendorf/";
-
         }
+
+        if (session.topic == 'registration' &&
+            (text.includes('where')||
+             text.includes('location')||
+             text.includes('address')))
+
+         {
+            return "City registratoin is handled by the Bürgeramt Deggendorf.\n\n" +
+                   "You can find the official Bürgeramt information here.\n\n" +
+                   "https://www.deggendorf.de/rathaus/rechts-ordnungsverwaltung/buergeramt";
+         }
 }
+
+/*Police*/
 
 function HardFallback(session){
         session.failCount++;
