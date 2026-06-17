@@ -143,7 +143,13 @@ function Weather (text, session){
     if (session.topic == 'weather' &&
         (text.includes('today')||
         text.includes('temperature')||
-        text.includes('current'))
+        text.includes('current')||
+        text.includes('sunny')||
+        text.includes('raining')||
+        text.includes('cloudy')||
+        text.includes('snowing')||
+        text.includes('hot')||
+        text.includes('cold'))
        )
        {return "For today's weather, you can check from here: https://openweathermap.org/city/2938540"
        }
