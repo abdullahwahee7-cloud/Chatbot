@@ -17,6 +17,8 @@ function replyTopic (message, session){
       Accomdation (text,session) ||
       Restaurant (text,session) ||
       Activity (text,session) ||
+      Banking(text, session) ||
+      MobileNetwork(text, session) ||
       School (text,session);
 
    if (reply) {
@@ -329,12 +331,18 @@ function Accomdation(text, session){
    
    if (text.includes('hotel')||
        text.includes('touris')||
-       text.includes('accommoda')|| 
+       text.includes('accommodation')|| 
        text.includes('stay')||
        text.includes('hostel')||
        text.includes('apartment')||
        text.includes('stayover')||
-       text.includes('where can i live')
+       text.includes('where can i live') ||
+       text.includes('rent') ||
+       text.includes('room') ||
+       text.includes('flat') ||
+       text.includes('housing') ||
+       text.includes('housing options') ||
+       text.includes('wohnung')
 
        )
       {session.topic = 'hotel';
@@ -425,6 +433,12 @@ function Restaurant (text, session){
           text.includes('german')||
           text.includes('syrian')||
           text.includes('turkish'))
+          text.includes('restaurant near me') ||
+          text.includes('where to eat') ||
+          text.includes('good food') ||
+          text.includes('takeaway') ||
+          text.includes('take away') ||
+          text.includes('delivery') 
          {session.topic = 'restaurant'}
 
       if(session.topic == 'restaurant'&&
@@ -564,7 +578,20 @@ function School (text,session){
             text.includes('university')||
             text.includes('uni')||
             text.includes('introduce thd')||
-            text.includes('introduce university')
+            text.includes('introduce university') ||
+            text.includes('th deg') ||
+            text.includes('deggendorf institute of technology') ||
+            text.includes('degree') ||
+            text.includes('bachelor') ||
+            text.includes('master') ||
+            text.includes('campus') ||
+            text.includes('lecture') ||
+            text.includes('semester') ||
+            text.includes('student card') ||
+            text.includes('enrollment') ||
+            text.includes('enrolment') ||
+            text.includes('admission') ||
+            text.includes('application')
          ) {
             session.topic = 'school'
          }
@@ -765,7 +792,7 @@ function Activity (text, session) {
                    "Click here to know more: https://eisstadion.deggendorf.de/"
            }  
 
-    if (text.includes('activit') ||
+    if (text.includes('activity') ||
        text.includes('event')||
        text.includes('festival')||
        text.includes('concert')||
