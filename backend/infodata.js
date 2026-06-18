@@ -17,8 +17,11 @@ function replyTopic (message, session){
       Accomdation (text,session) ||
       Restaurant (text,session) ||
       Activity (text,session) ||
-      School (text,session);
-
+      School (text,session) ||
+      CityRegistration(text,session) ||
+      Emergency(text, session) ||
+      NearbyCities(text, session);
+      
    if (reply) {
         session.failCount = 0;
         return reply;
