@@ -17,11 +17,10 @@ function replyTopic (message, session){
       Accomdation (text,session) ||
       Restaurant (text,session) ||
       Activity (text,session) ||
-      School (text,session) ||
-      CityRegistration(text,session) ||
-      Emergency(text, session) ||
-      NearbyCities(text, session);
-      
+      Banking(text, session) ||
+      MobileNetwork(text, session) ||
+      School (text,session);
+
    if (reply) {
         session.failCount = 0;
         return reply;
@@ -332,12 +331,18 @@ function Accomdation(text, session){
    
    if (text.includes('hotel')||
        text.includes('touris')||
-       text.includes('accommoda')|| 
+       text.includes('accommodation')|| 
        text.includes('stay')||
        text.includes('hostel')||
        text.includes('apartment')||
        text.includes('stayover')||
-       text.includes('where can i live')
+       text.includes('where can i live') ||
+       text.includes('rent') ||
+       text.includes('room') ||
+       text.includes('flat') ||
+       text.includes('housing') ||
+       text.includes('housing options') ||
+       text.includes('wohnung')
 
        )
       {session.topic = 'hotel';
@@ -428,6 +433,12 @@ function Restaurant (text, session){
           text.includes('german')||
           text.includes('syrian')||
           text.includes('turkish'))
+          text.includes('restaurant near me') ||
+          text.includes('where to eat') ||
+          text.includes('good food') ||
+          text.includes('takeaway') ||
+          text.includes('take away') ||
+          text.includes('delivery') 
          {session.topic = 'restaurant'}
 
       if(session.topic == 'restaurant'&&
@@ -567,7 +578,20 @@ function School (text,session){
             text.includes('university')||
             text.includes('uni')||
             text.includes('introduce thd')||
-            text.includes('introduce university')
+            text.includes('introduce university') ||
+            text.includes('th deg') ||
+            text.includes('deggendorf institute of technology') ||
+            text.includes('degree') ||
+            text.includes('bachelor') ||
+            text.includes('master') ||
+            text.includes('campus') ||
+            text.includes('lecture') ||
+            text.includes('semester') ||
+            text.includes('student card') ||
+            text.includes('enrollment') ||
+            text.includes('enrolment') ||
+            text.includes('admission') ||
+            text.includes('application')
          ) {
             session.topic = 'school'
          }
@@ -768,7 +792,7 @@ function Activity (text, session) {
                    "Click here to know more: https://eisstadion.deggendorf.de/"
            }  
 
-    if (text.includes('activit') ||
+    if (text.includes('activity') ||
        text.includes('event')||
        text.includes('festival')||
        text.includes('concert')||
@@ -813,7 +837,7 @@ function CityRegistration(text,session) {
                        "1. Move into your apartment first.\n" +
                        "2. Book an appointment with the Bürgeramt\n" + 
                        "3. Bring your passport or ID card.\n" +
-                       "4. Bring your landlorf confirmation form here, called Wohnungsgeberbestätigung.\n" +
+                       "4. Bring your landlord confirmation form here, called Wohnungsgeberbestätigung.\n" +
                        "5. Go to the Bürgeramt in person and sign the registration form there.\n\n" +
                        "Official Information:  https://www.deggendorf.de/rathaus/rechts-ordnungsverwaltung/buergeramt/wohnsitz-anmelden.\n\n" +
                        "You can also ask me about required documents, appointment or locaton.";
@@ -826,13 +850,13 @@ function CityRegistration(text,session) {
 
         {
                 return "For city registration, you usually need:\n\n" +
-                       "Passport of ID card\n" +
-                       " Wohnungsgeberbestätigung, which is a confirmation form from your landlord\n" + 
+                       "Passport or ID card\n" +
+                       "Wohnungsgeberbestätigung, which is a confirmation form from your landlord\n" + 
                        "Your new address\n\n" +
                        "The registration form is normally prepared at the Bürgeramt and signed there.";
         }
 
-        if (session.topic == 'registratoin' &&
+        if (session.topic == 'registration' &&
             (text.includes('appointment')||
              text.includes('termin') ||
              text.includes('book')))
@@ -848,13 +872,44 @@ function CityRegistration(text,session) {
              text.includes('address')))
 
          {
-            return "City registratoin is handled by the Bürgeramt Deggendorf.\n\n" +
+            return "City registration is handled by the Bürgeramt Deggendorf.\n\n" +
                    "You can find the official Bürgeramt information here.\n\n" +
                    "https://www.deggendorf.de/rathaus/rechts-ordnungsverwaltung/buergeramt";
          }
 }
 
 /*Police*/
+function Emergency(text,session){
+   if (text.includes('polic')||
+       text.includes('polizei')||
+       text.includes('police station')||
+       text.includes('lost item')||
+       text.includes('theftt')||
+       text.includes('stoelen')||
+       text.includes('crime')||
+       text.includes('emergency'))
+   
+   {
+      session.topic = 'Emergency';
+
+      return "For police help in Deggendorf, you can contact Polizeiinspektion Deggendorf.\n\n" +
+             "Address: Hans-Krämer-Straße 65, 94469 Deggendorf.\n" +
+             "Phone: +49 991 3896-0\n\n" +
+             "In an emergency, call 110 for police.\n" + 
+             "For medical or fire emergency, call 112.\n\n" +
+             "You can ask me about emergency, lost items, theft or police station locaation.";
+   }
+
+   if (session.topic = 'Emergency' &&
+       (text.includes('police')||
+        text.includes('urgent')||
+        text.includes('danger')))
+   {
+      return "If you are in immedaite danger, call 110 for police emergency in Germany.\n\n" +
+             "For ambulance or fire brigade, call 112.";
+   }
+}
+
 
 function HardFallback(session){
         session.failCount++;
