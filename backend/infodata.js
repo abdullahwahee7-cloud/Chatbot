@@ -810,7 +810,7 @@ function CityRegistration(text,session) {
                        "1. Move into your apartment first.\n" +
                        "2. Book an appointment with the Bürgeramt\n" + 
                        "3. Bring your passport or ID card.\n" +
-                       "4. Bring your landlorf confirmation form here, called Wohnungsgeberbestätigung.\n" +
+                       "4. Bring your landlord confirmation form here, called Wohnungsgeberbestätigung.\n" +
                        "5. Go to the Bürgeramt in person and sign the registration form there.\n\n" +
                        "Official Information:  https://www.deggendorf.de/rathaus/rechts-ordnungsverwaltung/buergeramt/wohnsitz-anmelden.\n\n" +
                        "You can also ask me about required documents, appointment or locaton.";
@@ -823,13 +823,13 @@ function CityRegistration(text,session) {
 
         {
                 return "For city registration, you usually need:\n\n" +
-                       "Passport of ID card\n" +
-                       " Wohnungsgeberbestätigung, which is a confirmation form from your landlord\n" + 
+                       "Passport or ID card\n" +
+                       "Wohnungsgeberbestätigung, which is a confirmation form from your landlord\n" + 
                        "Your new address\n\n" +
                        "The registration form is normally prepared at the Bürgeramt and signed there.";
         }
 
-        if (session.topic == 'registratoin' &&
+        if (session.topic == 'registration' &&
             (text.includes('appointment')||
              text.includes('termin') ||
              text.includes('book')))
@@ -845,7 +845,7 @@ function CityRegistration(text,session) {
              text.includes('address')))
 
          {
-            return "City registratoin is handled by the Bürgeramt Deggendorf.\n\n" +
+            return "City registration is handled by the Bürgeramt Deggendorf.\n\n" +
                    "You can find the official Bürgeramt information here.\n\n" +
                    "https://www.deggendorf.de/rathaus/rechts-ordnungsverwaltung/buergeramt";
          }
