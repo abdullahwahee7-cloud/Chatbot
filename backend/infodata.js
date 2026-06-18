@@ -852,6 +852,37 @@ function CityRegistration(text,session) {
 }
 
 /*Police*/
+function Emergency(text,session){
+   if (text.includes('polic')||
+       text.includes('polizei')||
+       text.includes('police station')||
+       text.includes('lost item')||
+       text.includes('theftt')||
+       text.includes('stoelen')||
+       text.includes('crime')||
+       text.includes('emergency'))
+   
+   {
+      session.topic = 'Emergency';
+
+      return "For police help in Deggendorf, you can contact Polizeiinspektion Deggendorf.\n\n" +
+             "Address: Hans-Krämer-Straße 65, 94469 Deggendorf.\n" +
+             "Phone: +49 991 3896-0\n\n" +
+             "In an emergency, call 110 for police.\n" + 
+             "For medical or fire emergency, call 112.\n\n" +
+             "You can ask me about emergency, lost items, theft or police station locaation.";
+   }
+
+   if (session.topic = 'Emergency' &&
+       (text.includes('police')||
+        text.includes('urgent')||
+        text.includes('danger')))
+   {
+      return "If you are in immedaite danger, call 110 for police emergency in Germany.\n\n" +
+             "For ambulance or fire brigade, call 112.";
+   }
+}
+
 
 function HardFallback(session){
         session.failCount++;
