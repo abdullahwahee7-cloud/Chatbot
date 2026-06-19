@@ -1,7 +1,7 @@
 /*We are using the keywords strategy to insure the bot understand and reply the message*/
 
 /*The topics*/
-function replyTopic (message, session){
+function replyTopic (message, session, intent){
    const text = message.toLowerCase();
 
    session.failCount = session.failCount || 0;
@@ -16,10 +16,7 @@ function replyTopic (message, session){
       Healthcare (text,session) ||
       Accomdation (text,session) ||
       Restaurant (text,session) ||
-      Activity (text,session) ||
-      Banking(text, session) ||
-      MobileNetwork(text, session) ||
-      School (text,session);
+      Activity (text,session)
 
    if (reply) {
         session.failCount = 0;

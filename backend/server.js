@@ -28,10 +28,18 @@ io.on('connect', (socket) => {
         })
     });
 
-    socket.on('chat message', (msg) => {
+    socket.on('chat message', async (msg) => {
         console.log('message:', msg);
+        
+        const intent = await detectIntent(msg);
+        console.log("Intent:", intent);
 
-        const reply = replyTopic(msg, session);
+        let reply = replyTopic(msg, session, intent);
+
+        if (!reply) {
+          reply = "I am sorry, I'm not sure if I understand what you're looking for.Could you please try it again with a few words? \n\n"+
+                "Or you can find us by phone: +49 991 2960 5055 or send us a email: tourismus@deggendorf.de. We will be very happy to help you! :-)";
+        }
 
         socket.emit('chat message', {
             sender: 'chatbot',
