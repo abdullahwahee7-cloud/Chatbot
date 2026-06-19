@@ -48,6 +48,7 @@ function replyTopic (message, session, intent){
       Restaurant (text,session) ||
       Activity (text,session) ||
       CityRegistration(text, session) ||
+      School(text, session) ||
       Emergency(text, session);
       /* NearbyCities(text, session) ||
       Banking(text, session) ||
