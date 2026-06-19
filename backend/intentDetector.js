@@ -12,7 +12,7 @@ async function detectIntent(message) {
         messages: [
             {
                 role: "system",
-                content: "You are classifying user messages for a chatbot about the city of Deggendorf and THD (Deggendorf Institute of Technology). Reply with ONLY ONE intent from this list: greeting, basicinfo, weather, history, transportation, shopping, healthcare, accommodation, restaurant, activity, cityregistration, emergency, nearbycities, school, unknown. Reply with one word only."
+                content: "You are classifying user messages for a chatbot about the city of Deggendorf and THD (Deggendorf Institute of Technology). THD, DIT, university, study, degree, bachelor, master, campus, lecture, semester, admission, application and student topics MUST be classified as school. Reply with ONLY ONE intent from this list: greeting, basicinfo, weather, history, transportation, shopping, healthcare, accommodation, restaurant, activity, cityregistration, emergency, nearbycities, banking, mobilenetwork, school, unknown. Reply with one word only."
             },
             {
                 role: "user",

@@ -1,10 +1,40 @@
 /*We are using the keywords strategy to insure the bot understand and reply the message*/
 
 /*The topics*/
+/*We are implementing Hybrid, if OPENAI can't detect then on backup the keyword spotting works"*/
 function replyTopic (message, session, intent){
    const text = message.toLowerCase();
 
    session.failCount = session.failCount || 0;
+
+   let AIReply;
+
+   if (intent === 'greeting') AIReply = Greeting(text, session);
+   if (intent === 'basicinfo') AIReply = Basicinfo(text, session);
+   if (intent === 'weather') AIReply = Weather(text, session);
+   if (intent === 'history') AIReply = Historyinfo(text, session);
+   if (intent === 'transportation') AIReply = Transportation(text, session);
+   if (intent === 'shopping') AIReply = Shopping(text, session);
+   if (intent === 'healthcare') AIReply = Healthcare(text, session);
+   if (intent === 'accommodation') AIReply = Accomdation(text, session);
+   if (intent === 'restaurant') AIReply = Restaurant(text, session);
+   if (intent === 'activity') AIReply = Activity(text, session);
+   if (intent === 'cityregistration') AIReply = CityRegistration(text, session);
+   if (intent === 'emergency') AIReply = Emergency(text, session);
+   if (intent === 'school') AIReply = School(text, session);
+   /* Add these when the functions are implemented 
+   if (intent === 'nearbycities') AIReply = NearbyCities(text, session);
+   if (intent === 'banking') AIReply = Banking(text, session);
+   if (intent === 'mobilenetwork') AIReply = MobileNetwork(text, session); */
+
+   if (AIReply) {
+      session.failCount = 0;
+      return AIReply;
+   }
+
+   if (intent === 'unknown') {
+   console.log("OpenAI has returned unknown, now we will use keyword fallback");
+   }
 
    const reply = 
       Greeting(text, session) ||
@@ -16,7 +46,12 @@ function replyTopic (message, session, intent){
       Healthcare (text,session) ||
       Accomdation (text,session) ||
       Restaurant (text,session) ||
-      Activity (text,session)
+      Activity (text,session) ||
+      CityRegistration(text, session) ||
+      Emergency(text, session);
+      /* NearbyCities(text, session) ||
+      Banking(text, session) ||
+      MobileNetwork(text, session); */
 
    if (reply) {
         session.failCount = 0;
@@ -410,7 +445,7 @@ function Accomdation(text, session){
 
 /*Restaurant*/
 function Restaurant (text, session){
-   if (text.includes('restaurant')||
+        if (text.includes('restaurant')||
           text.includes('food')||
           text.includes('meal')||
           text.includes('dinner')||
@@ -429,14 +464,16 @@ function Restaurant (text, session){
           text.includes('italian')||
           text.includes('german')||
           text.includes('syrian')||
-          text.includes('turkish'))
+          text.includes('turkish') ||
           text.includes('restaurant near me') ||
           text.includes('where to eat') ||
           text.includes('good food') ||
           text.includes('takeaway') ||
           text.includes('take away') ||
-          text.includes('delivery') 
-         {session.topic = 'restaurant'}
+          text.includes('delivery')) {
+            
+            session.topic = 'restaurant';
+         }
 
       if(session.topic == 'restaurant'&&
              (text.includes('indian')||text.includes('curry'))
@@ -897,7 +934,7 @@ function Emergency(text,session){
              "You can ask me about emergency, lost items, theft or police station locaation.";
    }
 
-   if (session.topic = 'Emergency' &&
+   if (session.topic == 'Emergency' &&
        (text.includes('police')||
         text.includes('urgent')||
         text.includes('danger')))
