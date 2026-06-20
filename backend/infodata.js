@@ -72,7 +72,7 @@ function Greeting (text,session) {
     )
     {
     return "I am a chatbot representing the City of Deggendorf.\n\n" +
-           "I can provide information about transportation, weather, shopping, accommodation, restaurants, activities, healthcare, education and THD.";
+           "I can provide information about transportation, weather, shopping, accommodation, restaurants, activities, healthcare, education, mobile network, banking, and THD.";
     }
 
     if (text.includes('hello') ||
@@ -83,12 +83,24 @@ function Greeting (text,session) {
        text.includes('good morning')||
        text.includes('good afternoon')||
        text.includes('good evening')||
-       text.includes('greetings')
+       text.includes('greetings')||
+       text.includes('whats up')
        )
        {
         return "Hello! Welcome to Deggendorf. What do you want to know about our beautiful city?\n\n"+
-               "You can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation and healthcare"
+               "You can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation, banking, mobilenetwork and healthcare"
        }
+
+    if (text.includes('how are you') ||
+       text.includes('how you doing') ||
+       text.includes('how are you doing') 
+      )
+      {
+         return "I am good, thanks for asking. What do you want to know about our beautiful city?\n\n" +
+               "You can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation, banking, mobilenetwork and healthcare"
+      }
+
+
 }
 
 /*Basic information */
@@ -712,8 +724,9 @@ function Activity (text, session) {
        text.includes('concert')||
        text.includes('show')||
        text.includes('happening')||
+       text.includes('activities')||
        text.includes('exchange')||
-       text.includes('exhibi')||
+       text.includes('exhibition')||
        text.includes('free time')||
        text.includes('leisure')||
        text.includes('fun')||
@@ -834,7 +847,7 @@ function Activity (text, session) {
        text.includes('show')||
        text.includes('happening')||
        text.includes('exchange')||
-       text.includes('exhibi')||
+       text.includes('exhibitions')||
        text.includes('free time')||
        text.includes('leisure')||
        text.includes('fun')||
@@ -844,6 +857,7 @@ function Activity (text, session) {
        text.includes('motor')||
        text.includes('what can i do')||
        text.includes('things to do')||
+       text.includes('activities')||
        text.includes('do in deggendorf'))
 
        {return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events,hiking, cycling, ski, golf and picnic.\n\n"+
