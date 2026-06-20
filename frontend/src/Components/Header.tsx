@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ messages, setMessages, setInput }) => {
                     setMessages([{
                         sender: 'chatbot',
                         text: "The chat has been reset. Hello again, how can I help you?", // This resets the message and opens a new chat which user can start a new convo
-                        time: new Date().toLocaleDateString()
+                        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
                     }]);
                     setInput('')
 

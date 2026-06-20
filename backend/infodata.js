@@ -9,6 +9,10 @@ function replyTopic (message, session, intent){
 
    let AIReply;
 
+   if (intent && intent !== 'unknown') {
+      session.topic = null;
+   }
+
    if (intent === 'greeting') AIReply = Greeting(text, session);
    if (intent === 'basicinfo') AIReply = Basicinfo(text, session);
    if (intent === 'weather') AIReply = Weather(text, session);
@@ -106,6 +110,12 @@ function Greeting (text,session) {
 /*Basic information */
 function Basicinfo(text,session){
 
+
+   if (text.includes('who is mayor') || text.includes('mayor')) {
+   return "Our mayor is Dr. Christian Moser (CSU). He serves as the Lord Mayor (Oberbürgermeister) of Deggendorf.";
+   }
+
+
    if (text === 'introduce') {
          return "What would you like me to introduce?\n\n" +
                 "• Deggendorf\n" +
@@ -165,6 +175,7 @@ function Basicinfo(text,session){
 
        {return "Deggendorf's 2026 population is now estimated at 36,590."
        } 
+        
 
     if (session.topic == 'basicinfo' &&
         (text.includes('government')||
@@ -220,15 +231,20 @@ function Historyinfo(text,session){
 
 /*Transportation*/
 function Transportation (text,session) {
+
+   console.log("Transportation function called");
+
    if (text.includes('how to get to deggendorf?')||
        text.includes('travel')||
        text.includes('transportation')||
-       text.includes('how to arrive to deggendorf')||
+       text.includes('how to arrive to deggendorf?')||
        text.includes('how do i get there')||
        text.includes('how can i get there')||
        text.includes('how do i travel')||
-       text.includes('how can i travel')
-
+       text.includes('how can i travel')||
+       text.includes('dow do I get to deggendorf?')||
+       text.includes('arrive in deggendorf')||
+       text.includes('get to deggendorf')
       )
       {session.topic = 'transportation';
        return "You can reach Deggendorf by:\n\n" +
@@ -287,6 +303,17 @@ function Transportation (text,session) {
          )
          {return "With four lines in the city bus service, we can transport you across the city area!\n\n"+
                  " Timetables and network map can be found : https://www.deggendorf.de/leben/mobilitaet-verkehr/stadtbusverkehr" 
+         }
+
+      if (session.topic == 'transportation') {
+         return "You can reach Deggendorf by:\n\n" +
+          "• Train\n" +
+          "• Bus\n" +
+          "• Plane\n" +
+          "• Car\n\n" +
+          "Which option would you like to know more about?\n\n" +
+          "For parking information, reply: parking\n" +
+          "For public transport, reply: citybus";
          }
 }
 
@@ -929,14 +956,15 @@ function CityRegistration(text,session) {
 
 /*Police*/
 function Emergency(text,session){
-   if (text.includes('polic')||
+   if (text.includes('police')||
        text.includes('polizei')||
        text.includes('police station')||
        text.includes('lost item')||
-       text.includes('theftt')||
-       text.includes('stoelen')||
+       text.includes('theft')||
+       text.includes('stolen')||
        text.includes('crime')||
        text.includes('emergency'))
+       text.includes('emergency numbers')
    
    {
       session.topic = 'Emergency';

@@ -51,7 +51,7 @@ const MessageArea = ({ messages, messagesEnd }: { messages: Message[], messagesE
 interface UserInputProps {
     input: string;
     setInput: React.Dispatch<React.SetStateAction<string>>;
-    sendMessage: () => void;
+    sendMessage: (buttonText?: string) => void;
 }
 
 
@@ -68,7 +68,7 @@ const UserInput = ({ input, setInput, sendMessage }: UserInputProps) => {
           onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
           placeholder="Enter your message here..."
         />
-        <button className="btn btn-primary" onClick={sendMessage}>
+        <button onClick={() => sendMessage()}>
           Send
         </button>
       </div>
@@ -113,17 +113,19 @@ const App: React.FC = () => {
 
 
 
-    const sendMessage = () => {
-        if (!input.trim() || !socket) return;
+    const sendMessage = (buttonText?: string) => {
+        const messageText = buttonText || input.trim();
+        
+        if (!messageText|| !socket) return;
 
         const userMessage: Message = {
             sender: 'user',
-            text: input.trim(), 
+            text: messageText,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
         };
 
         setMessages(prev => [...prev,userMessage]);
-        socket.emit('chat message', input.trim());
+        socket.emit('chat message', messageText);
         setInput('');
     };
     
@@ -131,6 +133,19 @@ const App: React.FC = () => {
        /* <div className="container-fluid vh-100 bg-light p-0">
             <div className="row h-100">*/
           <div className = 'page-background'>
+
+            <div className="side-panel">
+              <h5>Quick Topics</h5>
+              <button onClick={() => sendMessage('Basic Information')}>ℹ️ Information about Deggendorf</button>
+              <button onClick={() => sendMessage('transportation')}>🚆 Transportation</button>
+              <button onClick={() => sendMessage('weather')}>🌤 Weather</button>
+              <button onClick={() => sendMessage('healthcare in Deggendorf')}>🏥 Healthcare</button>
+              <button onClick={() => sendMessage('student accommodation in Deggendorf')}>🏠 Accommodation</button>
+              <button onClick={() => sendMessage('restaurants in Deggendorf')}>🍽 Restaurants</button>
+              <button onClick={() => sendMessage('Introduce THD')}>🎓 THD</button>
+              <button onClick={() => sendMessage('activities in Deggendorf')}>🎉 Activities</button>
+            </div>
+
             <div className = 'chat-container'>
                 <Header
                    messages={messages}
@@ -143,6 +158,18 @@ const App: React.FC = () => {
       <UserInput input={input} setInput={setInput} sendMessage={sendMessage} />
 
       </div>
+
+      <div className="side-panel">
+      <h5>Popular Questions</h5>
+      <button onClick={() => sendMessage('Tell me about THD')}>Introduce THD?</button>
+      <button onClick={() => sendMessage('Who is Mayor of Deggendorf?')}>Who is Mayor of Deggendorf?</button>
+      <button onClick={() => sendMessage('How do I get to Deggendorf?')}>How do I get to Deggendorf?</button>
+      <button onClick={() => sendMessage('Where can I find accommodation?')}> Where can I find accommodation?</button>
+      <button onClick={() => sendMessage('What are the activities in Deggendorf?')}>What are the activity in Deggendorf?</button>
+      <button onClick={() => sendMessage('Where can I eat?')}>Where can I eat?</button>
+      <button onClick={() => sendMessage('Emergency numbers')}>Emergency numbers?</button>
+      </div> 
+
     </div>
 
   );
