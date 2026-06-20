@@ -908,6 +908,30 @@ function Emergency(text,session){
       return "If you are in immedaite danger, call 110 for police emergency in Germany.\n\n" +
              "For ambulance or fire brigade, call 112.";
    }
+
+   if (session.topic = 'Emergency' &&
+       (text.includes('location')||
+        text.includes('where')||
+        text.includes('address')))
+   
+   {
+      return "The police station in Deggendorf is:\n\n" + 
+             "Polizeinspektion Deggendrof\n" +
+              "Hans-Krämer-Straße 65\n" +
+              "94469 Deggendorf\n\n" +
+              "Phone: +49 991 3896 0";
+   }
+
+   if (session.topic = 'Emergency' &&
+       (text.includes('lsot')||
+        text.includes('stolen')||
+        text.includes('theft')))
+   
+   {
+      return "If something is stolen, you should connect with the police\n\n" +
+             "For lsot items, you can also ask the city lsot and found office, called Fundbüro\n\n" + 
+             "If it is urgent, call 110";
+   }
 }
 
 
