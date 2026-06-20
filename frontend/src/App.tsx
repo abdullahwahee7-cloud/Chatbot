@@ -47,7 +47,13 @@ const MessageArea = ({ messages, messagesEnd }: { messages: Message[], messagesE
 
 // Abdullah's part
 
-const UserInput = ({ input, setInput, sendMessage }: any) => {
+interface UserInputProps {
+    input: string;
+    setInput: React.Dispatch<React.SetStateAction<string>>;
+    sendMessage: () => void;
+}
+
+const UserInput = ({ input, setInput, sendMessage }: UserInputProps) => {
   return (
     //<div className="col-12 p-3 bg-white border-top">
     <div className ='user-input'>
