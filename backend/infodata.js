@@ -934,6 +934,41 @@ function Emergency(text,session){
    }
 }
 
+/*Nearby Cities*/
+function NearbyCities(text,session){
+   if (
+      text.includes('nearby city')||
+      text.includes('nearby cities')||
+      text.includes('cities near deggendorf')||
+      text.includes('visit from deggendorf')||
+      text.includes('day trip')||
+      text.includes('places near deggendorf')||
+      text.includes('where can i go from deggendorf')||
+      text.includes('travel from deggendorf hbf')||
+      text.includes('deggendorf hbf')
+   ){
+      session.topic = 'nearbycities';
+      
+      return "From Deggendorf HBF, you can visit several nearby cities by train or bus:\n\n" +
+             "1. Plattling - about 10 minutes by regional train\n" +
+             "Travel: Take RB35 from Deggendorf Hbf to Plattling.\n\n" +
+             "2. Passau - about 45 to 60 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Passua\n\n" + 
+             "3. Regensburg - about 60 to 90 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Regensburg\n\n" + 
+             "4. Munich - about 2 to 2.5 hours\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Munich\n\n" + 
+             "5. Landshut - about 75 to 90 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Landshut\n\n" + 
+             "6. Straubing - about 40 to 60 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Straubing\n\n" +
+             "For exact times and tickets, check Deutsche Bahn:\n" + 
+             "https://www.bahn.de/service/fahrplaene/reiseauskunft\n\n" +
+             "Which city would you like to know more about?";
+
+   }
+}
+
 
 function HardFallback(session){
         session.failCount++;
