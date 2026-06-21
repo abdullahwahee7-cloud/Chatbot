@@ -1,5 +1,6 @@
 const express = require('express');
 const http = require('http');
+const path = require('path');
 const { Server } = require('socket.io');
 const { replyTopic } = require('./infodata')
 const { detectIntent } = require('./intentDetector');
@@ -7,9 +8,13 @@ const { detectIntent } = require('./intentDetector');
 const app = express();
 const server = http.createServer(app);
 
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));});
+
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "*",
         methods: ["GET", "POST"]
     }
 });
@@ -56,6 +61,8 @@ io.on('connect', (socket) => {
     });
 });
 
-server.listen(8080, () => {
-    console.log('Active on port 8080');
+const PORT = process.env.PORT || 8080;
+
+server.listen(PORT, () => {
+    console.log(`Active on port ${PORT}`);
 });
