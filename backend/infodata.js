@@ -5,6 +5,11 @@
 function replyTopic (message, session, intent){
    const text = message.toLowerCase();
 
+   if (text.trim().length < 3) {
+   session.topic = null;
+   return HardFallback(session);
+   }
+
    session.failCount = session.failCount || 0;
 
    let AIReply;
@@ -26,8 +31,8 @@ function replyTopic (message, session, intent){
    if (intent === 'cityregistration') AIReply = CityRegistration(text, session);
    if (intent === 'emergency') AIReply = Emergency(text, session);
    if (intent === 'school') AIReply = School(text, session);
-   /* Add these when the functions are implemented 
    if (intent === 'nearbycities') AIReply = NearbyCities(text, session);
+   /* Add these when the functions are implemented 
    if (intent === 'banking') AIReply = Banking(text, session);
    if (intent === 'mobilenetwork') AIReply = MobileNetwork(text, session); */
 
@@ -38,6 +43,7 @@ function replyTopic (message, session, intent){
 
    if (intent === 'unknown') {
    console.log("OpenAI has returned unknown, now we will use keyword fallback");
+   session.topic = null;
    }
 
    const reply = 
@@ -45,6 +51,7 @@ function replyTopic (message, session, intent){
       Basicinfo(text, session) ||
       Weather(text,session) ||
       Historyinfo (text,session) ||
+      Emergency(text, session) ||
       Transportation (text,session) ||
       Shopping (text,session) ||
       Healthcare (text,session) ||
@@ -53,7 +60,7 @@ function replyTopic (message, session, intent){
       Activity (text,session) ||
       CityRegistration(text, session) ||
       School(text, session) ||
-      Emergency(text, session);
+      NearbyCities(text, session);
       /* NearbyCities(text, session) ||
       Banking(text, session) ||
       MobileNetwork(text, session); */
@@ -143,7 +150,7 @@ function Basicinfo(text,session){
                
        }
 
-    if (session.topic == 'basicinfo' &&
+    if (session.topic === 'basicinfo' &&
        (text.includes('location') ||
        text.includes('located'))
        )
@@ -159,7 +166,7 @@ function Basicinfo(text,session){
        }  
     */
 
-     if (session.topic == 'basicinfo' &&
+     if (session.topic === 'basicinfo' &&
          (text.includes('post') ||
          text.includes('zip')||
          text.includes('zipcode'))
@@ -167,7 +174,7 @@ function Basicinfo(text,session){
        {return "The zipcode of Deggendorf is 94469"
        } 
          
-     if (session.topic == 'basicinfo' &&
+     if (session.topic === 'basicinfo' &&
        (text.includes('population') ||
         text.includes('how many people') ||
         text.includes('how many residents'))
@@ -177,7 +184,7 @@ function Basicinfo(text,session){
        } 
         
 
-    if (session.topic == 'basicinfo' &&
+    if (session.topic === 'basicinfo' &&
         (text.includes('government')||
         text.includes('office')||
         text.includes('new here'))
@@ -257,7 +264,7 @@ function Transportation (text,session) {
               "For public transport, reply: citybus";           
       }
 
-      if (session.topic == 'transportation' &&
+      if (session.topic === 'transportation' &&
           (text.includes('car') ||
            text.includes('auto'))
           )
@@ -265,7 +272,7 @@ function Transportation (text,session) {
                  "A92: Munich - Deggendorf"
          }
 
-      if (session.topic == 'transportation' &&
+      if (session.topic === 'transportation' &&
           (text.includes('train')||
            text.includes('db')||
            text.includes('train ticket')||
@@ -277,20 +284,20 @@ function Transportation (text,session) {
                  "Ticket booking: https://www.bahn.de/service/fahrplaene/reiseauskunft"
          }
 
-      if (session.topic == 'transportation' &&
+      if (session.topic === 'transportation' &&
          (text.includes ('bus') && !text.includes ('citybus'))
          )
          {return "You can reach Deggendorf by FlixBus from many cities,\n\n"+
                 "for ticket booking please check: https://www.flixbus.com/bus/deggendorf"
          }
         
-      if (session.topic == 'transportation' &&
+      if (session.topic === 'transportation' &&
          (text.includes ('plane'))
          )
          {return "Deggendorf is located about 100km (about 1 hour's drive) from the Franz-Josef-Strauss airport in Munich."
          }
       
-      if (session.topic == 'transportation' &&
+      if (session.topic === 'transportation' &&
           text.includes('parking')
          )
          {return "With over 1500 parking spaces, shopping and strolling without parking stress,\n\n"+
@@ -298,22 +305,11 @@ function Transportation (text,session) {
                  "Simply follow our parking guidance system: https://stadtparken-deggendorf.de/?article_id=4"
          }
 
-      if (session.topic == 'transportation' &&
+      if (session.topic === 'transportation' &&
           (text.includes ('citybus'))
          )
          {return "With four lines in the city bus service, we can transport you across the city area!\n\n"+
                  " Timetables and network map can be found : https://www.deggendorf.de/leben/mobilitaet-verkehr/stadtbusverkehr" 
-         }
-
-      if (session.topic == 'transportation') {
-         return "You can reach Deggendorf by:\n\n" +
-          "• Train\n" +
-          "• Bus\n" +
-          "• Plane\n" +
-          "• Car\n\n" +
-          "Which option would you like to know more about?\n\n" +
-          "For parking information, reply: parking\n" +
-          "For public transport, reply: citybus";
          }
 }
 
@@ -347,7 +343,7 @@ function Shopping (text,session) {
              "Which one would you like to know more?";
         }
       
-      if (session.topic == 'shop' &&
+      if (session.topic === 'shop' &&
           (text.includes('fashion') ||
            text.includes('cloth') ||
            text.includes('beauty')||
@@ -359,7 +355,7 @@ function Shopping (text,session) {
          }
 
            
-      if (session.topic == 'shop' &&
+      if (session.topic === 'shop' &&
           (text.includes('local market') ||
            text.includes('farm')||
            text.includes('local')) 
@@ -391,7 +387,7 @@ function Healthcare (text,session) {
                " Please call 112 if any emergency medical needs"
       }
 
-      if (session.topic == 'health' &&
+      if (session.topic === 'health' &&
           text.includes('donau'))
          {return "Donau Isar Klinikum is located at Perlasberger Str. 41, 94469, Deggendorf\n\n" +
               " Phone: 0991/ 380-0\n\n"+
@@ -448,7 +444,7 @@ function Accomdation(text, session){
       }
 
       if (
-           session.topic == 'studdor' &&
+           session.topic === 'studdor' &&
            (text.includes('student dormitory') ||
             text.includes('dorm'))
       ) {
@@ -458,7 +454,7 @@ function Accomdation(text, session){
       }
 
       if (
-          session.topic == 'studdor' &&
+          session.topic === 'studdor' &&
           (text.includes('private') ||
            text.includes('share'))
       ) {
@@ -469,7 +465,7 @@ function Accomdation(text, session){
       } 
 
    if (
-       session.topic == 'studdor' &&
+       session.topic === 'studdor' &&
        (text.includes('public') ||
        text.includes('wg'))
    ) {
@@ -515,7 +511,7 @@ function Restaurant (text, session){
             session.topic = 'restaurant';
          }
 
-      if(session.topic == 'restaurant'&&
+      if(session.topic === 'restaurant'&&
              (text.includes('indian')||text.includes('curry'))
             )
              {return "For indian food in Deggendorf,you can try Taj Mahal or Shiva\n\n" +
@@ -523,21 +519,21 @@ function Restaurant (text, session){
                       "Shiva: https://www.indisches-restaurant-deggendorf.de/\n\n" 
              }
          
-      if(session.topic == 'restaurant'&&
+      if(session.topic === 'restaurant'&&
         (text.includes('mensa')||text.includes('student')||text.includes('campus'))
         )
         {return "For students, the Mensa at THD is a good option. You can check THD information here\n\n"+
                 "THD: https://www.th-deg.de/"
         }
  
-        if(session.topic == 'restaurant'&&
+        if(session.topic === 'restaurant'&&
           (text.includes('syrian')||text.includes('arabic')||text.includes('shawarma'))
           )
           {return "For Syrian Food or Arabic Food in Deggendorf, it is best to search current options here\n\n"+
                   "Google Maps: https://www.google.com/maps/search/syrian+restaurant+Deggendorf"
           }
 
-        if(session.topic == 'restaurant'&&
+        if(session.topic === 'restaurant'&&
            (text.includes('turkish')||text.includes('kebab')||text.includes('doner')||text.includes('döner'))
           )
           {return "For Turkish Food or döner in Deggendorf, you can check Ankara Grill or search here\n\n"+
@@ -561,7 +557,7 @@ function Restaurant (text, session){
                  "SAIKYO Restaurant - Asian Fusion & Sushi: https://www.saikyo.de/ \n\n"
          }
 
-      if (session.topic == 'restaurant' &&
+      if (session.topic === 'restaurant' &&
           (text.includes ('italian')||
            text.includes('pasta')||
            text.includes('pizza')
@@ -571,7 +567,7 @@ function Restaurant (text, session){
                   "Mama Mia Da Max : https://mamamia-max.de/" 
           }
       
-      if (session.topic == 'restaurant' &&
+      if (session.topic === 'restaurant' &&
           (text.includes ('local')||
            text.includes ('german')||
            text.includes ('traditional')||
@@ -584,7 +580,7 @@ function Restaurant (text, session){
                  "Schober Otto Gaststaette: https://www.schober-otto.de/\n\n"
          }
 
-      if (session.topic == 'restaurant' &&
+      if (session.topic === 'restaurant' &&
           (text.includes ('cafe')||
            text.includes ('tea')||
            text.includes ('snack')||
@@ -597,7 +593,7 @@ function Restaurant (text, session){
                  "Most cafés are located in the city center and shopping areas."
          }
 
-      if (session.topic == 'restaurant' &&
+      if (session.topic === 'restaurant' &&
           (text.includes ('fast')||
            text.includes ('burger')||
            text.includes ('fried')||
@@ -671,7 +667,7 @@ function School (text,session){
          }
            
           /*THD*/ 
-          if (session.topic == 'school' &&
+          if (session.topic === 'school' &&
              (text.includes('university')||
               text.includes('thd')||
               text.includes('dit')||
@@ -680,7 +676,7 @@ function School (text,session){
            )
            {session.topic = 'thd'}
 
-             if (session.topic == 'thd' &&
+             if (session.topic === 'thd' &&
                 ( text.includes('introduce')||
                 text.includes('thd')||
                 text.includes('dit')||
@@ -692,7 +688,7 @@ function School (text,session){
                    "Location: Dieter-Görlitz-Platz 1, 94469 Deggendorf"
                 }
 
-             if (session.topic == 'thd' &&
+             if (session.topic === 'thd' &&
                 (text.includes('program') ||
                  text.includes('graduate') ||
                  text.includes('degree') ||
@@ -701,7 +697,7 @@ function School (text,session){
 
                 {return "Here you can find all study programmes at THD: https://www.th-deg.de/study-programmes"}
 
-              if (session.topic == 'thd' &&
+              if (session.topic === 'thd' &&
                 (text.includes('apply') ||
                  text.includes('join') ||
                  text.includes('application')))
@@ -711,7 +707,7 @@ function School (text,session){
                 }
 
 
-             if (session.topic == 'thd' &&
+             if (session.topic === 'thd' &&
                 (text.includes('event') ||
                  text.includes('activity') ||
                  text.includes('party')||
@@ -720,7 +716,7 @@ function School (text,session){
                 {return "THD is holding a variety of activities, including diversity week, international week, online consultation, career development, sports, party, cinema night, etc.\n\n"+
                 "Here you can find event calendar here: https://th-deg.de/en/dit/events"}
             
-             if (session.topic == 'thd' &&
+             if (session.topic === 'thd' &&
                 (text.includes('contact') ||
                  text.includes('email') ||
                  text.includes('phone')||
@@ -784,14 +780,14 @@ function Activity (text, session) {
 
        {session.topic = 'activity'}
 
-       if (session.topic == 'activity' &&
+       if (session.topic === 'activity' &&
            text.includes('fish'))
            {return "Fishing enthusiasts will find optimal conditions in lakes and river of deggendorf\n\n"+
                     "Further information and booking options can be found on here:https://angeln-in-deggendorf.de/"
            }
 
            
-       if (session.topic == 'activity' &&
+       if (session.topic === 'activity' &&
            (text.includes('camp')||
            text.includes('motorhome')))
            {return "We have four campsite for you:\n\n"+
@@ -801,7 +797,7 @@ function Activity (text, session) {
                    "Motorhome pitches in the Danube Park, located Neusiedler Str. corner of Ackerloh. 5 free parking space without equipment and can be used all year around.\n\n"
            }
 
-        if (session.topic =='activity' &&
+        if (session.topic ==='activity' &&
             (text.includes('walk')||
              text.includes('hike')||
              text.includes('hiking')||
@@ -823,7 +819,7 @@ function Activity (text, session) {
             }
 
  
-        if (session.topic == 'activity' &&
+        if (session.topic === 'activity' &&
             (text.includes('park') ||
              text.includes('picnic'))
         )
@@ -832,14 +828,14 @@ function Activity (text, session) {
                 "Donaupark Deggendorf: https://www.bayerischer-wald.de/attraktion/donaupark-deggendorf-d85ad3641c"
         }
 
-        if (session.topic == 'activity' &&
+        if (session.topic === 'activity' &&
             text.includes('golf'))
             {return "In Deggendorf you can improve your handicap on one of the highest golf courses in southern Bavaria.\n\n"+
                     "Golf Courses in Deggendorf: Miniature golf course, Am Stadtpark 42. Tel: 0991 29793934\n\n"+
                     "For more detail: https://www.deggendorfer-golfclub.de/"
             }
 
-        if (session.topic == 'activity' &&
+        if (session.topic === 'activity' &&
             (text.includes('bike')||
              text.includes('cycle')||
              text.includes('bicycle'))||
@@ -855,7 +851,7 @@ function Activity (text, session) {
                    "For more information, please check from here: https://deggendorf.travel/freizeit/radfahren"
            }  
            
-        if (session.topic == 'activity' &&
+        if (session.topic === 'activity' &&
             (text.includes('ice')||
              text.includes('skat')||
              text.includes('hockey')||
@@ -919,7 +915,7 @@ function CityRegistration(text,session) {
                        "You can also ask me about required documents, appointment or locaton.";
         }
 
-        if (session.topic == 'registration' &&
+        if (session.topic === 'registration' &&
             (text.includes('document')||
              text.includes('bring')||
              text.includes('required')))
@@ -932,7 +928,7 @@ function CityRegistration(text,session) {
                        "The registration form is normally prepared at the Bürgeramt and signed there.";
         }
 
-        if (session.topic == 'registration' &&
+        if (session.topic === 'registration' &&
             (text.includes('appointment')||
              text.includes('termin') ||
              text.includes('book')))
@@ -942,7 +938,7 @@ function CityRegistration(text,session) {
                        "https://termine-reservieren.de/termine/deggendorf/";
         }
 
-        if (session.topic == 'registration' &&
+        if (session.topic === 'registration' &&
             (text.includes('where')||
              text.includes('location')||
              text.includes('address')))
@@ -963,11 +959,11 @@ function Emergency(text,session){
        text.includes('theft')||
        text.includes('stolen')||
        text.includes('crime')||
-       text.includes('emergency'))
-       text.includes('emergency numbers')
+       text.includes('emergency')||
+       text.includes('emergency numbers'))
    
    {
-      session.topic = 'Emergency';
+      session.topic = 'emergency';
 
       return "For police help in Deggendorf, you can contact Polizeiinspektion Deggendorf.\n\n" +
              "Address: Hans-Krämer-Straße 65, 94469 Deggendorf.\n" +
@@ -977,7 +973,7 @@ function Emergency(text,session){
              "You can ask me about emergency, lost items, theft or police station locaation.";
    }
 
-   if (session.topic == 'Emergency' &&
+   if (session.topic === 'emergency' &&
        (text.includes('police')||
         text.includes('urgent')||
         text.includes('danger')))
@@ -986,7 +982,7 @@ function Emergency(text,session){
              "For ambulance or fire brigade, call 112.";
    }
 
-   if (session.topic = 'Emergency' &&
+   if (session.topic === 'emergency' &&
        (text.includes('location')||
         text.includes('where')||
         text.includes('address')))
@@ -999,7 +995,7 @@ function Emergency(text,session){
               "Phone: +49 991 3896 0";
    }
 
-   if (session.topic = 'Emergency' &&
+   if (session.topic === 'emergency' &&
        (text.includes('lost')||
         text.includes('stolen')||
         text.includes('theft')))
@@ -1011,6 +1007,41 @@ function Emergency(text,session){
    }
 
 }
+
+function NearbyCities(text,session){
+   if (
+      text.includes('nearby city')||
+      text.includes('nearby cities')||
+      text.includes('cities near deggendorf')||
+      text.includes('visit from deggendorf')||
+      text.includes('day trip')||
+      text.includes('places near deggendorf')||
+      text.includes('where can i go from deggendorf')||
+      text.includes('travel from deggendorf hbf')||
+      text.includes('deggendorf hbf')
+   ){
+      session.topic = 'nearbycities';
+      
+      return "From Deggendorf HBF, you can visit several nearby cities by train or bus:\n\n" +
+             "1. Plattling - about 10 minutes by regional train\n" +
+             "Travel: Take RB35 from Deggendorf Hbf to Plattling.\n\n" +
+             "2. Passau - about 45 to 60 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Passua\n\n" + 
+             "3. Regensburg - about 60 to 90 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Regensburg\n\n" + 
+             "4. Munich - about 2 to 2.5 hours\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Munich\n\n" + 
+             "5. Landshut - about 75 to 90 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Landshut\n\n" + 
+             "6. Straubing - about 40 to 60 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Straubing\n\n" +
+             "For exact times and tickets, check Deutsche Bahn:\n" + 
+             "https://www.bahn.de/service/fahrplaene/reiseauskunft\n\n" +
+             "Which city would you like to know more about?";
+
+   }
+}
+
 
 
 function HardFallback(session){
@@ -1028,7 +1059,12 @@ function HardFallback(session){
                 "• Shopping\n" +
                 "• Restaurants\n" +
                 "• THD\n" +
+                "• Mobile Network\n" +
+                "• Banking\n" +
+                "• Healthcare\n" +
+                "• Nearby Cities\n" +
                 "• Activities";
+                
         }
 
         return "I am sorry, I'm not sure if I understand what you're looking for.Could you please try it again with a few words? \n\n"+

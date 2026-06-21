@@ -2,15 +2,13 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const { Server } = require('socket.io');
-const { replyTopic } = require('./infodata')
+const { replyTopic } = require('./infodata');
 const { detectIntent } = require('./intentDetector');
 
 const app = express();
 const server = http.createServer(app);
 
-app.use(express.static(path.join(__dirname, '../frontend/build')));
-app.get(/.*/, (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));});
+app.use(express.static(path.join(__dirname, 'frontend/build')));
 
 const io = new Server(server, {
     cors: {
@@ -36,6 +34,23 @@ io.on('connect', (socket) => {
     socket.on('chat message', async (msg) => {
         console.log('message:', msg);
         
+        const cleanMesg = msg.trim().toLowerCase();
+
+        if (cleanMesg.length < 3 || /^[a-z]{3,8}$/.test(cleanMesg)) {
+            const reply = replyTopic(msg, session, 'unknown');
+
+            socket.emit('chat message', {
+             sender: 'chatbot',
+             text: reply,
+             time: new Date().toLocaleTimeString([], {
+             hour: '2-digit',
+             minute: '2-digit'
+              })
+            });
+
+        return;
+    }
+
         const intent = await detectIntent(msg);
         console.log("Intent:", intent);
 
@@ -61,8 +76,13 @@ io.on('connect', (socket) => {
     });
 });
 
+
+app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'frontend', 'build', 'index.html'));
+});
+
 const PORT = process.env.PORT || 8080;
 
 server.listen(PORT, () => {
     console.log(`Active on port ${PORT}`);
-});
+})

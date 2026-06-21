@@ -91,7 +91,7 @@ const App: React.FC = () => {
     }, [messages]);
 
     useEffect(() => {
-    const newSocket = io('http://localhost:8080');
+    const newSocket = io("/", {transports: ["polling"]});
 
     newSocket.on('connect', () => {
         console.log('socket connected');
