@@ -878,14 +878,14 @@ function CityRegistration(text,session) {
          }
 }
 
-/*Police*/
+/*Emergency*/
 function Emergency(text,session){
-   if (text.includes('polic')||
+   if (text.includes('police')||
        text.includes('polizei')||
        text.includes('police station')||
        text.includes('lost item')||
-       text.includes('theftt')||
-       text.includes('stoelen')||
+       text.includes('theft')||
+       text.includes('stolen')||
        text.includes('crime')||
        text.includes('emergency'))
    
@@ -897,40 +897,75 @@ function Emergency(text,session){
              "Phone: +49 991 3896-0\n\n" +
              "In an emergency, call 110 for police.\n" + 
              "For medical or fire emergency, call 112.\n\n" +
-             "You can ask me about emergency, lost items, theft or police station locaation.";
+             "You can ask me about emergency, lost items, theft or police station location.";
    }
 
-   if (session.topic = 'Emergency' &&
+   if (session.topic == 'Emergency' &&
        (text.includes('police')||
         text.includes('urgent')||
         text.includes('danger')))
    {
-      return "If you are in immedaite danger, call 110 for police emergency in Germany.\n\n" +
+      return "If you are in immediate danger, call 110 for police emergency in Germany.\n\n" +
              "For ambulance or fire brigade, call 112.";
    }
 
-   if (session.topic = 'Emergency' &&
+   if (session.topic == 'Emergency' &&
        (text.includes('location')||
         text.includes('where')||
         text.includes('address')))
    
    {
       return "The police station in Deggendorf is:\n\n" + 
-             "Polizeinspektion Deggendrof\n" +
+             "Polizeiinspektion Deggendrof\n" +
               "Hans-Krämer-Straße 65\n" +
               "94469 Deggendorf\n\n" +
-              "Phone: +49 991 3896 0";
+              "Phone: +49 991 3896-0";
    }
 
-   if (session.topic = 'Emergency' &&
-       (text.includes('lsot')||
+   if (session.topic == 'Emergency' &&
+       (text.includes('lost')||
         text.includes('stolen')||
         text.includes('theft')))
    
    {
       return "If something is stolen, you should connect with the police\n\n" +
-             "For lsot items, you can also ask the city lsot and found office, called Fundbüro\n\n" + 
+             "For lost items, you can also ask the city lost and found office, called Fundbüro\n\n" + 
              "If it is urgent, call 110";
+   }
+}
+
+/*Nearby Cities*/
+function NearbyCities(text,session){
+   if (
+      text.includes('nearby city')||
+      text.includes('nearby cities')||
+      text.includes('cities near deggendorf')||
+      text.includes('visit from deggendorf')||
+      text.includes('day trip')||
+      text.includes('places near deggendorf')||
+      text.includes('where can i go from deggendorf')||
+      text.includes('travel from deggendorf hbf')||
+      text.includes('deggendorf hbf')
+   ){
+      session.topic = 'nearbycities';
+      
+      return "From Deggendorf HBF, you can visit several nearby cities by train or bus:\n\n" +
+             "1. Plattling - about 10 minutes by regional train\n" +
+             "Travel: Take RB35 from Deggendorf Hbf to Plattling.\n\n" +
+             "2. Passau - about 45 to 60 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Passua\n\n" + 
+             "3. Regensburg - about 60 to 90 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Regensburg\n\n" + 
+             "4. Munich - about 2 to 2.5 hours\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Munich\n\n" + 
+             "5. Landshut - about 75 to 90 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Landshut\n\n" + 
+             "6. Straubing - about 40 to 60 minutes\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Straubing\n\n" +
+             "For exact times and tickets, check Deutsche Bahn:\n" + 
+             "https://www.bahn.de/service/fahrplaene/reiseauskunft\n\n" +
+             "Which city would you like to know more about?";
+
    }
 }
 
