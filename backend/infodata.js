@@ -5,18 +5,29 @@
 function replyTopic (message, session, intent){
    const text = message.toLowerCase();
 
-   if (text.trim().length < 3) {
-   session.topic = null;
-   return HardFallback(session);
-   }
-
    session.failCount = session.failCount || 0;
 
-   let AIReply;
+   if (text.length < 3) {
+      session.topic = null;
+      return HardFallback(session);
+   }
 
-   if (intent && intent !== 'unknown') {
+   if (intent === 'unknown') {
+     console.log("OpenAI has returned unknown, trying current topic first");
+
+     const contextReply = ContinueCurrentTopic(text, session);
+
+     if (contextReply) {
+         session.failCount = 0;
+         return contextReply;
+      }
+
       session.topic = null;
    }
+
+   SetTopicFromIntent(intent, text, session);
+
+   let AIReply;
 
    if (intent === 'greeting') AIReply = Greeting(text, session);
    if (intent === 'basicinfo') AIReply = Basicinfo(text, session);
@@ -41,10 +52,6 @@ function replyTopic (message, session, intent){
       return AIReply;
    }
 
-   if (intent === 'unknown') {
-   console.log("OpenAI has returned unknown, now we will use keyword fallback");
-   session.topic = null;
-   }
 
    const reply = 
       Greeting(text, session) ||
@@ -71,6 +78,79 @@ function replyTopic (message, session, intent){
    }
 
    return HardFallback(session);
+}
+
+function SetTopicFromIntent(intent, text, session) {
+   if (!intent || intent === 'unknown') return;
+
+   if (intent === 'basicinfo') session.topic = 'basicinfo';
+   if (intent === 'weather') session.topic = 'weather';
+   if (intent === 'transportation') session.topic = 'transportation';
+   if (intent === 'shopping') session.topic = 'shop';
+   if (intent === 'healthcare') session.topic = 'health';
+   if (intent === 'restaurant') session.topic = 'restaurant';
+   if (intent === 'activity') session.topic = 'activity';
+   if (intent === 'cityregistration') session.topic = 'registration';
+   if (intent === 'emergency') session.topic = 'emergency';
+   if (intent === 'nearbycities') session.topic = 'nearbycities';
+   /* Add these when the functions are implemented 
+   if (intent === 'banking') AIReply = Banking(text, session);
+   if (intent === 'mobilenetwork') AIReply = MobileNetwork(text, session); */
+
+   if (intent === 'accommodation') {
+      if (
+         text.includes('student') ||
+         text.includes('dorm') ||
+         text.includes('private') ||
+         text.includes('share') ||
+         text.includes('public') ||
+         text.includes('wg')
+      ) {
+         session.topic = 'studdor';
+      } else {
+         session.topic = 'hotel';
+      }
+   }
+
+   if (intent === 'school') {
+      if (
+         text.includes('thd') ||
+         text.includes('dit') ||
+         text.includes('bachelor') ||
+         text.includes('master') ||
+         text.includes('program') ||
+         text.includes('programme') ||
+         text.includes('degree') ||
+         text.includes('apply') ||
+         text.includes('application')
+      ) {
+         session.topic = 'thd';
+      } else {
+         session.topic = 'school';
+      }
+   }
+}
+
+function ContinueCurrentTopic(text, session) {
+   if (session.topic === 'basicinfo') return Basicinfo(text, session);
+   if (session.topic === 'weather') return Weather(text, session);
+   if (session.topic === 'transportation') return Transportation(text, session);
+   if (session.topic === 'shop') return Shopping(text, session);
+   if (session.topic === 'health') return Healthcare(text, session);
+   if (session.topic === 'hotel') return Accomdation(text, session);
+   if (session.topic === 'studdor') return Accomdation(text, session);
+   if (session.topic === 'restaurant') return Restaurant(text, session);
+   if (session.topic === 'activity') return Activity(text, session);
+   if (session.topic === 'registration') return CityRegistration(text, session);
+   if (session.topic === 'emergency') return Emergency(text, session);
+   if (session.topic === 'school') return School(text, session);
+   if (session.topic === 'thd') return School(text, session);
+   if (session.topic === 'nearbycities') return NearbyCities(text, session);
+   /* Add these when the functions are implemented 
+   if (session.topic === 'banking') AIReply = Banking(text, session);
+   if (session.topic === 'mobilenetwork') AIReply = MobileNetwork(text, session); */
+
+   return null;
 }
 
 /*Greeting*/
@@ -239,7 +319,6 @@ function Historyinfo(text,session){
 /*Transportation*/
 function Transportation (text,session) {
 
-   console.log("Transportation function called");
 
    if (text.includes('how to get to deggendorf?')||
        text.includes('travel')||
@@ -420,8 +499,13 @@ function Accomdation(text, session){
               " If you are a student and looking for a place to stay during your study, please reply 'student' "
       }
 
-    
-      if (text.includes('student')) {
+     if (text.includes('student') ||
+         text.includes('dorm') ||
+         text.includes('dormitory') ||
+         text.includes('private') ||
+         text.includes('share') ||
+         text.includes('public') ||
+         text.includes('wg')) {
           session.topic = 'studdor';
          }
 
@@ -700,6 +784,7 @@ function School (text,session){
               if (session.topic === 'thd' &&
                 (text.includes('apply') ||
                  text.includes('join') ||
+                 text.includes('admission') ||
                  text.includes('application')))
 
                 {return "To begin your studies at the Deggendorf Institute of Technology, you need to apply to study.\n\n"+
@@ -881,6 +966,7 @@ function Activity (text, session) {
        text.includes('what can i do')||
        text.includes('things to do')||
        text.includes('activities')||
+       text.includes('bored') ||
        text.includes('do in deggendorf'))
 
        {return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events,hiking, cycling, ski, golf and picnic.\n\n"+
@@ -974,8 +1060,7 @@ function Emergency(text,session){
    }
 
    if (session.topic === 'emergency' &&
-       (text.includes('police')||
-        text.includes('urgent')||
+        (text.includes('urgent')||
         text.includes('danger')))
    {
       return "If you are in immediate danger, call 110 for police emergency in Germany.\n\n" +

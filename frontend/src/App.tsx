@@ -140,7 +140,7 @@ const App: React.FC = () => {
               <button onClick={() => sendMessage('transportation')}>🚆 Transportation</button>
               <button onClick={() => sendMessage('weather')}>🌤 Weather</button>
               <button onClick={() => sendMessage('healthcare in Deggendorf')}>🏥 Healthcare</button>
-              <button onClick={() => sendMessage('student accommodation in Deggendorf')}>🏠 Accommodation</button>
+              <button onClick={() => sendMessage('accommodation in Deggendorf')}>🏠 Accommodation</button>
               <button onClick={() => sendMessage('restaurants in Deggendorf')}>🍽 Restaurants</button>
               <button onClick={() => sendMessage('Introduce THD')}>🎓 THD</button>
               <button onClick={() => sendMessage('activities in Deggendorf')}>🎉 Activities</button>

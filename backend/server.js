@@ -36,7 +36,7 @@ io.on('connect', (socket) => {
         
         const cleanMesg = msg.trim().toLowerCase();
 
-        if (cleanMesg.length < 3 || /^[a-z]{3,8}$/.test(cleanMesg)) {
+        if (cleanMesg.length < 3) {
             const reply = replyTopic(msg, session, 'unknown');
 
             socket.emit('chat message', {
