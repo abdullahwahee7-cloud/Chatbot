@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import Header from './Components/Header';
+// import MessageArea from './Components/MessageArea';
+// import UserInput from './Components/UserInput';
+import { Message } from './Components/types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 // comments are added so the other teammates can understand who were doing backend
-
-interface Message {
-    sender: 'user' | 'chatbot';
-    text: string;
-    time: string; 
-}
 
 
 const MessageBubble = ({ msg }: { msg: Message }) => {

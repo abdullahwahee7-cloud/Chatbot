@@ -77,6 +77,7 @@ function Basicinfo(text,session){
     if (text.includes('introduce deggendorf') ||
        text.includes('basic information') ||
        text.includes('name') ||
+       text.includes('basic info') ||
        text.includes('country') ||
        text.includes('where is deggendorf')
        )
