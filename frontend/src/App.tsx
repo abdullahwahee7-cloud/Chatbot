@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import Header from './Components/Header';
+// import MessageArea from './Components/MessageArea';
+// import UserInput from './Components/UserInput';
+import { Message } from './Components/types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 // comments are added so the other teammates can understand who were doing backend
-
-interface Message {
-    sender: 'user' | 'chatbot';
-    text: string;
-    time: string; 
-}
 
 
 const MessageBubble = ({ msg }: { msg: Message }) => {
@@ -91,7 +88,7 @@ const App: React.FC = () => {
     }, [messages]);
 
     useEffect(() => {
-    const newSocket = io("/", {transports: ["polling"]});
+    const newSocket = io('http://localhost:8080');
 
     newSocket.on('connect', () => {
         console.log('socket connected');
@@ -140,7 +137,7 @@ const App: React.FC = () => {
               <button onClick={() => sendMessage('transportation')}>🚆 Transportation</button>
               <button onClick={() => sendMessage('weather')}>🌤 Weather</button>
               <button onClick={() => sendMessage('healthcare in Deggendorf')}>🏥 Healthcare</button>
-              <button onClick={() => sendMessage('accommodation in Deggendorf')}>🏠 Accommodation</button>
+              <button onClick={() => sendMessage('student accommodation in Deggendorf')}>🏠 Accommodation</button>
               <button onClick={() => sendMessage('restaurants in Deggendorf')}>🍽 Restaurants</button>
               <button onClick={() => sendMessage('Introduce THD')}>🎓 THD</button>
               <button onClick={() => sendMessage('activities in Deggendorf')}>🎉 Activities</button>
