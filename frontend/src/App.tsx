@@ -3,7 +3,7 @@ import { io, Socket } from 'socket.io-client';
 import Header from './Components/Header';
 // import MessageArea from './Components/MessageArea';
 // import UserInput from './Components/UserInput';
-import { Message } from './Components/types';
+import { Message } from './types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
