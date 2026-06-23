@@ -828,7 +828,7 @@ function CityRegistration(text,session) {
             text.includes('bürgeramt')||
             text.includes('buergeramt')||
             text.includes('resident registration')||
-            text.includes('resident registration')||
+            text.includes('residence registration')||
             text.includes('new address'))
         {
                 session.topic = 'registration';
@@ -886,6 +886,8 @@ function Emergency(text,session){
        text.includes('police station')||
        text.includes('lost item')||
        text.includes('theft')||
+       text.includes('robbed')||
+       text.includes('rob')||
        text.includes('stolen')||
        text.includes('crime')||
        text.includes('emergency'))
@@ -966,10 +968,57 @@ function NearbyCities(text,session){
              "For exact times and tickets, check Deutsche Bahn:\n" + 
              "https://www.bahn.de/service/fahrplaene/reiseauskunft\n\n" +
              "Which city would you like to know more about?";
-
    }
-}
 
+   if (session.topic == 'nearbycities' &&
+       text.includes('plattling'))
+   {
+      return "Plattling is the closet major railway connection from Deggendorf.\n\n" + 
+             "Time: about 10 minutes by RB35 train.\n " + 
+             "Good For: Train connections, short visit, changing ot ICE or regionlal trains.";
+   }
+
+   if (session.topic == 'nearbycities' &&
+       text.includes('passau'))
+   {
+      return "Passau is a beutifual city known as the Three Rivers City.\n\n" + 
+             "Time: about 45 to 60 minutes.\n" + 
+             "Travelling: Deggendorf Hbf → Plattling → Passau Hbf";
+   }
+
+   if (session.topic == 'nearbycities' &&
+       text.includes('regensburg'))
+   {
+      return "Regensburg is a historic city and a good day trip from Deggnedorf.\n\n" + 
+             "Time: about 60 to 90 minutes.\n" + 
+             "Travel:D eggendorf Hbf → Plattling → Regensburg Hbf";
+   }
+
+   if (session.topic == 'nearbyciteis' &&
+       text.includes('munich'))
+   {
+      return "Munich is possible as a longer day trip from Deggendorf.\n\n" + 
+             "Time: about 2 to 2.5 hours.\n" + 
+             "Travel: Deggendorf Hbf → Plattling → München Hbf";
+   }
+
+   if (session.topic == 'nearbycities' &&
+       text.includes('landshut'))
+   {
+      return "Landshut is a nice Bavarian City to visit from Deggendorf.\n\n" + 
+             "Time: about 75 to 90 minutes.\n" + 
+             "Travel:Deggendorf Hbf → Plattling → Landshut ";
+   }
+
+   if (session.topic == 'nearbysities'&&
+       text.includes('straubing'))
+   {
+      return "Straubing is another nearby city, you can vist/.\n\n" +
+             "Time: about 40 to 60 minutes.\n" + 
+             "Travel: Deggendorf Hbf → Plattling → Straubing";
+   }
+
+}
 
 function HardFallback(session){
         session.failCount++;
