@@ -19,7 +19,10 @@ function replyTopic (message, session){
       Activity (text,session) ||
       Banking(text, session) ||
       MobileNetwork(text, session) ||
-      School (text,session);
+      School (text,session)
+      CityRegistration(text,session)||
+      Emergency(text,session)||
+      NearbyCities(text,session);
 
    if (reply) {
         session.failCount = 0;
@@ -975,13 +978,13 @@ function NearbyCities(text,session){
    {
       return "Plattling is the closet major railway connection from Deggendorf.\n\n" + 
              "Time: about 10 minutes by RB35 train.\n " + 
-             "Good For: Train connections, short visit, changing ot ICE or regionlal trains.";
+             "Good For: Train connections, short visit, changing ot ICE or regional trains.";
    }
 
    if (session.topic == 'nearbycities' &&
        text.includes('passau'))
    {
-      return "Passau is a beutifual city known as the Three Rivers City.\n\n" + 
+      return "Passau is a beautiful city known as the Three Rivers City.\n\n" + 
              "Time: about 45 to 60 minutes.\n" + 
              "Travelling: Deggendorf Hbf → Plattling → Passau Hbf";
    }
@@ -991,10 +994,10 @@ function NearbyCities(text,session){
    {
       return "Regensburg is a historic city and a good day trip from Deggnedorf.\n\n" + 
              "Time: about 60 to 90 minutes.\n" + 
-             "Travel:D eggendorf Hbf → Plattling → Regensburg Hbf";
+             "Travel: Deggendorf Hbf → Plattling → Regensburg Hbf";
    }
 
-   if (session.topic == 'nearbyciteis' &&
+   if (session.topic == 'nearbycities' &&
        text.includes('munich'))
    {
       return "Munich is possible as a longer day trip from Deggendorf.\n\n" + 
@@ -1007,13 +1010,13 @@ function NearbyCities(text,session){
    {
       return "Landshut is a nice Bavarian City to visit from Deggendorf.\n\n" + 
              "Time: about 75 to 90 minutes.\n" + 
-             "Travel:Deggendorf Hbf → Plattling → Landshut ";
+             "Travel: Deggendorf Hbf → Plattling → Landshut ";
    }
 
-   if (session.topic == 'nearbysities'&&
+   if (session.topic == 'nearbycities' &&
        text.includes('straubing'))
    {
-      return "Straubing is another nearby city, you can vist/.\n\n" +
+      return "Straubing is another nearby city, you can visit/.\n\n" +
              "Time: about 40 to 60 minutes.\n" + 
              "Travel: Deggendorf Hbf → Plattling → Straubing";
    }
