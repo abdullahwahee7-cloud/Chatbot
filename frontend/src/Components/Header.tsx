@@ -17,7 +17,7 @@ const Header: React.FC<HeaderProps> = ({ messages, setMessages, setInput }) => {
     return (
         //<div className="col-12 bg-dark text-white p-3 d-flex justify-content-between align-items-center">
           <div className="header">
-            <h4 className="header-name">Deggendorf ChatBot</h4>
+            <h4 className="header-name">Deggendorf Chat🤖</h4>
                  
                  <button
                   className="header-button"
@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ messages, setMessages, setInput }) => {
                     setInput('')
 
                   }}
-                   style={{ padding: '7px 10px', backgroundColor: '#66a9d3', color: 'white', border: 'none', borderRadius: '10px' }}
+                   style={{ padding: '7px 13px', backgroundColor: '#66a9d3', color: 'white', border: 'none', borderRadius: '10px' }}
                 > Reset Chat
                 </button>
 
