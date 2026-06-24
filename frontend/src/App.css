@@ -4,7 +4,7 @@ body {
 
 .page-background{
   min-height: 100vh;
-  background-image: url("./Components/stadtrundgang-ueberblick-2000x1125.webp");
+  background-image: url("./stadtrundgang-ueberblick-2000x1125.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
