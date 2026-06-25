@@ -6,27 +6,9 @@ import Header from './Components/Header';
 import { Message } from './types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import MessageBubble from './Components/MessageBubble';
 
 // comments are added so the other teammates can understand who were doing backend
-
-
-const MessageBubble = ({ msg }: { msg: Message }) => {
-    return (
-        <div className="mb-3">
-            <div
-                className={`p-2 rounded chat-message ${msg.sender === 'user' ? 'bg-primary text-white ms-auto' : 'bg-white border'}`}
-            >
-                <small style={{ opacity: 0.45, fontSize: '0.65rem' }}>
-                    {msg.time}
-                </small>
-                <br />
-                {msg.text}
-            </div>
-        </div>
-    );
-};
-
-
 // Taha's part
 
 const MessageArea = ({ messages, messagesEnd }: { messages: Message[], messagesEnd: React.RefObject<HTMLDivElement | null> }) => {
@@ -40,6 +22,7 @@ const MessageArea = ({ messages, messagesEnd }: { messages: Message[], messagesE
         </div>
     );
 };
+
 
 // Abdullah's part
 

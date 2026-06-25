@@ -2,15 +2,15 @@ import { Message } from '../types';
 
 const MessageBubble = ({ msg }: { msg: Message }) => {
     return (
-        <div className="mb-3">
+        <div className="message-row">
             <div
-                className={`p-2 rounded chat-message ${
+                className={`chat-message ${
                     msg.sender === 'user'
-                        ? 'bg-primary text-white ms-auto'
-                        : 'bg-white border'
+                        ? 'user message'
+                        : 'bot-message'
                 }`}
             >
-                <small style={{ opacity: 0.45, fontSize: '0.65rem' }}>
+                <small className="message-time">
                     {msg.time}
                 </small>
                 <br />
