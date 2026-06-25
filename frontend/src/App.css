@@ -7,9 +7,9 @@ body {
   background-image: url("./stadtrundgang-ueberblick-2000x1125.webp");
   background-size: cover;
   background-position: center;
+  justify-content: center;
   background-repeat: no-repeat;
   display: flex;
-  justify-content: center;
   align-items:flex-start;
   padding-top:50px;
   gap: 25px;
@@ -25,10 +25,10 @@ body {
 .side-panel {
   width: 100%;
   height: fit-content;
-  min-height: auto;
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
   border-radius: 20px;
+  min-height: auto;
   padding: 15px;
 }
 
@@ -39,9 +39,9 @@ body {
 
 .side-panel button {
   width: 100%;
+  border: none;
   margin-bottom: 10px;
   padding: 8px;
-  border: none;
   border-radius: 8px;
   background: white;
   cursor: pointer;
@@ -49,12 +49,11 @@ body {
 
  .chat-container {
   width: 760px;
-  height: 620px;
   background: rgba(255, 255, 255, 0.6);
 
   display:flex;
   flex-direction:column;
-
+  height: 620px;
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 15px;
@@ -64,8 +63,8 @@ body {
 .chat-message {
   max-width: 70%;
   width: fit-content;
-  white-space: pre-wrap;
   overflow-wrap: anywhere;
+  white-space: pre-wrap;
   word-break: break-word;
   padding: 8px;
   border-radius: 8px;
@@ -73,13 +72,40 @@ body {
 
 .user-message {
   background: #0d6efd;
-  color: white;
   margin-left: auto;
+  color: white;
 }
 
 .bot-message {
   background: white;
   border: 1px solid #dee2e6;
+}
+
+
+.reset-button {
+  padding: 7px 13px;
+  border: none;
+  background-color: #66a9d3;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.export-button {
+  padding: 7px 16px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  background-color: #4d97c4;
+}
+
+.export-button:hover {
+  background-color: #219150;
 }
 
 .message-area {
@@ -149,6 +175,7 @@ body {
   overflow-wrap: break-word;
   word-break: break-word;
 }
+
 
 @media (max-width: 900px) {
   .page-background {
@@ -251,12 +278,4 @@ body {
     font-size: 13px;
     padding: 6px 10px;
   }
-}
-.message-row {
-  margin-bottom: 1rem;
-}
-
-.message-time {
-  opacity: 0.45;
-  font-size: 0.65rem;
 }
