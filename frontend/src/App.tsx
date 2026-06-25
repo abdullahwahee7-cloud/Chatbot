@@ -65,7 +65,9 @@ const UserInput = ({ input, setInput, sendMessage }: UserInputProps) => {
           onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
           placeholder="Enter your message here..."
         />
-        <button onClick={() => sendMessage()}>
+        <button 
+         className='send-button'
+         onClick={() => sendMessage()}>
           Send
         </button>
       </div>
@@ -88,7 +90,13 @@ const App: React.FC = () => {
     }, [messages]);
 
     useEffect(() => {
-    const newSocket = io('http://localhost:8080');
+    const socketUrl =
+    window.location.hostname === 'localhost'
+        ? 'http://localhost:8080'
+        : window.location.origin;
+
+    const newSocket = io(socketUrl, {
+    transports: ['polling']});
 
     newSocket.on('connect', () => {
         console.log('socket connected');
@@ -107,6 +115,7 @@ const App: React.FC = () => {
 
 
 // Taha's part
+//Cheng update button to select menu
 
 
 
@@ -129,45 +138,73 @@ const App: React.FC = () => {
     return (
        /* <div className="container-fluid vh-100 bg-light p-0">
             <div className="row h-100">*/
-          <div className = 'page-background'>
+          <div className="page-background">
 
-            <div className="side-panel">
+            <div className="sidebar">
+
+             <div className="side-panel">
               <h5>Quick Topics</h5>
-              <button onClick={() => sendMessage('Basic Information')}>ℹ️ Information about Deggendorf</button>
-              <button onClick={() => sendMessage('transportation')}>🚆 Transportation</button>
-              <button onClick={() => sendMessage('weather')}>🌤 Weather</button>
-              <button onClick={() => sendMessage('healthcare in Deggendorf')}>🏥 Healthcare</button>
-              <button onClick={() => sendMessage('student accommodation in Deggendorf')}>🏠 Accommodation</button>
-              <button onClick={() => sendMessage('restaurants in Deggendorf')}>🍽 Restaurants</button>
-              <button onClick={() => sendMessage('Introduce THD')}>🎓 THD</button>
-              <button onClick={() => sendMessage('activities in Deggendorf')}>🎉 Activities</button>
-            </div>
+              <select
+                 defaultValue=""
+                 onChange={(e) => {
+                 sendMessage(e.target.value);
+                e.target.value = "";
+              }}
+             >
+               <option value="" disabled>
+                   Choose a Topics
+               </option>
+               <option value="Basic Information">ℹ️ Deggendorf Info</option>
+               <option value="Transportation">🚆 Transportation</option>
+               <option value="Weather">🌤 Weather</option>
+               <option value="Healthcare in Deggendorf">🏥 Healthcare</option>
+               <option value="Student accommodation in Deggendorf">🏠 Accommodation</option>
+               <option value="Restaurants in Deggendorf">🍽 Restaurants</option>
+               <option value="Introduce THD">🎓 THD</option>
+               <option value="Activities in Deggendorf">🎉 Activities</option>
+               </select>
+           </div>
 
-            <div className = 'chat-container'>
-                <Header
-                   messages={messages}
-                   setMessages={setMessages}
-                   setInput={setInput}
-                />
+           <div className="side-panel">
+            <h5>Popular Questions</h5>
+            <select
+                 defaultValue=""
+                 onChange={(e) => {
+                sendMessage(e.target.value);
+                e.target.value = "";
+              }}
+             >
+              <option value="" disabled>
+                   Choose a Topics
+              </option>
+              <option value="Tell me about THD">Introduce THD?</option>
+              <option value="Who is Mayor of Deggendorf?">Who is Mayor of Deggendorf?</option>
+              <option value="How do I get to Deggendorf?">How do I get to Deggendorf?</option>
+              <option value="Where can I find accommodation?">Where can I find accommodation?</option>
+              <option value="What are the activities in Deggendorf?">What are the activity in Deggendorf?</option>
+              <option value="Where can I eat?">Where can I eat?</option>
+              <option value="Emergency numbers">Emergency numbers?</option>
+            </select>
+           </div>
 
-                <MessageArea messages={messages} messagesEnd={messagesEnd} />
+       </div>
 
-      <UserInput input={input} setInput={setInput} sendMessage={sendMessage} />
+       <div className="chat-container">
+        <Header
+         messages={messages}
+         setMessages={setMessages}
+         setInput={setInput}
+         />
 
-      </div>
+        <MessageArea messages={messages} messagesEnd={messagesEnd} />
 
-      <div className="side-panel">
-      <h5>Popular Questions</h5>
-      <button onClick={() => sendMessage('Tell me about THD')}>Introduce THD?</button>
-      <button onClick={() => sendMessage('Who is Mayor of Deggendorf?')}>Who is Mayor of Deggendorf?</button>
-      <button onClick={() => sendMessage('How do I get to Deggendorf?')}>How do I get to Deggendorf?</button>
-      <button onClick={() => sendMessage('Where can I find accommodation?')}> Where can I find accommodation?</button>
-      <button onClick={() => sendMessage('What are the activities in Deggendorf?')}>What are the activity in Deggendorf?</button>
-      <button onClick={() => sendMessage('Where can I eat?')}>Where can I eat?</button>
-      <button onClick={() => sendMessage('Emergency numbers')}>Emergency numbers?</button>
-      </div> 
+        <UserInput
+           input={input}
+           setInput={setInput}
+           sendMessage={sendMessage}/>
+     </div>
 
-    </div>
+  </div>
 
   );
 };

@@ -17,25 +17,26 @@ const Header: React.FC<HeaderProps> = ({ messages, setMessages, setInput }) => {
     return (
         //<div className="col-12 bg-dark text-white p-3 d-flex justify-content-between align-items-center">
           <div className="header">
-            <h4 className="header-name">Deggendorf ChatBot</h4>
                  
-                 <button
-                  className="header-button"
+            <button
+                  className="reset-button"
                   onClick={() => { // when user clicks this button then this function runs
                     setMessages([{
                         sender: 'chatbot',
                         text: "The chat has been reset. Hello again, how can I help you?", // This resets the message and opens a new chat which user can start a new convo
-                        time: new Date().toLocaleDateString()
+                        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                     }]);
                     setInput('')
 
                   }}
-                   style={{ padding: '7px 10px', backgroundColor: '#66a9d3', color: 'white', border: 'none', borderRadius: '10px' }}
+                   style={{ padding: '7px 13px', backgroundColor: '#66a9d3', color: 'white', border: 'none', borderRadius: '10px' }}
                 > Reset Chat
                 </button>
 
+                <h4 className="header-name">Deggendorf ChatBot</h4>
+
                 <button 
-                 className="header-button"
+                 className="export-button"
                  onClick={() => {
                     const json = JSON.stringify({ conversation: messages }, null, 2) // with an indention space of 2, so it can be presented well
 
