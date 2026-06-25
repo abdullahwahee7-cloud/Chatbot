@@ -1,49 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import Header from './Components/Header';
-// import MessageArea from './Components/MessageArea';
+import MessageArea from './Components/MessageArea';
 // import UserInput from './Components/UserInput';
 import { Message } from './types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+
 // comments are added so the other teammates can understand who were doing backend
 
 
-const MessageBubble = ({ msg }: { msg: Message }) => {
-    return (
-        <div className="mb-3">
-            <div
-                className={`p-2 rounded chat-message ${msg.sender === 'user' ? 'bg-primary text-white ms-auto' : 'bg-white border'}`}
-            >
-                <small style={{ opacity: 0.45, fontSize: '0.65rem' }}>
-                    {msg.time}
-                </small>
-                <br />
-                {msg.text}
-            </div>
-        </div>
-    );
-};
-
-
-// Taha's part
-
-const MessageArea = ({ messages, messagesEnd }: { messages: Message[], messagesEnd: React.RefObject<HTMLDivElement | null> }) => {
-    return (
-        //<div className="col-12 p-3" style={{height: '75vh', overflowY: 'auto' }}>
-        <div className ='message-area'>
-            {messages.map((msg: Message, index: number) => (
-                <MessageBubble key={index} msg={msg} />
-            ))}
-            <div ref={messagesEnd} />
-        </div>
-    );
-};
-
 // Abdullah's part
-
-
 
 interface UserInputProps {
     input: string;
@@ -136,8 +104,6 @@ const App: React.FC = () => {
     };
     
     return (
-       /* <div className="container-fluid vh-100 bg-light p-0">
-            <div className="row h-100">*/
           <div className="page-background">
 
             <div className="sidebar">
