@@ -6,20 +6,37 @@ interface UserInputProps{
     sendMessage: (buttonText?:string) => void;
 }
 
-const UserInput = ({input,setInput,sendMessage}:UserInputProps) =>{
-    return(
+const UserInput = (props: UserInputProps) => {
+
+    let handleKeyDown = (e: any) => {
+        if(e.key === 'Enter'){
+            props.sendMessage()
+            console.log("sending message")
+            return
+        } else {
+            return
+        }
+    } 
+
+    let handleChange = (e: any) => {
+        // props.setInput(e.target.value.trim())
+        props.setInput(e.target.value)
+    }
+    
+
+    return (
         <div className="user-input">
             <div className="input-group">
                 <input
                   type ="text"
                   className ="form-control"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                  value={props.input}
+                  onKeyDown={handleKeyDown}
+                  onChange={handleChange}
                   placeholder="Enter your message here......"
                 />
 
-                <button OnClick={() => sendMessage()}>
+                <button onClick={() => props.sendMessage()}>
                     Send
                 </button>
             </div>

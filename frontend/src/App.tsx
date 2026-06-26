@@ -1,62 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import Header from './Components/Header';
-// import MessageArea from './Components/MessageArea';
-// import UserInput from './Components/UserInput';
+import MessageArea from './Components/MessageArea';
+import UserInput from './Components/UserInput';
 import { Message } from './types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import MessageBubble from './Components/MessageBubble';
 
 // comments are added so the other teammates can understand who were doing backend
-// Taha's part
-
-const MessageArea = ({ messages, messagesEnd }: { messages: Message[], messagesEnd: React.RefObject<HTMLDivElement | null> }) => {
-    return (
-        //<div className="col-12 p-3" style={{height: '75vh', overflowY: 'auto' }}>
-        <div className ='message-area'>
-            {messages.map((msg: Message, index: number) => (
-                <MessageBubble key={index} msg={msg} />
-            ))}
-            <div ref={messagesEnd} />
-        </div>
-    );
-};
 
 
 // Abdullah's part
-
-
-
-interface UserInputProps {
-    input: string;
-    setInput: React.Dispatch<React.SetStateAction<string>>;
-    sendMessage: (buttonText?: string) => void;
-}
-
-
-const UserInput = ({ input, setInput, sendMessage }: UserInputProps) => {
-  return (
-    //<div className="col-12 p-3 bg-white border-top">
-    <div className ='user-input'>
-      <div className="input-group">
-        <input
-          type="text"
-          className="form-control"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-          placeholder="Enter your message here..."
-        />
-        <button 
-         className='send-button'
-         onClick={() => sendMessage()}>
-          Send
-        </button>
-      </div>
-    </div>
-  );
-};
 
 
 
@@ -73,26 +27,29 @@ const App: React.FC = () => {
     }, [messages]);
 
     useEffect(() => {
-    const socketUrl =
-    window.location.hostname === 'localhost'
-        ? 'http://localhost:8080'
-        : window.location.origin;
+        let socketUrl = ''
+        if(window.location.hostname === 'localhost'){
+            socketUrl = 'http://localhost:8080'
+        } else {
+            socketUrl = window.location.origin
+        }
 
-    const newSocket = io(socketUrl, {
-    transports: ['polling']});
+        let newSocket = io(socketUrl, {
+            transports: ['polling']
+        });
 
-    newSocket.on('connect', () => {
-        console.log('socket connected');
-    });
+        newSocket.on('connect', () => {
+            console.log('socket connected');
+        });
 
-    newSocket.on('chat message', (chatbotReply: Message) => {
+        newSocket.on('chat message', (chatbotReply: Message) => {
         setMessages(prev => [...prev, chatbotReply]);
-    });
+        });
 
-    setSocket(newSocket);
+        setSocket(newSocket);
 
-    return () => {
-        newSocket.disconnect();
+        return () => {
+           newSocket.disconnect();
     };
    }, []);
 
@@ -103,15 +60,18 @@ const App: React.FC = () => {
 
 
     const sendMessage = (buttonText?: string) => {
-        const messageText = buttonText || input.trim();
+        let messageText = buttonText || input.trim();
+        let userMessage: Message;
         
-        if (!messageText|| !socket) return;
-
-        const userMessage: Message = {
+        if (!messageText|| !socket) {
+            return
+        } else {
+            userMessage = {
             sender: 'user',
             text: messageText,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
-        };
+           };
+        }
 
         setMessages(prev => [...prev,userMessage]);
         socket.emit('chat message', messageText);

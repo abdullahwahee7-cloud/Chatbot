@@ -7,13 +7,13 @@ interface Props {
     messagesEnd: React.RefObject<HTMLDivElement | null>;
 }
 
-const MessageArea = ({ messages, messagesEnd }: Props) => {
+const MessageArea = (props : Props) => {
     return (
         <div className="message-area">
-            {messages.map((msg: Message, index: number) => (
-                <MessageBubble key={index} msg={msg} />
-            ))}
-            <div ref={messagesEnd} />
+            {props.messages.map((msg: Message, index: number) => {
+                return <MessageBubble key={index} msg={msg} />
+            })}
+            <div ref={props.messagesEnd} />
         </div>
     );
 };
