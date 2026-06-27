@@ -1,12 +1,14 @@
 /*We are using the keywords strategy to insure the bot understand and reply the message*/
 const extraAnswers = require('./extraAnswers.json');
+
 /*The topics*/
 function replyTopic (message, session){
-   const text = message.toLowerCase();
+   const text = message.toLowerCase().trim();
 
    session.failCount = session.failCount || 0;
 
    const reply = 
+      ExtraAnswers(text, session) ||
       Greeting(text, session) ||
       Basicinfo(text, session) ||
       Weather(text,session) ||
@@ -30,6 +32,49 @@ function replyTopic (message, session){
    }
 
    return HardFallback(session);
+}
+
+function ExtraAnswers(text, session) {
+   let result = null;
+
+   for (let i = 0; i < extraAnswers.length; i++) {
+      let item = extraAnswers[i];
+      
+      if (session.topic == item.topic) {
+         if (item.followUps != null) {
+            for (let j = 0; j < item.followUps.length; j++) {
+               let followUp = item.followUps[j];
+               let followUpMatch = false;
+               
+               for (let k = 0; k < followUp.keywords.length; k++) {
+                  if (text.includes(followUp.keywords[k].toLowerCase())) {
+                     followUpMatch = true;
+                  }
+               }
+               
+               if (followUpMatch == true) {
+                  result = followUp.answer;
+                  return result;
+               }
+            }
+         }
+      }
+      
+      let keywordMatch = false;
+      for (let j = 0; j < item.keywords.length; j++) {
+         if (text.includes(item.keywords[j].toLowerCase())) {
+            keywordMatch = true;
+         }
+      }
+      
+      if (keywordMatch == true) {
+         session.topic = item.topic;
+         result = item.answer;
+         return result;
+      }
+   }
+   
+   return null;
 }
 
 /*Greeting*/
