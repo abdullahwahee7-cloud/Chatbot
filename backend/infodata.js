@@ -1,4 +1,5 @@
 /*We are using the keywords strategy to insure the bot understand and reply the message*/
+/* Task 3: OpenAI detects the main user intent. Keyword checks are only used for sub-options and fallback handling. */
 const extraAnswers = require('./extraAnswers.json');
 
 /*The topics*/
@@ -11,6 +12,27 @@ function replyTopic (message, session, intent){
    if (text.length < 3) {
       session.topic = null;
       return HardFallback(session);
+   }
+
+   if (session.topic === 'visitplan') {
+   const planReply = PlanVisit(text, session);
+
+   if (planReply) {
+      session.failCount = 0;
+      return planReply;
+   }
+   }
+
+   if (
+     intent === 'planningatrip' ||
+     text.includes('itinerary') ||
+     text.includes('travel plan') ||
+     text.includes('trip itinerary') ||
+     text.includes('schedule') ||
+     text.includes('day schedule')
+   ) {
+      session.failCount = 0;
+     return PlanVisit('plan visit', session);
    }
 
    if (intent === 'unknown') {
@@ -147,6 +169,7 @@ function ContinueCurrentTopic(text, session) {
    if (session.topic === 'activity') return Activity(text, session);
    if (session.topic === 'registration') return CityRegistration(text, session);
    if (session.topic === 'emergency') return Emergency(text, session);
+   if (session.topic === 'visitplan') return PlanVisit(text, session);
    if (session.topic === 'school') return School(text, session);
    if (session.topic === 'thd') return School(text, session);
    if (session.topic === 'nearbycities') return NearbyCities(text, session);
@@ -1220,6 +1243,7 @@ function NearbyCities(text,session){
 
 }
 
+
 function PlanVisit(text, session) {
     if (
         text.includes('plan visit') ||
@@ -1228,6 +1252,11 @@ function PlanVisit(text, session) {
         text.includes('plan my trip') ||
         text.includes('plan a trip') ||
         text.includes('day plan') ||
+        text.includes('itinerary') ||
+        text.includes('travel plan') ||
+        text.includes('trip itinerary') ||
+        text.includes('schedule') ||
+        text.includes('day schedule') ||
         text.includes('make a plan')
     ) {
         session.topic = 'visitplan';
