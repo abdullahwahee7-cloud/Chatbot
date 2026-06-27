@@ -36,7 +36,9 @@ const UserInput = (props: UserInputProps) => {
                   placeholder="Enter your message here......"
                 />
 
-                <button onClick={() => props.sendMessage()}>
+                <button 
+                className ='send-button'
+                onClick={() => props.sendMessage()}>
                     Send
                 </button>
             </div>
