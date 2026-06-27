@@ -1,4 +1,5 @@
 /*We are using the keywords strategy to insure the bot understand and reply the message*/
+const extraAnswers = require('./extraAnswers.json');
 
 /*The topics*/
 /*We are implementing Hybrid, if OPENAI can't detect then on backup the keyword spotting works"*/
@@ -30,6 +31,7 @@ function replyTopic (message, session, intent){
    let AIReply;
 
    if (intent === 'greeting') AIReply = Greeting(text, session);
+   if (intent === 'planningatrip') AIReply = PlanVisit(text, session);
    if (intent === 'basicinfo') AIReply = Basicinfo(text, session);
    if (intent === 'weather') AIReply = Weather(text, session);
    if (intent === 'history') AIReply = Historyinfo(text, session);
@@ -54,7 +56,9 @@ function replyTopic (message, session, intent){
 
 
    const reply = 
+      ExtraAnswers(text, session, intent) ||
       Greeting(text, session) ||
+      PlanVisit(text, session) ||
       Basicinfo(text, session) ||
       Weather(text,session) ||
       Historyinfo (text,session) ||
@@ -149,6 +153,46 @@ function ContinueCurrentTopic(text, session) {
    /* Add these when the functions are implemented 
    if (session.topic === 'banking') AIReply = Banking(text, session);
    if (session.topic === 'mobilenetwork') AIReply = MobileNetwork(text, session); */
+
+   return null;
+}
+
+function ExtraAnswers(text, session, intent) {
+   for (const item of extraAnswers) {
+      const topicMatch =
+         session.topic &&
+         item.topic &&
+         session.topic === item.topic;
+
+      const keywordMatch =
+         item.keywords &&
+         item.keywords.some(keyword =>
+            text.includes(keyword.toLowerCase())
+         );
+
+      const intentMatch =
+         item.defaultForIntent === true &&
+         intent &&
+         item.intent === intent;
+
+      if (item.followUps && (topicMatch || item.allowDirectFollowUps === true)) {
+         for (const followUp of item.followUps) {
+            const followUpMatch = followUp.keywords.some(keyword =>
+               text.includes(keyword.toLowerCase())
+            );
+
+            if (followUpMatch) {
+               session.topic = item.topic;
+               return followUp.answer;
+            }
+         }
+      }
+
+      if (keywordMatch || intentMatch) {
+         session.topic = item.topic;
+         return item.answer;
+      }
+   }
 
    return null;
 }
@@ -1176,6 +1220,132 @@ function NearbyCities(text,session){
 
 }
 
+function PlanVisit(text, session) {
+    if (
+        text.includes('plan visit') ||
+        text.includes('visit plan') ||
+        text.includes('trip plan') ||
+        text.includes('plan my trip') ||
+        text.includes('plan a trip') ||
+        text.includes('day plan') ||
+        text.includes('make a plan')
+    ) {
+        session.topic = 'visitplan';
+        session.planStep = 'visitorType';
+
+        session.profile = {
+            visitorType: null,
+            duration: null,
+            accommodation: null,
+            transport: null,
+            food: null,
+            activity: null
+        };
+
+        return "Sure, I can help you plan your visit to Deggendorf.\n\n" +
+               "First, are you a student, tourist, or resident?";
+    }
+
+    if (session.topic !== 'visitplan') {
+        return null;
+    }
+
+    if (text.includes('cancel') || text.includes('stop')) {
+        session.topic = null;
+        session.planStep = null;
+        session.profile = null;
+
+        return "Okay, I stopped the visit planning. What else would you like to know about Deggendorf?";
+    }
+
+    if (session.planStep === 'visitorType') {
+        session.profile.visitorType = text;
+        session.planStep = 'duration';
+
+        return "Got it. How long will you stay in Deggendorf?\n\n" +
+               "For example: one day, weekend, one week, or longer.";
+    }
+
+    if (session.planStep === 'duration') {
+        session.profile.duration = text;
+        session.planStep = 'accommodation';
+
+        return "Okay. Do you need accommodation?\n\n" +
+               "You can answer: hotel, student dormitory, apartment, or no.";
+    }
+
+    if (session.planStep === 'accommodation') {
+        session.profile.accommodation = text;
+        session.planStep = 'transport';
+
+        return "Good. How will you travel in Deggendorf?\n\n" +
+               "You can answer: walking, bus, train, car, or bicycle.";
+    }
+
+    if (session.planStep === 'transport') {
+        session.profile.transport = text;
+        session.planStep = 'food';
+
+        return "Nice. What type of food do you prefer?\n\n" +
+               "For example: Indian, Italian, German, Turkish, Mensa, or café.";
+    }
+
+    if (session.planStep === 'food') {
+        session.profile.food = text;
+        session.planStep = 'activity';
+
+        return "Great. What activity would you like to do?\n\n" +
+               "For example: sightseeing, shopping, hiking, THD visit, or nearby cities.";
+    }
+
+    if (session.planStep === 'activity') {
+        session.profile.activity = text;
+        session.planStep = 'done';
+
+        return "Here is your Deggendorf visit plan:\n\n" +
+               "Visitor type: " + session.profile.visitorType + "\n" +
+               "Duration: " + session.profile.duration + "\n" +
+               "Accommodation: " + session.profile.accommodation + "\n" +
+               "Transport: " + session.profile.transport + "\n" +
+               "Food preference: " + session.profile.food + "\n" +
+               "Activity: " + session.profile.activity + "\n\n" +
+               "Suggested plan:\n" +
+               "1. Start at Deggendorf city center.\n" +
+               "2. Use " + session.profile.transport + " for moving around.\n" +
+               "3. Choose accommodation based on: " + session.profile.accommodation + ".\n" +
+               "4. Eat at a place matching your preference: " + session.profile.food + ".\n" +
+               "5. Spend time on: " + session.profile.activity + ".\n\n" +
+               "Would you like to make another plan? Type 'plan visit' to start again.";
+    }
+
+    if (session.planStep === 'done') {
+        if (
+            text.includes('again') ||
+            text.includes('new') ||
+            text.includes('another') ||
+            text.includes('restart')
+        ) {
+            session.topic = 'visitplan';
+            session.planStep = 'visitorType';
+
+            session.profile = {
+                visitorType: null,
+                duration: null,
+                accommodation: null,
+                transport: null,
+                food: null,
+                activity: null
+            };
+
+            return "Sure, let us make a new Deggendorf visit plan.\n\n" +
+                   "Are you a student, tourist, or resident?";
+        }
+
+        return "The visit plan is complete. You can type 'plan visit' to create another plan, or ask me about transportation, restaurants, THD, activities, or accommodation.";
+    }
+
+    return null;
+}
 
 
 function HardFallback(session){

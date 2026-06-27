@@ -1,27 +1,23 @@
 import React from 'react';
 import { Message } from '../types';
+import { Socket } from 'socket.io-client';
 
 interface HeaderProps {
     messages: Message[];
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
     setInput: React.Dispatch<React.SetStateAction<string>>;
+    socket: Socket | null;
 }
 
-const Header: React.FC<HeaderProps> = ({ messages, setMessages, setInput }) => {
+const Header: React.FC<HeaderProps> = ({ messages, setMessages, setInput, socket }) => {
     
         const resetChat = () => {
-                    setMessages([
-                    {  
-                        sender: 'chatbot',
-                        text: "The chat has been reset. Hello again, how can I help you?", // This resets the message and opens a new chat which user can start a new convo
-                        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                    }
-                    
-                ]);    
-                  setInput('')
-
-        };   
-
+            setMessages([]);
+            setInput('');
+            socket?.emit('reset chat');
+        
+        };
+        
         const exportChat = () => {
                     const json = JSON.stringify({ conversation: messages }, null, 2) 
 

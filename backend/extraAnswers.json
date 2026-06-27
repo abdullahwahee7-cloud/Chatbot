@@ -1,0 +1,123 @@
+[
+  {
+    "topic": "studdor",
+    "intent": "accommodation",
+    "keywords": [
+      "student accommodation",
+      "student housing",
+      "student room",
+      "student flat",
+      "student apartment"
+    ],
+    "answer": "If you are looking for student accommodation in Deggendorf, it is best to start early because rooms can get booked very fast.\n\nYou can usually choose between dormitories, private accommodation, or public housing websites.\n\nLet me know what you are interested in:\n- Dormitories\n- Private accommodation\n- Public websites",
+    "allowDirectFollowUps": true,
+    "followUps": [
+      {
+        "keywords": ["dorm", "dormitory", "student dorm", "student dormitory"],
+        "answer": "Most student dormitories in Deggendorf are close to the THD campus and also not far from the town centre, so they are very convenient for students.\n\nYou can find an overview of student accommodation here:\n[th-deg.de](https://www.th-deg.de/accommodation#deggendorf)"
+      },
+      {
+        "keywords": ["private", "share", "flat exchange", "private accommodation"],
+        "answer": "If you prefer private accommodation, THD has its own flat exchange website where landlords and students post available rooms and apartments.\n\nFlat Exchange:https://pmit-ext.th-deg.de/wb/search?lang=en\n\nYou) can also check public websites for more options."
+      },
+      {
+        "keywords": ["public", "wg", "wg gesucht", "public websites", "websites"],
+        "answer": "There are also some public websites that many students use to look for accommodation in Deggendorf.\n\nWG-Gesucht:\n[wg-gesucht.de](https://www.wg-gesucht.de/en/\n\nEbay) Kleinanzeigen:\n[ebay-kleinanzeigen.de](https://www.ebay-kleinanzeigen.de/simmobilien/94469/c195l16909\n\nImmobilienscout24:\nhttps://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html)"
+      }
+    ]
+  },
+  {
+    "topic": "hotel",
+    "intent": "accommodation",
+    "defaultForIntent": true,
+    "keywords": [
+      "hotel",
+      "tourist accommodation",
+      "where can i stay",
+      "stay in deggendorf",
+      "accommodation",
+      "room",
+      "rent",
+      "flat",
+      "apartment"
+    ],
+    "answer": "If you are looking for a place to stay in Deggendorf, you can find most accommodation options through the city booking portal:\n\n[tportal.tomas.travel](https://tportal.tomas.travel/StadtDeggendorf/ukv?globalreset=1\n\nIf) you are actually a student looking for housing during your studies, just reply with 'student accommodation'.",
+    "followUps": []
+  },
+  {
+    "topic": "thd",
+    "intent": "school",
+    "defaultForIntent": true,
+    "keywords": [
+      "thd",
+      "dit",
+      "deggendorf institute of technology",
+      "university",
+      "study at thd",
+      "school",
+      "education"
+    ],
+    "answer": "THD, also called Deggendorf Institute of Technology, is the university of applied sciences in Deggendorf.\n\nYou can ask about different topics such as:\n- Bachelor programmes\n- Master programmes\n- Application and admission\n- Campus\n- Semester information",
+    "allowDirectFollowUps": true,
+    "followUps": [
+      {
+        "keywords": ["bachelor", "bachelor programmes", "bachelor programs"],
+        "answer": "THD offers a range of bachelor programmes in fields like engineering, business, computer science, technology, and health sciences.\n\nYou can see all bachelor programmes here:\n[th-deg.de](https://www.th-deg.de/en/study-with-us/courses)"
+      },
+      {
+        "keywords": ["master", "master programmes", "master programs"],
+        "answer": "THD also has many master programmes for students who want to continue their studies after finishing a bachelor degree.\n\nYou can check the available master programmes here:\n[th-deg.de](https://www.th-deg.de/en/study-with-us/courses)"
+      },
+      {
+        "keywords": ["apply", "application", "admission", "how to apply"],
+        "answer": "If you want to apply or learn more about admission requirements, the best place is the official THD application page.\n\nApplication information:\n[th-deg.de](https://www.th-deg.de/en/apply)"
+      },
+      {
+        "keywords": ["campus", "deggendorf campus"],
+        "answer": "The main THD campus is in Deggendorf. It has lecture halls, labs, study spaces, student services, and the library."
+      },
+      {
+        "keywords": ["semester", "lecture", "exam"],
+        "answer": "For semester dates, lecture periods, and exam information, students should check the official THD academic calendar or the student portal."
+      }
+    ]
+  },
+  {
+    "topic": "library",
+    "intent": "library",
+    "keywords": [
+      "library",
+      "books",
+      "study room",
+      "reading room",
+      "borrow books"
+    ],
+    "answer": "Students at THD can use the library for studying, borrowing books, and accessing academic resources.\n\nYou can ask about study rooms, books, or other library services.",
+    "allowDirectFollowUps": true,
+    "followUps": [
+      {
+        "keywords": ["study room", "reading room"],
+        "answer": "The THD library is a good place to study quietly or prepare for exams. It is best to check the official website for the current opening hours."
+      },
+      {
+        "keywords": ["books", "borrow"],
+        "answer": "Students can borrow books from the THD library and may also get access to digital resources depending on availability."
+      }
+    ]
+},
+
+  
+{
+    "topic": "transportation",
+    "keywords": ["transportation", "travel", "train", "bus"],
+    "answer": "You can reach Deggendorf by train, bus, plane, or car.",
+    "followUps": [
+      {
+        "keywords": ["train", "db"],
+        "answer": "Take the train to Plattling, then RB35 to Deggendorf."
+      }
+    ]
+}
+
+]
+
