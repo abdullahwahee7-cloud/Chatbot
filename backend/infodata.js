@@ -56,7 +56,6 @@ function replyTopic (message, session, intent){
 
 
    const reply = 
-      ExtraAnswers(text, session, intent) ||
       Greeting(text, session) ||
       PlanVisit(text, session) ||
       Basicinfo(text, session) ||
@@ -71,7 +70,8 @@ function replyTopic (message, session, intent){
       Activity (text,session) ||
       CityRegistration(text, session) ||
       School(text, session) ||
-      NearbyCities(text, session);
+      NearbyCities(text, session) ||
+      ExtraAnswers(text, session, intent);
       /* NearbyCities(text, session) ||
       Banking(text, session) ||
       MobileNetwork(text, session); */

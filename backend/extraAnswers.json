@@ -104,20 +104,5 @@
         "answer": "Students can borrow books from the THD library and may also get access to digital resources depending on availability."
       }
     ]
-},
-
-  
-{
-    "topic": "transportation",
-    "keywords": ["transportation", "travel", "train", "bus"],
-    "answer": "You can reach Deggendorf by train, bus, plane, or car.",
-    "followUps": [
-      {
-        "keywords": ["train", "db"],
-        "answer": "Take the train to Plattling, then RB35 to Deggendorf."
-      }
-    ]
 }
-
 ]
-
