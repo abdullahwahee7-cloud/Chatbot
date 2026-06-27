@@ -8,7 +8,7 @@ interface UserInputProps{
 
 const UserInput = (props: UserInputProps) => {
 
-    let handleKeyDown = (e: any) => {
+    let handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if(e.key === 'Enter'){
             props.sendMessage()
             console.log("sending message")
@@ -18,7 +18,7 @@ const UserInput = (props: UserInputProps) => {
         }
     } 
 
-    let handleChange = (e: any) => {
+    let handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // props.setInput(e.target.value.trim())
         props.setInput(e.target.value)
     }

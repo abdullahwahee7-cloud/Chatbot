@@ -52,7 +52,7 @@ npm run build
 This creates:
 frontend/build/
 
-The backend serves this build folder in production.
+The frontend build folder is used for deployment on Azure. In local development, the frontend and backend run separately: the frontend runs on http://localhost:3000 and the backend runs on http://localhost:8080.
 
 - On Azure deployment
 The deployed application runs on Microsoft Azure App Service.

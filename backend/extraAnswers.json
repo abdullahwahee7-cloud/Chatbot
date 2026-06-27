@@ -18,7 +18,7 @@
       },
       {
         "keywords": ["private", "share", "flat exchange", "private accommodation"],
-        "answer": "If you prefer private accommodation, THD has its own flat exchange website where landlords and students post available rooms and apartments.\n\nFlat Exchange:\n[pmit-ext.th-deg.de](https://pmit-ext.th-deg.de/wb/search?lang=en\n\nYou) can also check public websites for more options."
+        "answer": "If you prefer private accommodation, THD has its own flat exchange website where landlords and students post available rooms and apartments.\n\nFlat Exchange:https://pmit-ext.th-deg.de/wb/search?lang=en\n\nYou) can also check public websites for more options."
       },
       {
         "keywords": ["public", "wg", "wg gesucht", "public websites", "websites"],
@@ -104,5 +104,20 @@
         "answer": "Students can borrow books from the THD library and may also get access to digital resources depending on availability."
       }
     ]
-  }
+},
+
+  
+{
+    "topic": "transportation",
+    "keywords": ["transportation", "travel", "train", "bus"],
+    "answer": "You can reach Deggendorf by train, bus, plane, or car.",
+    "followUps": [
+      {
+        "keywords": ["train", "db"],
+        "answer": "Take the train to Plattling, then RB35 to Deggendorf."
+      }
+    ]
+}
+
 ]
+

@@ -127,7 +127,7 @@ body {
 .user-input {
   width: 100%;
   flex-shrink:0;
-  padding : 10px 2px -40px 2px;
+  padding : 10px 2px;
   background:transparent;
   bottom: 0px;
   color: white;;
