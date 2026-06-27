@@ -137,6 +137,7 @@ const App: React.FC = () => {
          messages={messages}
          setMessages={setMessages}
          setInput={setInput}
+         socket={socket}
          />
 
         <MessageArea messages={messages} messagesEnd={messagesEnd} />
