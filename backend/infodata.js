@@ -1,5 +1,4 @@
 /*We are using the keywords strategy to insure the bot understand and reply the message*/
-/* Task 3: OpenAI detects the main user intent. Keyword checks are only used for sub-options and fallback handling. */
 const extraAnswers = require('./extraAnswers.json');
 
 /*The topics*/

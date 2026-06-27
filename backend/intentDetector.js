@@ -29,11 +29,41 @@ const allowedIntents = new Set([
 async function detectIntent(message) {
 
     let result = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
+        model: "gpt-4.1-mini",
+        temperature: 0,
         messages: [
             {
                 role: "system",
-                content: "You are classifying user messages for a chatbot which gives information about the city of Deggendorf and THD (Deggendorf Institute of Technology). The chatbot gets questioned about food, and a lot of things. THD, DIT, university, study, degree, bachelor, master, campus, lecture, semester, admission, application and student topics MUST be classified as school. (Don't forget restaurant intent means if user wants to eat or is hungry too). Use planningatrip for itinerary, travel plan, trip plan, visit schedule, day schedule, tourist plan, route, or planning a visit. Reply with ONLY ONE intent from this list: greeting, basicinfo, weather, history, transportation, shopping, healthcare, accommodation, restaurant, activity, cityregistration, emergency, nearbycities, banking, mobilenetwork, school, planningatrip, unknown. Reply with one word only."
+                content: ` You are an intent classifier for a Deggendorf city chatbot.
+
+              Classify the user's message into exactly ONE of these intents:
+              greeting, basicinfo, weather, history, transportation, shopping, healthcare, accommodation, restaurant, activity, cityregistration, emergency, nearbycities, banking, mobilenetwork, school, planningatrip, unknown.
+
+               Do not answer the user. Return only one intent word.
+
+               Understand synonyms and natural language. Do not require exact keywords.
+
+               Intent meanings: (Some examples for you, rest you should figure out yourself)
+               - greeting: hi, thanks, goodbye, who are you, small talk
+               - basicinfo: general facts about Deggendorf, location, population, mayor, city office
+               - weather: weather, climate, temperature, rain, snow, hot, cold
+               - history: history, old town, founded, historic facts
+               - transportation: train, bus, car, parking, airport, station, travel to Deggendorf, getting around
+               - shopping: supermarkets, stores, clothes, mall, market, groceries, buying things
+               - healthcare: sick, ill, doctor, hospital, pharmacy, clinic, medical help
+               - accommodation: hotel, hostel, apartment, room, rent, dormitory, housing, where to stay
+               - restaurant: hungry, food, eat, meal, lunch, dinner, breakfast, restaurant, cafe, coffee, pizza, Mensa
+               - activity: bored, fun, things to do, hiking, cycling, events, sightseeing, parks, leisure
+               - cityregistration: Anmeldung, register address, Bürgeramt, resident registration, documents, appointment
+               - emergency: police, ambulance, fire, danger, accident, stolen, theft, lost items, emergency number
+               - nearbycities: nearby cities, day trips, Passau, Regensburg, Munich, Plattling, places near Deggendorf
+               - banking: bank account, ATM, cash, Sparkasse, money, card, transfer
+               - mobilenetwork: SIM card, mobile plan, phone contract, prepaid, internet provider
+               - school: THD, DIT, university, study, bachelor, master, admission, application, campus, lecture, semester, student topics
+               - planningatrip: itinerary, travel plan, trip plan, visit plan, day schedule, weekend plan, route, help planning a visit
+
+               Use unknown only if no intent reasonably fits.`
+
             },
             {
                 role: "user",
