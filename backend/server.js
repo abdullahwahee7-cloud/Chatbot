@@ -6,6 +6,18 @@ const { replyTopic } = require('./infodata')
 const app = express();
 const server = http.createServer(app);
 
+
+/*make all http clickable*/
+function makeLinks(text) {
+    return text.replace(
+        /((https?:\/\/|www\.)[^\s]+)/g,
+        (url) => {
+            const href = url.startsWith('http') ? url : `https://${url}`;
+            return `<a href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+        }
+    );
+}
+
 const allowedOrigins = [
     'http://localhost:3000',
     'https://deggendorf-chatbot.azurewebsites.net'
@@ -53,7 +65,7 @@ io.on('connection', (socket) => {
 
             socket.emit('chat message', {
               sender: 'chatbot',
-              text: reply,
+              text: makeLinks(reply),
               time: new Date().toLocaleTimeString([], {
                   hour: '2-digit',
                   minute: '2-digit'

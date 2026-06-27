@@ -17,7 +17,7 @@ const MessageBubble = (props:Props) => {
             <div className={`chat-message ${bubbleClass}`}>
                 <small className="message-time">{props.msg.time}</small>
                 <br />
-                {props.msg.text}
+                <span dangerouslySetInnerHTML={{__html: props.msg.text}} />
             </div>
         </div>
     )
