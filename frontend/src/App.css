@@ -116,6 +116,10 @@ body {
   border-radius: 20px;
 }
 
+.message-row {
+  margin-bottom: 28px;
+}
+
 .side-panel select {
   width: 100%;
   padding: 10px;
