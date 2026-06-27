@@ -1,5 +1,5 @@
 /*We are using the keywords strategy to insure the bot understand and reply the message*/
-
+const extraAnswers = require('./extraAnswers.json');
 /*The topics*/
 function replyTopic (message, session){
    const text = message.toLowerCase();
