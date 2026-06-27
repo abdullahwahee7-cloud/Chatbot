@@ -19,9 +19,7 @@ function replyTopic (message, session){
       Accomdation (text,session) ||
       Restaurant (text,session) ||
       Activity (text,session) ||
-      Banking(text, session) ||
-      MobileNetwork(text, session) ||
-      School (text,session)
+      School (text,session) ||
       CityRegistration(text,session)||
       Emergency(text,session)||
       NearbyCities(text,session);
@@ -34,7 +32,7 @@ function replyTopic (message, session){
    return HardFallback(session);
 }
 
-function ExtraAnswers(text, session) {
+function ExtraAnswers(text, session, extraAnswers) {
    let result = null;
 
    for (let i = 0; i < extraAnswers.length; i++) {

@@ -35,7 +35,7 @@ const App: React.FC = () => {
         }
 
         let newSocket = io(socketUrl, {
-            transports: ['polling']
+            transports: ['websocket']
         });
 
         newSocket.on('connect', () => {
