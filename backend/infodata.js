@@ -1198,6 +1198,119 @@ function PlanVisit(text, session) {
     return null;
 }
 
+/*Banking*/
+function Banking(text,session){
+   if(
+      text.includes('bank')||
+      text.includes('banking')||
+      text.includes('bank account')||
+      text.includes('open bank account')||
+      text.includes('sparkasse')||
+      text.includes('vr bank')||
+      text.includes('blocked account')||
+      text.includes('blocked bank account')||
+      text.includes('online bank')||
+      text.includes('student account')
+   ){
+      session.topic = 'banking';
+
+      return "There are several banking options in Deggendorf.\n\n" + 
+             "Students can usually choose between local and online banks.\n\n" + 
+             "Common options are:\n\n" + 
+             "Sparkasse\n" + 
+             "VR Bank.\n" + 
+             "Deutsche Bank\n" +
+             "Online Banks such as N26, Wise or Revolut.\n\n" +
+             "If you are international student, you may also need a block account for visa purposes.\n\n" + 
+             "What would like to know more about?.\n\n" +
+             "Sparkasse.\n" +
+             "Blocked Account.\n" +
+             "Online Banks.\n" +
+             "Documents needed";
+   }
+
+   if(session.topic === 'banking' &&
+      (text.includes('sparkasse')||
+       text.includes('local bank')))
+
+   {
+      return "Sparkasse is one of the common local banks in Deggendorf.\n\n" +
+             "You can ask them about opening a bank account, student account options, debit card, online banking, monthly fees.\n\n" +
+             "It is the best to check the official Sparkasse Deggendorf website or visit a branch for the newest requirements";
+   }
+
+   if (session.topic === 'banking' &&
+      (text.includes('vr bank')||
+       text.includes('volksbank')))
+
+   {
+      return "Vr Bank is another local banking options in Deggendorf.\n\n" +
+             "They may offer current accounts, cards, online banking and student banking services.\n\n " +
+             "Please check the official VR Bank website or visit a branch for exact details";
+   }
+
+   if(session.topic === 'banking' &&
+     (text.includes('blocked account')||
+      text.includes('blocked')||
+      text.includes('sperrkonto')))
+
+   {
+      return "A blocked account is often required for international students to prove financial resources for a German Visa.\n\n" +
+             "Common blocked Account providers include:\n\n" +
+             "Fintiba\n" +
+             "Coracle\n" +
+             "Expatrio\n" +
+             "Please always check the official visa requirements before choosing a provider";
+   }
+
+   if(session.topic === "banking" &&
+     (text.includes('online banks')||
+      text.includes('online bank')||
+      text.includes('n26')||
+      text.includes('wise')||
+      text.includes('revolut')))
+
+   {
+      return "Some students use online banks such as N26, Wise or Revolut.\n\n" +
+             "Online Banks can be useful because registration is often digital and faster.\n\n" +
+             "But before using an online bank for official purposes, check if it is accepted for your visa, salary, rent or university needs.";
+
+   }
+
+   if(session.topic === 'banking' &&
+     (text.includes('documents')||
+      text.includes('document')||
+      text.includes('needed')||
+      text.includes('requirements')||
+      text.includes('passport')))
+   
+   {
+      return "To open a bank account in Germany, you may need:\n\n" +
+             "Passport of ID card\n" +
+             "German Address / registration certificate\n" + 
+             "Student Certificate or admission letter\n" + 
+             "Tax ID, if already available\n" + 
+             "Residence permit or visa, depending on the bank.\n\n" + 
+             "The exact documents can be different for each bank";
+   }
+
+   if(session.topic === 'banking' &&
+     (text.includes('fee')||
+      text.includes('fees')||
+      text.includes('cost')||
+      text.includes('monthly')))
+
+   {
+      return "Bank account fees depend on the bank and the account type.\n\n" +
+             "Some Student account may be free, while other accounts may have monthly fees.\n\n" +
+             "Always check:\n\n" +
+             "Monthly fee\n"+
+             "Card fee\n" +
+             "Cash withdrawal fee\n" +
+             "International Transfer fee.\n";
+   }
+}    
+
 function HardFallback(session){
         session.failCount++;
 
