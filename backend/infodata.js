@@ -24,7 +24,8 @@ function replyTopic (message, session){
       CityRegistration(text,session)||
       Emergency(text,session)||
       NearbyCities(text,session) ||
-      Banking(text,session);
+      Banking(text,session)||
+      Mobilenet(text, session);
 
    if (reply) {
         session.failCount = 0;
@@ -1311,6 +1312,98 @@ function Banking(text,session){
              "International Transfer fee.\n";
    }
 }    
+
+/*mobile network*/
+function Mobilenet(text, session){
+      if( text.includes('mobile')||
+      text.includes('telephone')||
+      text.includes('sim')||
+      text.includes('prepaid')||
+      text.includes('simcard')||
+      text.includes('esim')||
+      text.includes('internet')||
+      text.includes('wifi')||
+      text.includes('phone')||
+      text.includes('cell')
+   ){
+      session.topic = 'mobilenet';
+   }
+
+   if(session.topic === 'mobilenet' &&
+     (text.includes('visitors')||
+      text.includes('prepaid')||
+      text.includes('temporary')||
+      text.includes('short-term')))
+      {return "You can buy a prepaid SIM card from Media Market, Telekom or Rewe. \n\n"+
+              "To activate your prepaid SIM card, you need to prepare your identity document, for example, passport or residence permit."
+      }
+   
+   if(session.topic === 'mobilenet' &&
+     (text.includes('residence')||
+      text.includes('contract')||
+      text.includes('student')||
+      text.includes('long-term')))
+      {return "For residents or students, we recommend you to make a monthly contract plan for your mobile service.\n\n"+
+              "Major mobile network providers in Germany include Telekom, Vodafone, O2 and Freenet. \n\n"+
+              "Customers can visit their local stores in Deggendorf to purchase SIM cards, sign a contract or get support. \n\n"+
+              "Telekom: Luitpoldplatz 16, 94469 Deggendorf\n\n"+
+              "Vodafone: Oberer Staadtplatz 2, 94469 Deggendorf\n\n"+
+              "O2: Oberer Stadtplatz 10, 94469, Deggendorf\n\n"+
+              "Freenet: Oberer Stadtplatz 11, 94469, Deggendorf. \n\n"+
+              "If you want to purchase SIM card and sign a contract, please bring following documents:\n\n"+
+              "-ID card or passport and residence permit\n\n"+
+              "-Registration certification (Meldebescheinigung)\n\n"+
+              "-Bank card"
+      }
+
+   if(session.topic === 'mobilenet' &&
+     (text.includes('top up')||
+      text.includes('topup')||
+      text.includes('recharge')||
+      text.includes('balance')||
+      text.includes('paid')||
+      text.includes('voucher')||
+      text.includes('credit')))
+      {return "You can check your prepaid balance using your mobile provider's App or by dialing a USSD code.\n\n"+
+              "-Telekom, Vodafone, Aldi Talk, Ja Mobile: *100# \n\n"+
+              "-O2 prepaid: *101# \n\n"+
+              "If the balance is too low, you can top up your balance online or by purchasing a top up voucher.\n\n"+
+              "Top up vouchers are available at supermarkets, rewe, Aldi, Lidl.\n\n"
+      }
+
+ if(session.topic === 'mobilenet' &&
+     (text.includes('recommend')||
+      text.includes('best')||
+      text.includes('provider')||
+      text.includes('prefer')||
+      text.includes('topone')||
+      text.includes('suggestion')||
+      text.includes('suggest')))
+      {return "Telekom generally offers the best network coverage in Germany.\n\n"+
+              "Vodafone also provides excellent coverage, while O2 often has more affordable plans.\n\n"+
+              "The best choice depends on your budget and data needs.\n\n"
+      }
+
+
+
+    if( text.includes('mobile')||
+      text.includes('telephone')||
+      text.includes('sim')||
+      text.includes('prepaid')||
+      text.includes('simcard')||
+      text.includes('esim')||
+      text.includes('internet')||
+      text.includes('wifi')||
+      text.includes('phone')||
+      text.includes('cell')
+   ){
+
+      return "There are several mobile network providers are available in Deggendorf, including Telekom, O2 and Vodafone, Ja mobile, Lidl Connect, Aldi Talk.\n\n" +
+             "Visitors can purchase prepaid SIM cards, while students and long-term residents may prefer monthly contract plans.\n\n"+
+             "Which would you like to know more?"
+   }
+}
+
 
 function HardFallback(session){
         session.failCount++;
