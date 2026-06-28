@@ -25,7 +25,7 @@ function replyTopic (message, session){
       Emergency(text,session)||
       NearbyCities(text,session) ||
       Banking(text,session)||
-      Mobilenet(text, session);
+      MobileNetwork(text, session);
 
    if (reply) {
         session.failCount = 0;
@@ -1314,7 +1314,7 @@ function Banking(text,session){
 }    
 
 /*mobile network*/
-function Mobilenet(text, session){
+function MobileNetwork(text, session){
       if( text.includes('mobile')||
       text.includes('telephone')||
       text.includes('sim')||
