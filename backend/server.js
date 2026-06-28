@@ -44,7 +44,6 @@ io.on('connection', (socket) => {
     socket.emit('chat message', {
         sender: 'chatbot',
         text: 'Hello! Welcome to Deggendorf. What would you like to know?',
-        text: makeLinks(reply),
         time: getTime()
     });
     
@@ -77,6 +76,7 @@ io.on('connection', (socket) => {
         socket.emit('chat message', {
             sender: 'chatbot',
             text: reply,
+            text: makeLinks(reply),
             time: getTime()
         });
     });
