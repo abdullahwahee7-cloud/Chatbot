@@ -8,6 +8,17 @@ const { detectIntent } = require('./intentDetector');
 const app = express();
 const server = http.createServer(app);
 
+function makeLinks(text) {
+    return text.replace(
+        /((https?:\/\/|www\.)[^\s]+)/g,
+        (url) => {
+            const href = url.startsWith('http') ? url : `https://${url}`;
+            return `<a href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+        }
+    );
+}
+
+
 function getTime() {
     return new Date().toLocaleTimeString('en-US', {
         hour: '2-digit',
@@ -33,6 +44,7 @@ io.on('connection', (socket) => {
     socket.emit('chat message', {
         sender: 'chatbot',
         text: 'Hello! Welcome to Deggendorf. What would you like to know?',
+        text: makeLinks(reply),
         time: getTime()
     });
     
