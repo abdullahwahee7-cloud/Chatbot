@@ -22,16 +22,31 @@ function replyTopic (message, session, intent){
    }
    }
 
-   if (
-     intent === 'planningatrip' ||
-     text.includes('itinerary') ||
-     text.includes('travel plan') ||
-     text.includes('trip itinerary') ||
-     text.includes('schedule') ||
-     text.includes('day schedule')
-   ) {
+   SetTopicFromIntent(intent, text, session);
+
+   let AIReply;
+
+   if (intent === 'greeting') AIReply = Greeting(text, session, intent);
+   if (intent === 'planningatrip') AIReply = PlanVisit(text, session, intent);
+   if (intent === 'basicinfo') AIReply = Basicinfo(text, session, intent);
+   if (intent === 'weather') AIReply = Weather(text, session, intent);
+   if (intent === 'history') AIReply = Historyinfo(text, session, intent);
+   if (intent === 'transportation') AIReply = Transportation(text, session, intent);
+   if (intent === 'shopping') AIReply = Shopping(text, session, intent);
+   if (intent === 'healthcare') AIReply = Healthcare(text, session, intent);
+   if (intent === 'accommodation') AIReply = Accomdation(text, session, intent);
+   if (intent === 'restaurant') AIReply = Restaurant(text, session, intent);
+   if (intent === 'activity') AIReply = Activity(text, session, intent);
+   if (intent === 'cityregistration') AIReply = CityRegistration(text, session, intent);
+   if (intent === 'emergency') AIReply = Emergency(text, session, intent);
+   if (intent === 'school') AIReply = School(text, session, intent);
+   if (intent === 'nearbycities') AIReply = NearbyCities(text, session, intent);
+   if (intent === 'banking') AIReply = Banking(text, session);
+   /* if (intent === 'mobilenetwork') AIReply = MobileNetwork(text, session, intent); */
+
+   if (AIReply) {
       session.failCount = 0;
-     return PlanVisit('plan visit', session);
+      return AIReply;
    }
 
    if (intent === 'unknown') {
@@ -46,35 +61,6 @@ function replyTopic (message, session, intent){
 
       session.topic = null;
    }
-
-   SetTopicFromIntent(intent, text, session);
-
-   let AIReply;
-
-   if (intent === 'greeting') AIReply = Greeting(text, session);
-   if (intent === 'planningatrip') AIReply = PlanVisit(text, session);
-   if (intent === 'basicinfo') AIReply = Basicinfo(text, session);
-   if (intent === 'weather') AIReply = Weather(text, session);
-   if (intent === 'history') AIReply = Historyinfo(text, session);
-   if (intent === 'transportation') AIReply = Transportation(text, session);
-   if (intent === 'shopping') AIReply = Shopping(text, session);
-   if (intent === 'healthcare') AIReply = Healthcare(text, session);
-   if (intent === 'accommodation') AIReply = Accomdation(text, session);
-   if (intent === 'restaurant') AIReply = Restaurant(text, session);
-   if (intent === 'activity') AIReply = Activity(text, session);
-   if (intent === 'cityregistration') AIReply = CityRegistration(text, session);
-   if (intent === 'emergency') AIReply = Emergency(text, session);
-   if (intent === 'school') AIReply = School(text, session);
-   if (intent === 'nearbycities') AIReply = NearbyCities(text, session);
-   /* Add these when the functions are implemented 
-   if (intent === 'banking') AIReply = Banking(text, session);
-   if (intent === 'mobilenetwork') AIReply = MobileNetwork(text, session); */
-
-   if (AIReply) {
-      session.failCount = 0;
-      return AIReply;
-   }
-
 
    const reply = 
       Greeting(text, session) ||
@@ -93,9 +79,9 @@ function replyTopic (message, session, intent){
       School(text, session) ||
       NearbyCities(text, session) ||
       ExtraAnswers(text, session, intent);
-      /* NearbyCities(text, session) ||
-      Banking(text, session) ||
-      MobileNetwork(text, session); */
+      NearbyCities(text, session) ||
+      Banking(text, session);
+      MobileNetwork(text, session); 
 
    if (reply) {
         session.failCount = 0;
@@ -118,9 +104,8 @@ function SetTopicFromIntent(intent, text, session) {
    if (intent === 'cityregistration') session.topic = 'registration';
    if (intent === 'emergency') session.topic = 'emergency';
    if (intent === 'nearbycities') session.topic = 'nearbycities';
-   /* Add these when the functions are implemented 
-   if (intent === 'banking') AIReply = Banking(text, session);
-   if (intent === 'mobilenetwork') AIReply = MobileNetwork(text, session); */
+   if (intent === 'banking') session.topic = 'banking';
+   if (intent === 'mobilenetwork') session.topic = 'mobilenetwork';
 
    if (intent === 'accommodation') {
       if (
@@ -157,24 +142,23 @@ function SetTopicFromIntent(intent, text, session) {
 }
 
 function ContinueCurrentTopic(text, session) {
-   if (session.topic === 'basicinfo') return Basicinfo(text, session);
-   if (session.topic === 'weather') return Weather(text, session);
-   if (session.topic === 'transportation') return Transportation(text, session);
-   if (session.topic === 'shop') return Shopping(text, session);
-   if (session.topic === 'health') return Healthcare(text, session);
-   if (session.topic === 'hotel') return Accomdation(text, session);
-   if (session.topic === 'studdor') return Accomdation(text, session);
-   if (session.topic === 'restaurant') return Restaurant(text, session);
-   if (session.topic === 'activity') return Activity(text, session);
-   if (session.topic === 'registration') return CityRegistration(text, session);
-   if (session.topic === 'emergency') return Emergency(text, session);
-   if (session.topic === 'visitplan') return PlanVisit(text, session);
-   if (session.topic === 'school') return School(text, session);
-   if (session.topic === 'thd') return School(text, session);
-   if (session.topic === 'nearbycities') return NearbyCities(text, session);
-   /* Add these when the functions are implemented 
-   if (session.topic === 'banking') AIReply = Banking(text, session);
-   if (session.topic === 'mobilenetwork') AIReply = MobileNetwork(text, session); */
+   if (session.topic === 'basicinfo') return Basicinfo(text, session, false);
+   if (session.topic === 'weather') return Weather(text, session, false);
+   if (session.topic === 'transportation') return Transportation(text, session, false);
+   if (session.topic === 'shop') return Shopping(text, session, false);
+   if (session.topic === 'health') return Healthcare(text, session, false);
+   if (session.topic === 'hotel') return Accomdation(text, session, false);
+   if (session.topic === 'studdor') return Accomdation(text, session, false);
+   if (session.topic === 'restaurant') return Restaurant(text, session, false);
+   if (session.topic === 'activity') return Activity(text, session, false);
+   if (session.topic === 'registration') return CityRegistration(text, session, false);
+   if (session.topic === 'emergency') return Emergency(text, session, false);
+   if (session.topic === 'visitplan') return PlanVisit(text, session, false);
+   if (session.topic === 'school') return School(text, session, false);
+   if (session.topic === 'thd') return School(text, session, false);
+   if (session.topic === 'nearbycities') return NearbyCities(text, session, false); 
+   if (session.topic === 'banking') AIReply = Banking(text, session, false);
+   if (session.topic === 'mobilenetwork') AIReply = MobileNetwork(text, session, false); 
 
    return null;
 }
@@ -220,7 +204,7 @@ function ExtraAnswers(text, session, intent) {
 }
 
 /*Greeting*/
-function Greeting (text,session) {
+function Greeting (text,session, fromIntent = false) {
 
    if (
     text.includes('who are you') ||
@@ -257,11 +241,17 @@ function Greeting (text,session) {
                "You can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation, banking, mobilenetwork and healthcare"
       }
 
+    if (fromIntent) {
+      return "Hello! Welcome to Deggendorf. What do you want to know about our beautiful city?\n\n" +
+             "You can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation, banking, mobilenetwork and healthcare";
+    }
+
+    return null;
 
 }
 
 /*Basic information */
-function Basicinfo(text,session){
+function Basicinfo(text,session, fromIntent = false){
 
 
    if (text.includes('who is mayor') || text.includes('mayor')) {
@@ -336,10 +326,16 @@ function Basicinfo(text,session){
         text.includes('new here'))
        )
        {return "Welcome to Deggendorf. https://www.deggendorf.de is the offical internet Portal for Deggendorf. You can find useful information here. "}
+
+    if (fromIntent) {
+      session.topic = 'basicinfo';
+
+      return "Deggendorf is a town in Bavaria, Germany, capital of the Deggendorf district.";
+   }
 }
        
 /*Climate*/
-function Weather (text, session){
+function Weather (text, session, fromIntent = false){
 
     if (text.includes('climate')||
         text.includes('weather'))
@@ -364,10 +360,21 @@ function Weather (text, session){
        )
        {return "For today's weather, you can check from here: https://openweathermap.org/city/2938540"
        }
+
+    if (fromIntent) {
+      session.topic = 'weather';
+
+      return "In Deggendorf, the summers are comfortable, the winters are freezing and snowy, and it is partly cloudy year round.\n\n" +
+             "Over the course of the year, the temperature typically varies from -4°C to 24°C and is rarely below -12°C or above 31°C.\n\n" +
+             "Based on the tourism score, the best time of year to visit Deggendorf for warm-weather activities is from late June to early September.\n\n";
+   }
+
+   return null;
+
 }
 
 /*History*/
-function Historyinfo(text,session){   
+function Historyinfo(text,session, fromIntent = false){   
     if (text.includes('history')||
         text.includes('historic')||
         text.includes('founded'))
@@ -380,10 +387,23 @@ function Historyinfo(text,session){
                "In 1866, Deggendorf joined the railway network to Plattling at the instigation of an interest group of Deggendorf citizens.\n\n"+
                "The station was still in Fischerdorf at that time and only after the construction of a railway bridge over the Danube in 1877) could it be abandoned.\n\n"
        }
+
+    if (fromIntent) {
+      return "The oldest settlements in today's Deggendorf city area are located south of the Danube.\n\n" +
+             "In 1002, Deggendorf was first mentioned in a document. King Heinrich II confirms his possession in Deggendorf to the Niedermünster canoness monastery in Regensburg.\n\n" +
+             "In the 12th century, a first settlement was established in the north-eastern area of today's old town, which was proven by the excavations of the city archaeology.\n\n" +
+             "In 1316, the widow of Duke Otto III, Agnes, granted Deggendorf town rights.\n\n" +
+             "In the 19th century, the construction of Ruselstraße (1815 to 1817) and an iron bridge over the Danube (1859 to 1863) significantly improved Deggendorf's infrastructure.\n\n" +
+             "In 1866, Deggendorf joined the railway network to Plattling at the instigation of an interest group of Deggendorf citizens.\n\n" +
+             "The station was still in Fischerdorf at that time and only after the construction of a railway bridge over the Danube in 1877) could it be abandoned.\n\n";
+   }
+
+   return null;
+
 }
 
 /*Transportation*/
-function Transportation (text,session) {
+function Transportation (text,session, fromIntent = false) {
 
 
    if (text.includes('how to get to deggendorf?')||
@@ -456,11 +476,26 @@ function Transportation (text,session) {
          {return "With four lines in the city bus service, we can transport you across the city area!\n\n"+
                  " Timetables and network map can be found : https://www.deggendorf.de/leben/mobilitaet-verkehr/stadtbusverkehr" 
          }
+
+      if (fromIntent) {
+      session.topic = 'transportation';
+
+      return "You can reach Deggendorf by:\n\n" +
+             "• Train\n" +
+             "• Bus\n" +
+             "• Plane\n" +
+             "• Car\n\n" +
+             "Which option would you like to know more about?\n\n" +
+             "For parking information, reply: parking\n" +
+             "For public transport, reply: citybus";
+      }
+
+         return null;
 }
 
  
 /*Shopping*/
-function Shopping (text,session) {
+function Shopping (text,session, fromIntent = false) {
 
    if (text.includes('supermarket') || text.includes('supermarkets')) {
       session.topic = 'shop';
@@ -511,10 +546,19 @@ function Shopping (text,session) {
                  " Time: Saturday 08:00- 13:00\n\n"+
                  " Location: Stadtplatz Deggendorf, Oberer Stadtplatz"
          } 
+
+    if (fromIntent) {
+      session.topic = 'shop';
+
+      return "There are many shopping opportunities in Deggendorf, including supermarkets, fashion stores or local market.\n\n" +
+             "Which one would you like to know more?";
+    }
+
+   return null;
 }
 
 /*Healthcare*/
-function Healthcare (text,session) {
+function Healthcare (text,session, fromIntent = false) {
    if (text.includes('sick') ||
        text.includes('uncomfortable') ||
        text.includes('hospital')||
@@ -537,10 +581,21 @@ function Healthcare (text,session) {
          {return "Donau Isar Klinikum is located at Perlasberger Str. 41, 94469, Deggendorf\n\n" +
               " Phone: 0991/ 380-0\n\n"+
               " E-mail: info@donau-isar-klinikum.de" } 
+
+
+       if (fromIntent) {
+           session.topic = 'health';
+
+      return "There are varieties healthcare insitituation in Deggendorf.\n\n" +
+             " For general medical care, you can visit DONAU ISAR Klinikum Deggendorf, the largest general hospital in Deggendorf\n\n" +
+             " Please call 112 if any emergency medical needs";
+      }
+
+   return null;
 }
 
 /*Accomdation*/
-function Accomdation(text, session){
+function Accomdation(text, session, fromIntent = false){
    
    if (text.includes('hotel')||
        text.includes('touris')||
@@ -627,10 +682,29 @@ function Accomdation(text, session){
            "Immobilienscout24:\n" +
            "https://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html";
    }     
+
+   if (fromIntent) {
+      if (session.topic === 'studdor') {
+         return "Finding a place to stay in Deggendorf is very important for students.\n\n" +
+                "You can apply for dormitories or private offers.\n\n" +
+                "Which would you like to know more about?\n\n" +
+                "• Dormitory\n" +
+                "• Private Accommodation\n" +
+                "• Public Websites";
+      }
+
+        session.topic = 'hotel';
+
+      return "Welcome to Deggendorf! Most accommodations in Deggendorf can be found in our booking portal:\n\n" +
+             " https://tportal.tomas.travel/StadtDeggendorf/ukv?globalreset=1\n\n" +
+             " If you are a student and looking for a place to stay during your study, please reply 'student' ";
+       }
+
+   return null;
 }
 
 /*Restaurant*/
-function Restaurant (text, session){
+function Restaurant (text, session, fromIntent = false){
         if (text.includes('restaurant')||
           text.includes('food')||
           text.includes('meal')||
@@ -782,11 +856,27 @@ function Restaurant (text, session){
                  "• Syrian\n" +
                  "• Turkish\n\n" +
                  "Which one would you like?";}
+
+         if (fromIntent) {
+           session.topic = 'restaurant';
+
+        return "Deggendorf has many food options.\n\n" +
+             "Available categories:\n\n" +
+             "• Indian\n" +
+             "• Italian\n" +
+             "• Mensa\n" +
+             "• German\n" +
+             "• Syrian\n" +
+             "• Turkish\n\n" +
+             "Which one would you like?";
+            }
+
+      return null;
  }
 
 
  /*School & THD*/
-function School (text,session){
+function School (text,session, fromIntent = false){
         if (text.includes('school')||
             text.includes('education')||
             text.includes('college')||
@@ -887,11 +977,25 @@ function School (text,session){
                "There are schools of general education, Vocation schools, adult education, technical colleges, primary and secondary schools, university, continuing education and special schools\n\n" +
                "For more information, please click: https://www.landkreis-deggendorf.de/leben-arbeiten/bildung/schulen-weiterbildung/"}
 
+         if (
+          text.includes('school') ||
+          text.includes('education') ||
+          text.includes('college') ||
+          text.includes('study') ||
+          fromIntent
+       )  {
+         return "In the district of Deggendorf, probably one of the most school-friendly in Bavaria, there are almost 80 state, municipal and private institutions for the training, further education and further education of the population in school and work\n\n" +
+             "There are schools of general education, Vocation schools, adult education, technical colleges, primary and secondary schools, university, continuing education and special schools\n\n" +
+             "For more information, please click: https://www.landkreis-deggendorf.de/leben-arbeiten/bildung/schulen-weiterbildung/";
+       }
+
+     return null;
+
 }
 
  
  /*Activity & sightseeing*/
-function Activity (text, session) {
+function Activity (text, session, fromIntent = false) {
    if (text.includes('activity') ||
        text.includes('event')||
        text.includes('festival')||
@@ -1039,10 +1143,44 @@ function Activity (text, session) {
                "What would you like to know more?\n\n"+
                "You can find more details through our website: https://www.deggendorf.de/veranstaltungen "
            }
+
+    if (
+      text.includes('activity') ||
+      text.includes('event') ||
+      text.includes('festival') ||
+      text.includes('concert') ||
+      text.includes('show') ||
+      text.includes('happening') ||
+      text.includes('exchange') ||
+      text.includes('exhibitions') ||
+      text.includes('free time') ||
+      text.includes('leisure') ||
+      text.includes('fun') ||
+      text.includes('nature') ||
+      text.includes('family') ||
+      text.includes('tour') ||
+      text.includes('motor') ||
+      text.includes('what can i do') ||
+      text.includes('things to do') ||
+      text.includes('activities') ||
+      text.includes('bored') ||
+      text.includes('do in deggendorf') ||
+      text.includes('play') ||
+      text.includes('game') ||
+      text.includes('games') ||
+      fromIntent
+   ) {
+      return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events,hiking, cycling, ski, golf and picnic.\n\n" +
+             "What would you like to know more?\n\n" +
+             "You can find more details through our website: https://www.deggendorf.de/veranstaltungen ";
+   }
+
+   return null;
+
 }
 
 /*City Registration Details*/
-function CityRegistration(text,session) {
+function CityRegistration(text,session, fromIntent = false) {
         if (text.includes('city registration')||
             text.includes('register address')||
             text.includes('address registration')||
@@ -1100,10 +1238,26 @@ function CityRegistration(text,session) {
                    "You can find the official Bürgeramt information here.\n\n" +
                    "https://www.deggendorf.de/rathaus/rechts-ordnungsverwaltung/buergeramt";
          }
+
+      if (fromIntent) {
+         session.topic = 'registration';
+
+      return "For city registration in Deggendorf, you need to register your address at the Bürgeramt after moving in.\n\n" +
+             "Basic steps:\n\n" +
+             "1. Move into your apartment first.\n" +
+             "2. Book an appointment with the Bürgeramt\n" +
+             "3. Bring your passport or ID card.\n" +
+             "4. Bring your landlord confirmation form here, called Wohnungsgeberbestätigung.\n" +
+             "5. Go to the Bürgeramt in person and sign the registration form there.\n\n" +
+             "Official Information:  https://www.deggendorf.de/rathaus/rechts-ordnungsverwaltung/buergeramt/wohnsitz-anmelden.\n\n" +
+             "You can also ask me about required documents, appointment or locaton.";
+     }
+
+     return null;
 }
 
 /*Police*/
-function Emergency(text,session){
+function Emergency(text,session, fromIntent = false){
    if (text.includes('police')||
        text.includes('polizei')||
        text.includes('police station')||
@@ -1157,9 +1311,22 @@ function Emergency(text,session){
              "If it is urgent, call 110";
    }
 
+    if (fromIntent) {
+      session.topic = 'emergency';
+
+      return "For police help in Deggendorf, you can contact Polizeiinspektion Deggendorf.\n\n" +
+             "Address: Hans-Krämer-Straße 65, 94469 Deggendorf.\n" +
+             "Phone: +49 991 3896-0\n\n" +
+             "In an emergency, call 110 for police.\n" +
+             "For medical or fire emergency, call 112.\n\n" +
+             "You can ask me about emergency, lost items, theft or police station locaation.";
+   }
+
+   return null;
+
 }
 
-function NearbyCities(text,session){
+function NearbyCities(text,session, fromIntent = false){
    if (
       text.includes('nearby city')||
       text.includes('nearby cities')||
@@ -1240,10 +1407,32 @@ function NearbyCities(text,session){
              "Travel: Deggendorf Hbf → Plattling → Straubing";
    }
 
+   if (fromIntent) {
+      session.topic = 'nearbycities';
+
+      return "From Deggendorf HBF, you can visit several nearby cities by train or bus:\n\n" +
+             "1. Plattling - about 10 minutes by regional train\n" +
+             "Travel: Take RB35 from Deggendorf Hbf to Plattling.\n\n" +
+             "2. Passau - about 45 to 60 minutes\n" +
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Passua\n\n" +
+             "3. Regensburg - about 60 to 90 minutes\n" +
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Regensburg\n\n" +
+             "4. Munich - about 2 to 2.5 hours\n" +
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Munich\n\n" +
+             "5. Landshut - about 75 to 90 minutes\n" +
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Landshut\n\n" +
+             "6. Straubing - about 40 to 60 minutes\n" +
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Straubing\n\n" +
+             "For exact times and tickets, check Deutsche Bahn:\n" +
+             "https://www.bahn.de/service/fahrplaene/reiseauskunft\n\n" +
+             "Which city would you like to know more about?";
+   }
+
+   return null;
 }
 
 
-function PlanVisit(text, session) {
+function PlanVisit(text, session, fromIntent = false) {
     if (
         text.includes('plan visit') ||
         text.includes('visit plan') ||
@@ -1373,6 +1562,134 @@ function PlanVisit(text, session) {
     }
 
     return null;
+}
+
+function Banking(text, session, fromIntent = false) {
+
+   if (fromIntent) {
+      session.topic = 'banking';
+   }
+
+   if (
+      session.topic === 'banking' &&
+      (
+         text.includes('sparkasse') ||
+         text.includes('local bank')
+      )
+   ) {
+      return "Sparkasse is one of the common local banks in Deggendorf.\n\n" +
+             "You can ask them about opening a bank account, student account options, debit card, online banking and monthly fees.\n\n" +
+             "It is best to check the official Sparkasse Deggendorf website or visit a branch for the newest requirements.";
+   }
+
+   if (
+      session.topic === 'banking' &&
+      (
+         text.includes('vr bank') ||
+         text.includes('volksbank')
+      )
+   ) {
+      return "VR Bank is another local banking option in Deggendorf.\n\n" +
+             "They may offer current accounts, cards, online banking and student banking services.\n\n" +
+             "Please check the official VR Bank website or visit a branch for exact details.";
+   }
+
+   if (
+      session.topic === 'banking' &&
+      (
+         text.includes('blocked account') ||
+         text.includes('blocked bank account') ||
+         text.includes('blocked') ||
+         text.includes('sperrkonto')
+      )
+   ) {
+      return "A blocked account is often required for international students to prove financial resources for a German visa.\n\n" +
+             "Common blocked account providers include:\n\n" +
+             "• Fintiba\n" +
+             "• Expatrio\n" +
+             "• Coracle\n\n" +
+             "Please always check the official visa requirements before choosing a provider.";
+   }
+
+   if (
+      session.topic === 'banking' &&
+      (
+         text.includes('online bank') ||
+         text.includes('online banks') ||
+         text.includes('n26') ||
+         text.includes('wise') ||
+         text.includes('revolut')
+      )
+   ) {
+      return "Some students use online banks such as N26, Wise or Revolut.\n\n" +
+             "Online banks can be useful because registration is often digital and faster.\n\n" +
+             "But before using an online bank for official purposes, check if it is accepted for your visa, salary, rent or university needs.";
+   }
+
+   if (
+      session.topic === 'banking' &&
+      (
+         text.includes('documents') ||
+         text.includes('document') ||
+         text.includes('needed') ||
+         text.includes('requirements') ||
+         text.includes('passport')
+      )
+   ) {
+      return "To open a bank account in Germany, you may need:\n\n" +
+             "• Passport or ID card\n" +
+             "• German address / registration certificate\n" +
+             "• Student certificate or admission letter\n" +
+             "• Tax ID, if already available\n" +
+             "• Residence permit or visa, depending on the bank\n\n" +
+             "The exact documents can be different for each bank.";
+   }
+
+   if (
+      session.topic === 'banking' &&
+      (
+         text.includes('fee') ||
+         text.includes('fees') ||
+         text.includes('cost') ||
+         text.includes('monthly')
+      )
+   ) {
+      return "Bank account fees depend on the bank and account type.\n\n" +
+             "Some student accounts may be free, while other accounts may have monthly fees.\n\n" +
+             "Always check:\n\n" +
+             "• Monthly fee\n" +
+             "• Card fee\n" +
+             "• Cash withdrawal fee\n" +
+             "• International transfer fee";
+   }
+
+   if (
+      text.includes('bank') ||
+      text.includes('banking') ||
+      text.includes('bank account') ||
+      text.includes('open account') ||
+      text.includes('open bank account') ||
+      text.includes('student bank') ||
+      fromIntent
+   ) {
+      session.topic = 'banking';
+
+      return "There are several banking options in Deggendorf.\n\n" +
+             "Students can usually choose between local banks and online banks.\n\n" +
+             "Common options are:\n\n" +
+             "• Sparkasse\n" +
+             "• VR Bank\n" +
+             "• Deutsche Bank\n" +
+             "• Online banks such as N26, Wise or Revolut\n\n" +
+             "If you are an international student, you may also need a blocked account for visa purposes.\n\n" +
+             "What would you like to know more about?\n\n" +
+             "• Sparkasse\n" +
+             "• Blocked account\n" +
+             "• Online banks\n" +
+             "• Documents needed";
+   }
+
+   return null;
 }
 
 
