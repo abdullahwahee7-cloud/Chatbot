@@ -101,7 +101,7 @@ const App: React.FC = () => {
                <option value="Transportation">🚆 Transportation</option>
                <option value="Weather">🌤 Weather</option>
                <option value="Healthcare in Deggendorf">🏥 Healthcare</option>
-               <option value="Student accommodation in Deggendorf">🏠 Accommodation</option>
+               <option value="Accommodation in Deggendorf">🏠 Accommodation</option>
                <option value="Restaurants in Deggendorf">🍽 Restaurants</option>
                <option value="Introduce THD">🎓 THD</option>
                <option value="Activities in Deggendorf">🎉 Activities</option>

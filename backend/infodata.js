@@ -23,7 +23,8 @@ function replyTopic (message, session){
       School (text,session) ||
       CityRegistration(text,session)||
       Emergency(text,session)||
-      NearbyCities(text,session);
+      NearbyCities(text,session) ||
+      Banking(text,session);
 
    if (reply) {
         session.failCount = 0;
