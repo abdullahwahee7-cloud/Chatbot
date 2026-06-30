@@ -6,6 +6,10 @@ Deggendorf Chatbot Setup Manual
 This project is a chatbot web application for information about Deggendorf and THD.
 This project contains backend and frontend folders 
 You have to install npm and Node.js to run this on your local.
+
+ExtraAnswers.json: This files contains the answers which satisfies one key requirement of the project which is: The backend should be extensible in a sense that adding new topics / intents / answers does not require changing the source code
+So this JSON file allow us to extend (infodata.js) backend without adding new functions/keywords in the source code.
+
 For the bonus branch with OpenAI intent detection, an OpenAI API key is also required.
 
 2) Installations:
