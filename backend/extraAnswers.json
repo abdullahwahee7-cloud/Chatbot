@@ -198,5 +198,322 @@
         "answer": "A3: Cologne - Frankfurt - Nuremberg - Regensburg - Deggendorf\n\nA92: Munich - Deggendorf"
       }
     ]
+  },
+  
+  {
+    "intent": "shopping",
+    "topic": "shop",
+    "defaultForIntent": true,
+    "keywords": [
+      "shop",
+      "mall",
+      "market",
+      "buy"
+    ],
+    "answer": "There are many shopping opportunities in Deggendorf, including supermarkets, fashion stores or local market.\n\nWhich one would you like to know more?",
+    "followUps": [
+      {
+        "keywords": [
+          "supermarket",
+          "supermarkets"
+        ],
+        "answer": "Supermarkets in Deggendorf:\n\n• Lidl\n• Aldi\n• Rewe\n• Edeka"
+      },
+      {
+        "keywords": [
+          "fashion",
+          "cloth",
+          "beauty",
+          "make-up",
+          "store"
+        ],
+        "answer": "The city center around Luitpoldplatz offers a variety of shops. For example: Tk Maxx, Tedi, Muller, H&M, New Yorker, etc."
+      },
+      {
+        "keywords": [
+          "local market",
+          "farm",
+          "local"
+        ],
+        "answer": "We also have the Deggendorf farmers' market. You can buy not only vegetables, fruit, juices,\n\n but also meat, sausage specialties, flowers. Herbs and baked goods are also offered.\n\n The vegetables usually come from organic farming.\n\n Time: Saturday 08:00- 13:00\n\n Location: Stadtplatz Deggendorf, Oberer Stadtplatz"
+      }
+    ]
+  },
+  {
+    "intent": "healthcare",
+    "topic": "health",
+    "defaultForIntent": true,
+    "keywords": [
+      "sick",
+      "uncomfortable",
+      "hospital",
+      "clinic",
+      "doctor",
+      "injure",
+      "injured",
+      "treatment",
+      "pharmacy",
+      "healthcare",
+      "medical",
+      "ill"
+    ],
+    "answer": "There are varieties healthcare insitituation in Deggendorf.\n\n For general medical care, you can visit DONAU ISAR Klinikum Deggendorf, the largest general hospital in Deggendorf\n\n Please call 112 if any emergency medical needs",
+    "followUps": [
+      {
+        "keywords": [
+          "donau"
+        ],
+        "answer": "Donau Isar Klinikum is located at Perlasberger Str. 41, 94469, Deggendorf\n\n Phone: 0991/ 380-0\n\n E-mail: info@donau-isar-klinikum.de"
+      }
+    ]
+  },
+  {
+    "intent": "accommodation",
+    "topic": "studdor",
+    "defaultForIntent": false,
+    "keywords": [
+      "student",
+      "dorm",
+      "dormitory",
+      "private",
+      "share",
+      "public",
+      "wg"
+    ],
+    "answer": "Finding a place to stay in Deggendorf is very important for students.\n\nYou can apply for dormitories or private offers.\n\nWhich would you like to know more about?\n\n• Dormitory\n• Private Accommodation\n• Public Websites",
+    "followUps": [
+      {
+        "keywords": [
+          "student dormitory",
+          "dorm",
+          "dormitory"
+        ],
+        "answer": "All apartments are located within easy walking distance of Deggendorf town and the campus of DIT.\n\nView your options here:\n\nhttps://www.th-deg.de/accommodation#deggendorf"
+      },
+      {
+        "keywords": [
+          "private",
+          "share"
+        ],
+        "answer": "DIT has its own flat exchange platform where students and landlords offer apartments for sublease or permanent rent.\n\nFlat Exchange:\nhttps://pmit-ext.th-deg.de/wb/search?lang=en\n\nYou can also ask about public websites."
+      },
+      {
+        "keywords": [
+          "public",
+          "wg",
+          "wg gesucht",
+          "wg-gesucht"
+        ],
+        "answer": "Public accommodation websites:\n\nWG-Gesucht:\nhttps://www.wg-gesucht.de/en/\n\nEbay Kleinanzeigen:\nhttps://www.ebay-kleinanzeigen.de/simmobilien/94469/c195l16909\n\nImmobilienscout24:\nhttps://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html"
+      }
+    ]
+  },
+  {
+    "intent": "accommodation",
+    "topic": "hotel",
+    "defaultForIntent": true,
+    "keywords": [
+      "hotel",
+      "touris",
+      "accommodation",
+      "stay",
+      "hostel",
+      "apartment",
+      "stayover",
+      "where can i live",
+      "rent",
+      "room",
+      "flat",
+      "housing",
+      "housing options",
+      "wohnung"
+    ],
+    "answer": "Welcome to Deggendorf! Most accommodations in Deggendorf can be found in our booking portal:\n\n https://tportal.tomas.travel/StadtDeggendorf/ukv?globalreset=1\n\n If you are a student and looking for a place to stay during your study, please reply 'student' "
+  },
+  {
+    "intent": "restaurant",
+    "topic": "restaurant",
+    "defaultForIntent": true,
+    "keywords": [
+      "restaurant",
+      "food",
+      "meal",
+      "dinner",
+      "breakfast",
+      "lunch",
+      "eat",
+      "pizza",
+      "pasta",
+      "burger",
+      "cafe",
+      "hungry",
+      "cuisine",
+      "coffee",
+      "indian",
+      "mensa",
+      "italian",
+      "german",
+      "syrian",
+      "turkish",
+      "restaurant near me",
+      "where to eat",
+      "good food",
+      "takeaway",
+      "take away",
+      "delivery"
+    ],
+    "answer": "Deggendorf has many food options.\n\nAvailable categories:\n\n• Indian\n• Italian\n• Mensa\n• German\n• Syrian\n• Turkish\n\nWhich one would you like?",
+    "followUps": [
+      {
+        "keywords": [
+          "indian",
+          "curry"
+        ],
+        "answer": "For indian food in Deggendorf,you can try Taj Mahal or Shiva\n\nTaj Mahal:  https://tajmahaldeggendorf.de/de \n\nShiva: https://www.indisches-restaurant-deggendorf.de/\n\n"
+      },
+      {
+        "keywords": [
+          "mensa",
+          "student",
+          "campus"
+        ],
+        "answer": "For students, the Mensa at THD is a good option. You can check THD information here\n\nTHD: https://www.th-deg.de/"
+      },
+      {
+        "keywords": [
+          "syrian",
+          "arabic",
+          "shawarma"
+        ],
+        "answer": "For Syrian Food or Arabic Food in Deggendorf, it is best to search current options here\n\nGoogle Maps: https://www.google.com/maps/search/syrian+restaurant+Deggendorf"
+      },
+      {
+        "keywords": [
+          "turkish",
+          "kebab",
+          "doner",
+          "döner"
+        ],
+        "answer": "For Turkish Food or döner in Deggendorf, you can check Ankara Grill or search here\n\nAnkara Grill: https://www.tripadvisor.com/Restaurant_Review-g811095-d23507287-Reviews-Ankara_Grill-Deggendorf_Lower_Bavaria_Bavaria.html\n\nGoogle Maps:  https://www.google.com/maps/search/turkish+restaurant+Deggendorf"
+      },
+      {
+        "keywords": [
+          "asia",
+          "chinese",
+          "china",
+          "japan",
+          "sushi",
+          "hong kong"
+        ],
+        "answer": "There are some Asian food restaurant worth to try:\n\nHai Pai Cuisine: https://haipaicuisine.de/\n\nSen Resraurant: https://www.sen-deggendorf.de/\n\nSAIKYO Restaurant - Asian Fusion & Sushi: https://www.saikyo.de/ \n\n"
+      },
+      {
+        "keywords": [
+          "italian",
+          "pasta",
+          "pizza"
+        ],
+        "answer": "There are some Italy restaurant worth to try:\n\nLaurin - Pasta & Pizza: https://www.laurin-deggendorf.de/\n\nMama Mia Da Max : https://mamamia-max.de/"
+      },
+      {
+        "keywords": [
+          "local",
+          "german",
+          "traditional",
+          "bavarian",
+          "european"
+        ],
+        "answer": "Here are top 3 restaurants of german style in Deggendorf (according to Tripadvisor):\n\nGasthaus Zur Knodelwerferin: https://www.knoedelwerferin-deggendorf.de/\n\nHotel Gasthof Hottl: https://www.hoettl.de/\n\nSchober Otto Gaststaette: https://www.schober-otto.de/\n\n"
+      },
+      {
+        "keywords": [
+          "cafe",
+          "tea",
+          "snack",
+          "cake",
+          "coffee",
+          "break"
+        ],
+        "answer": "There are many cafés and coffee shops in Deggendorf where you can enjoy coffee, tea, and snacks.\n\nMost cafés are located in the city center and shopping areas."
+      },
+      {
+        "keywords": [
+          "fast",
+          "burger",
+          "fried",
+          "sandwich"
+        ],
+        "answer": "We have McDonald's, Subway, Kochloffel and Burger King in Deggendorf."
+      }
+    ]
+  },
+  {
+    "intent": "school",
+    "topic": "thd",
+    "defaultForIntent": false,
+    "keywords": [
+      "university",
+      "thd",
+      "dit",
+      "applied sciences",
+      "technology",
+      "th deg",
+      "deggendorf institute of technology",
+      "degree",
+      "bachelor",
+      "master",
+      "campus",
+      "lecture",
+      "semester",
+      "student card",
+      "enrollment",
+      "enrolment",
+      "admission",
+      "application",
+      "introduce thd",
+      "introduce university"
+    ],
+    "answer": "The Deggendorf Institute of Technology (THD) offers Bachelor's and Master's degree programmes in the fields of civil and environmental engineering, natural sciences, electrical engineering and computer science, mechanical engineering, media as well as health and economics\n\nThe THD has 45% international students. 3 study locations. The main campus of THD is located in the center of Deggendorf.\n\nLocation: Dieter-Görlitz-Platz 1, 94469 Deggendorf",
+    "followUps": [
+      {
+        "keywords": [
+          "program",
+          "programme",
+          "graduate",
+          "degree",
+          "bachelor",
+          "master"
+        ],
+        "answer": "Here you can find all study programmes at THD: https://www.th-deg.de/study-programmes"
+      },
+      {
+        "keywords": [
+          "apply",
+          "join",
+          "admission",
+          "application"
+        ],
+        "answer": "To begin your studies at the Deggendorf Institute of Technology, you need to apply to study.\n\nStep by step to a successful application from here: https://th-deg.de/en/apply"
+      },
+      {
+        "keywords": [
+          "event",
+          "activity",
+          "party",
+          "club"
+        ],
+        "answer": "THD is holding a variety of activities, including diversity week, international week, online consultation, career development, sports, party, cinema night, etc.\n\nHere you can find event calendar here: https://th-deg.de/en/dit/events"
+      },
+      {
+        "keywords": [
+          "contact",
+          "email",
+          "phone",
+          "advice",
+          "support"
+        ],
+        "answer": "If you need any advice or support, you can reach us from here: https://th-deg.de/en/advice"
+      }
+    ]
   }
 ]
