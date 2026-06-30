@@ -24,6 +24,15 @@ function replyTopic (message, session, intent){
 
    SetTopicFromIntent(intent, text, session);
 
+   if (intent !== 'planningatrip') {
+   const extraReply = ExtraAnswers(text, session, intent);
+
+   if (extraReply) {
+      session.failCount = 0;
+      return extraReply;
+   }
+   }
+
    let AIReply;
 
    if (intent === 'greeting') AIReply = Greeting(text, session, intent);
@@ -63,25 +72,25 @@ function replyTopic (message, session, intent){
    }
 
    const reply = 
-      Greeting(text, session) ||
-      PlanVisit(text, session) ||
-      Basicinfo(text, session) ||
-      Weather(text,session) ||
-      Historyinfo (text,session) ||
-      Emergency(text, session) ||
-      Transportation (text,session) ||
-      Shopping (text,session) ||
-      Healthcare (text,session) ||
-      Accomdation (text,session) ||
-      Restaurant (text,session) ||
-      Activity (text,session) ||
-      CityRegistration(text, session) ||
-      School(text, session) ||
-      NearbyCities(text, session) ||
-      ExtraAnswers(text, session, intent);
-      NearbyCities(text, session) ||
-      Banking(text, session);
-      MobileNetwork(text, session); 
+      Greeting(text, session, false) ||
+      PlanVisit(text, session, false) ||
+      Basicinfo(text, session, false) ||
+      Weather(text,session, false) ||
+      Historyinfo (text,session, false) ||
+      Emergency(text, session, false) ||
+      Transportation (text,session, false) ||
+      Shopping (text,session, false) ||
+      Healthcare (text,session, false) ||
+      Accomdation (text,session, false) ||
+      Restaurant (text,session, false) ||
+      Activity (text,session, false) ||
+      CityRegistration(text, session, false) ||
+      School(text, session, false) ||
+      NearbyCities(text, session, false) ||
+      ExtraAnswers(text, session, intent) ||
+      NearbyCities(text, session, false) ||
+      Banking(text, session, false) ||
+      MobileNetwork(text, session, false); 
 
    if (reply) {
         session.failCount = 0;
