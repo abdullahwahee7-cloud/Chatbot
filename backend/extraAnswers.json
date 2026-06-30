@@ -1,108 +1,518 @@
 [
-  {
-    "topic": "studdor",
-    "intent": "accommodation",
-    "keywords": [
-      "student accommodation",
-      "student housing",
-      "student room",
-      "student flat",
-      "student apartment"
-    ],
-    "answer": "If you are looking for student accommodation in Deggendorf, it is best to start early because rooms can get booked very fast.\n\nYou can usually choose between dormitories, private accommodation, or public housing websites.\n\nLet me know what you are interested in:\n- Dormitories\n- Private accommodation\n- Public websites",
-    "allowDirectFollowUps": true,
-    "followUps": [
-      {
-        "keywords": ["dorm", "dormitory", "student dorm", "student dormitory"],
-        "answer": "Most student dormitories in Deggendorf are close to the THD campus and also not far from the town centre, so they are very convenient for students.\n\nYou can find an overview of student accommodation here:\n[th-deg.de](https://www.th-deg.de/accommodation#deggendorf)"
-      },
-      {
-        "keywords": ["private", "share", "flat exchange", "private accommodation"],
-        "answer": "If you prefer private accommodation, THD has its own flat exchange website where landlords and students post available rooms and apartments.\n\nFlat Exchange:https://pmit-ext.th-deg.de/wb/search?lang=en\n\nYou) can also check public websites for more options."
-      },
-      {
-        "keywords": ["public", "wg", "wg gesucht", "public websites", "websites"],
-        "answer": "There are also some public websites that many students use to look for accommodation in Deggendorf.\n\nWG-Gesucht:\n[wg-gesucht.de](https://www.wg-gesucht.de/en/\n\nEbay) Kleinanzeigen:\n[ebay-kleinanzeigen.de](https://www.ebay-kleinanzeigen.de/simmobilien/94469/c195l16909\n\nImmobilienscout24:\nhttps://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html)"
-      }
-    ]
-  },
-  {
-    "topic": "hotel",
-    "intent": "accommodation",
-    "defaultForIntent": true,
-    "keywords": [
-      "hotel",
-      "tourist accommodation",
-      "where can i stay",
-      "stay in deggendorf",
-      "accommodation",
-      "room",
-      "rent",
-      "flat",
-      "apartment"
-    ],
-    "answer": "If you are looking for a place to stay in Deggendorf, you can find most accommodation options through the city booking portal:\n\n[tportal.tomas.travel](https://tportal.tomas.travel/StadtDeggendorf/ukv?globalreset=1\n\nIf) you are actually a student looking for housing during your studies, just reply with 'student accommodation'.",
-    "followUps": []
-  },
-  {
-    "topic": "thd",
-    "intent": "school",
-    "defaultForIntent": true,
-    "keywords": [
-      "thd",
-      "dit",
-      "deggendorf institute of technology",
-      "university",
-      "study at thd",
-      "school",
-      "education"
-    ],
-    "answer": "THD, also called Deggendorf Institute of Technology, is the university of applied sciences in Deggendorf.\n\nYou can ask about different topics such as:\n- Bachelor programmes\n- Master programmes\n- Application and admission\n- Campus\n- Semester information",
-    "allowDirectFollowUps": true,
-    "followUps": [
-      {
-        "keywords": ["bachelor", "bachelor programmes", "bachelor programs"],
-        "answer": "THD offers a range of bachelor programmes in fields like engineering, business, computer science, technology, and health sciences.\n\nYou can see all bachelor programmes here:\n[th-deg.de](https://www.th-deg.de/en/study-with-us/courses)"
-      },
-      {
-        "keywords": ["master", "master programmes", "master programs"],
-        "answer": "THD also has many master programmes for students who want to continue their studies after finishing a bachelor degree.\n\nYou can check the available master programmes here:\n[th-deg.de](https://www.th-deg.de/en/study-with-us/courses)"
-      },
-      {
-        "keywords": ["apply", "application", "admission", "how to apply"],
-        "answer": "If you want to apply or learn more about admission requirements, the best place is the official THD application page.\n\nApplication information:\n[th-deg.de](https://www.th-deg.de/en/apply)"
-      },
-      {
-        "keywords": ["campus", "deggendorf campus"],
-        "answer": "The main THD campus is in Deggendorf. It has lecture halls, labs, study spaces, student services, and the library."
-      },
-      {
-        "keywords": ["semester", "lecture", "exam"],
-        "answer": "For semester dates, lecture periods, and exam information, students should check the official THD academic calendar or the student portal."
-      }
-    ]
-  },
-  {
-    "topic": "library",
-    "intent": "library",
-    "keywords": [
-      "library",
-      "books",
-      "study room",
-      "reading room",
-      "borrow books"
-    ],
-    "answer": "Students at THD can use the library for studying, borrowing books, and accessing academic resources.\n\nYou can ask about study rooms, books, or other library services.",
-    "allowDirectFollowUps": true,
-    "followUps": [
-      {
-        "keywords": ["study room", "reading room"],
-        "answer": "The THD library is a good place to study quietly or prepare for exams. It is best to check the official website for the current opening hours."
-      },
-      {
-        "keywords": ["books", "borrow"],
-        "answer": "Students can borrow books from the THD library and may also get access to digital resources depending on availability."
-      }
-    ]
-}
+    {
+        "intent": "greeting",
+        "topic": "greeting",
+        "defaultForIntent": true,
+        "keywords": [
+            "hello",
+            "hallo",
+            "hi",
+            "hey",
+            "guten morgen",
+            "good morning",
+            "good afternoon",
+            "good evening",
+            "greetings",
+            "whats up"
+        ],
+        "answer": "Hello! Welcome to Deggendorf. What do you want to know about our beautiful city?\n\nYou can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation, banking, mobilenetwork and healthcare",
+        "allowDirectFollowUps": true,
+        "followUps": [
+            {
+                "keywords": [
+                    "who are you",
+                    "what are you",
+                    "are you a bot"
+                ],
+                "answer": "I am a chatbot representing the City of Deggendorf.\n\nI can provide information about transportation, weather, shopping, accommodation, restaurants, activities, healthcare, education, mobile network, banking, and THD."
+            },
+            {
+                "keywords": [
+                    "how are you",
+                    "how you doing",
+                    "how are you doing"
+                ],
+                "answer": "I am good, thanks for asking. What do you want to know about our beautiful city?\n\nYou can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation, banking, mobilenetwork and healthcare"
+            }
+        ]
+    },
+    {
+        "intent": "basicinfo",
+        "topic": "basicinfo",
+        "defaultForIntent": true,
+        "keywords": [
+            "introduce deggendorf",
+            "basic information",
+            "name",
+            "country",
+            "where is deggendorf"
+        ],
+        "answer": "Deggendorf is a town in Bavaria, Germany, capital of the Deggendorf district.",
+        "followUps": [
+            {
+                "keywords": [
+                    "who is mayor",
+                    "mayor"
+                ],
+                "answer": "Our mayor is Dr. Christian Moser (CSU). He serves as the Lord Mayor (Oberbürgermeister) of Deggendorf."
+            },
+            {
+                "keywords": [
+                    "introduce"
+                ],
+                "answer": "What would you like me to introduce?\n\n• Deggendorf\n• THD (Deggendorf Institute of Technology)\n• Transportation\n• Weather\n• Shopping\n• Restaurants\n• Activities\n• Accommodation\n• Healthcare"
+            },
+            {
+                "keywords": [
+                    "location",
+                    "located"
+                ],
+                "answer": "Deggendorf is in the center of Lower Bavaria. It is located on the left bank approximately in the middle between the Danube cities of Regensburg and Passau.\n\nThe Danube forms the town's natural border towards the south. Towards the west, north and east the town is surrounded by the foothills of the central Bavarian Forest."
+            },
+            {
+                "keywords": [
+                    "post",
+                    "zip",
+                    "zipcode"
+                ],
+                "answer": "The zipcode of Deggendorf is 94469"
+            },
+            {
+                "keywords": [
+                    "population",
+                    "how many people",
+                    "how many residents"
+                ],
+                "answer": "Deggendorf's 2026 population is now estimated at 36,590."
+            },
+            {
+                "keywords": [
+                    "government",
+                    "office",
+                    "new here"
+                ],
+                "answer": "Welcome to Deggendorf. https://www.deggendorf.de is the offical internet Portal for Deggendorf. You can find useful information here. "
+            }
+        ]
+    },
+    {
+        "intent": "weather",
+        "topic": "weather",
+        "defaultForIntent": true,
+        "keywords": [
+            "climate",
+            "weather"
+        ],
+        "answer": "In Deggendorf, the summers are comfortable, the winters are freezing and snowy, and it is partly cloudy year round.\n\nOver the course of the year, the temperature typically varies from -4°C to 24°C and is rarely below -12°C or above 31°C.\n\nBased on the tourism score, the best time of year to visit Deggendorf for warm-weather activities is from late June to early September.\n\n",
+        "followUps": [
+            {
+                "keywords": [
+                    "today",
+                    "temperature",
+                    "current",
+                    "sunny",
+                    "raining",
+                    "cloudy",
+                    "snowing",
+                    "hot",
+                    "cold"
+                ],
+                "answer": "For today's weather, you can check from here: https://openweathermap.org/city/2938540"
+            }
+        ]
+    },
+    {
+        "intent": "history",
+        "topic": "history",
+        "defaultForIntent": true,
+        "keywords": [
+            "history",
+            "historic",
+            "founded"
+        ],
+        "answer": "The oldest settlements in today's Deggendorf city area are located south of the Danube.\n\nIn 1002, Deggendorf was first mentioned in a document. King Heinrich II confirms his possession in Deggendorf to the Niedermünster canoness monastery in Regensburg.\n\nIn the 12th century, a first settlement was established in the north-eastern area of today's old town, which was proven by the excavations of the city archaeology.\n\nIn 1316, the widow of Duke Otto III, Agnes, granted Deggendorf town rights.\n\nIn the 19th century, the construction of Ruselstraße (1815 to 1817) and an iron bridge over the Danube (1859 to 1863) significantly improved Deggendorf's infrastructure.\n\nIn 1866, Deggendorf joined the railway network to Plattling at the instigation of an interest group of Deggendorf citizens.\n\nThe station was still in Fischerdorf at that time and only after the construction of a railway bridge over the Danube in 1877) could it be abandoned.\n\n"
+    },
+    {
+        "intent": "transportation",
+        "topic": "transportation",
+        "defaultForIntent": true,
+        "keywords": [
+            "how to get to deggendorf",
+            "travel",
+            "transportation",
+            "how to arrive to deggendorf",
+            "how do i get there",
+            "how can i get there",
+            "how do i travel",
+            "how can i travel",
+            "dow do i get to deggendorf",
+            "arrive in deggendorf",
+            "get to deggendorf"
+        ],
+        "answer": "You can reach Deggendorf by:\n\n• Train\n• Bus\n• Plane\n• Car\n\nWhich option would you like to know more about?\n\nFor parking information, reply: parking\nFor public transport, reply: citybus",
+        "followUps": [
+            {
+                "keywords": [
+                    "train",
+                    "db",
+                    "train ticket",
+                    "train station",
+                    "railway"
+                ],
+                "answer": "The nearest ICE-Station is Bahnhof Plattling, you can reach Plattling from many cities in Germany.\n\nFrom Plattling, take RB35 to Deggendorf Hauptbahnhof (main station). The journey takes about 10 minutes.\n\nTicket booking: https://www.bahn.de/service/fahrplaene/reiseauskunft"
+            },
+            {
+                "keywords": [
+                    "citybus",
+                    "city bus",
+                    "public transport",
+                    "local bus"
+                ],
+                "answer": "With four lines in the city bus service, we can transport you across the city area!\n\n Timetables and network map can be found : https://www.deggendorf.de/leben/mobilitaet-verkehr/stadtbusverkehr"
+            },
+            {
+                "keywords": [
+                    "bus"
+                ],
+                "answer": "You can reach Deggendorf by FlixBus from many cities,\n\nfor ticket booking please check: https://www.flixbus.com/bus/deggendorf"
+            },
+            {
+                "keywords": [
+                    "plane",
+                    "airport",
+                    "flight"
+                ],
+                "answer": "Deggendorf is located about 100km (about 1 hour's drive) from the Franz-Josef-Strauss airport in Munich."
+            },
+            {
+                "keywords": [
+                    "parking"
+                ],
+                "answer": "With over 1500 parking spaces, shopping and strolling without parking stress,\n\ninexpensive and protected from the weather, central and no time limit.\n\nSimply follow our parking guidance system: https://stadtparken-deggendorf.de/?article_id=4"
+            },
+            {
+                "keywords": [
+                    "car",
+                    "auto"
+                ],
+                "answer": "A3: Cologne - Frankfurt - Nuremberg - Regensburg - Deggendorf\n\nA92: Munich - Deggendorf"
+            }
+        ]
+    },
+    {
+        "intent": "shopping",
+        "topic": "shop",
+        "defaultForIntent": true,
+        "keywords": [
+            "shop",
+            "mall",
+            "market",
+            "buy"
+        ],
+        "answer": "There are many shopping opportunities in Deggendorf, including supermarkets, fashion stores or local market.\n\nWhich one would you like to know more?",
+        "followUps": [
+            {
+                "keywords": [
+                    "supermarket",
+                    "supermarkets"
+                ],
+                "answer": "Supermarkets in Deggendorf:\n\n• Lidl\n• Aldi\n• Rewe\n• Edeka"
+            },
+            {
+                "keywords": [
+                    "fashion",
+                    "cloth",
+                    "beauty",
+                    "make-up",
+                    "store"
+                ],
+                "answer": "The city center around Luitpoldplatz offers a variety of shops. For example: Tk Maxx, Tedi, Muller, H&M, New Yorker, etc."
+            },
+            {
+                "keywords": [
+                    "local market",
+                    "farm",
+                    "local"
+                ],
+                "answer": "We also have the Deggendorf farmers' market. You can buy not only vegetables, fruit, juices,\n\n but also meat, sausage specialties, flowers. Herbs and baked goods are also offered.\n\n The vegetables usually come from organic farming.\n\n Time: Saturday 08:00- 13:00\n\n Location: Stadtplatz Deggendorf, Oberer Stadtplatz"
+            }
+        ]
+    },
+    {
+        "intent": "healthcare",
+        "topic": "health",
+        "defaultForIntent": true,
+        "keywords": [
+            "sick",
+            "uncomfortable",
+            "hospital",
+            "clinic",
+            "doctor",
+            "injure",
+            "injured",
+            "treatment",
+            "pharmacy",
+            "healthcare",
+            "medical",
+            "ill"
+        ],
+        "answer": "There are varieties healthcare insitituation in Deggendorf.\n\n For general medical care, you can visit DONAU ISAR Klinikum Deggendorf, the largest general hospital in Deggendorf\n\n Please call 112 if any emergency medical needs",
+        "followUps": [
+            {
+                "keywords": [
+                    "donau"
+                ],
+                "answer": "Donau Isar Klinikum is located at Perlasberger Str. 41, 94469, Deggendorf\n\n Phone: 0991/ 380-0\n\n E-mail: info@donau-isar-klinikum.de"
+            }
+        ]
+    },
+    {
+        "intent": "accommodation",
+        "topic": "studdor",
+        "defaultForIntent": false,
+        "keywords": [
+            "student",
+            "dorm",
+            "dormitory",
+            "private",
+            "share",
+            "public",
+            "wg"
+        ],
+        "answer": "Finding a place to stay in Deggendorf is very important for students.\n\nYou can apply for dormitories or private offers.\n\nWhich would you like to know more about?\n\n• Dormitory\n• Private Accommodation\n• Public Websites",
+        "followUps": [
+            {
+                "keywords": [
+                    "student dormitory",
+                    "dorm",
+                    "dormitory"
+                ],
+                "answer": "All apartments are located within easy walking distance of Deggendorf town and the campus of DIT.\n\nView your options here:\n\nhttps://www.th-deg.de/accommodation#deggendorf"
+            },
+            {
+                "keywords": [
+                    "private",
+                    "share"
+                ],
+                "answer": "DIT has its own flat exchange platform where students and landlords offer apartments for sublease or permanent rent.\n\nFlat Exchange:\nhttps://pmit-ext.th-deg.de/wb/search?lang=en\n\nYou can also ask about public websites."
+            },
+            {
+                "keywords": [
+                    "public",
+                    "wg",
+                    "wg gesucht",
+                    "wg-gesucht"
+                ],
+                "answer": "Public accommodation websites:\n\nWG-Gesucht:\nhttps://www.wg-gesucht.de/en/\n\nEbay Kleinanzeigen:\nhttps://www.ebay-kleinanzeigen.de/simmobilien/94469/c195l16909\n\nImmobilienscout24:\nhttps://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html"
+            }
+        ]
+    },
+    {
+        "intent": "accommodation",
+        "topic": "hotel",
+        "defaultForIntent": true,
+        "keywords": [
+            "hotel",
+            "touris",
+            "accommodation",
+            "stay",
+            "hostel",
+            "apartment",
+            "stayover",
+            "where can i live",
+            "rent",
+            "room",
+            "flat",
+            "housing",
+            "housing options",
+            "wohnung"
+        ],
+        "answer": "Welcome to Deggendorf! Most accommodations in Deggendorf can be found in our booking portal:\n\n https://tportal.tomas.travel/StadtDeggendorf/ukv?globalreset=1\n\n If you are a student and looking for a place to stay during your study, please reply 'student' "
+    },
+    {
+        "intent": "restaurant",
+        "topic": "restaurant",
+        "defaultForIntent": true,
+        "keywords": [
+            "restaurant",
+            "food",
+            "meal",
+            "dinner",
+            "breakfast",
+            "lunch",
+            "eat",
+            "pizza",
+            "pasta",
+            "burger",
+            "cafe",
+            "hungry",
+            "cuisine",
+            "coffee",
+            "indian",
+            "mensa",
+            "italian",
+            "german",
+            "syrian",
+            "turkish",
+            "restaurant near me",
+            "where to eat",
+            "good food",
+            "takeaway",
+            "take away",
+            "delivery"
+        ],
+        "answer": "Deggendorf has many food options.\n\nAvailable categories:\n\n• Indian\n• Italian\n• Mensa\n• German\n• Syrian\n• Turkish\n\nWhich one would you like?",
+        "followUps": [
+            {
+                "keywords": [
+                    "indian",
+                    "curry"
+                ],
+                "answer": "For indian food in Deggendorf,you can try Taj Mahal or Shiva\n\nTaj Mahal:  https://tajmahaldeggendorf.de/de \n\nShiva: https://www.indisches-restaurant-deggendorf.de/\n\n"
+            },
+            {
+                "keywords": [
+                    "mensa",
+                    "student",
+                    "campus"
+                ],
+                "answer": "For students, the Mensa at THD is a good option. You can check THD information here\n\nTHD: https://www.th-deg.de/"
+            },
+            {
+                "keywords": [
+                    "syrian",
+                    "arabic",
+                    "shawarma"
+                ],
+                "answer": "For Syrian Food or Arabic Food in Deggendorf, it is best to search current options here\n\nGoogle Maps: https://www.google.com/maps/search/syrian+restaurant+Deggendorf"
+            },
+            {
+                "keywords": [
+                    "turkish",
+                    "kebab",
+                    "doner",
+                    "döner"
+                ],
+                "answer": "For Turkish Food or döner in Deggendorf, you can check Ankara Grill or search here\n\nAnkara Grill: https://www.tripadvisor.com/Restaurant_Review-g811095-d23507287-Reviews-Ankara_Grill-Deggendorf_Lower_Bavaria_Bavaria.html\n\nGoogle Maps:  https://www.google.com/maps/search/turkish+restaurant+Deggendorf"
+            },
+            {
+                "keywords": [
+                    "asia",
+                    "chinese",
+                    "china",
+                    "japan",
+                    "sushi",
+                    "hong kong"
+                ],
+                "answer": "There are some Asian food restaurant worth to try:\n\nHai Pai Cuisine: https://haipaicuisine.de/\n\nSen Resraurant: https://www.sen-deggendorf.de/\n\nSAIKYO Restaurant - Asian Fusion & Sushi: https://www.saikyo.de/ \n\n"
+            },
+            {
+                "keywords": [
+                    "italian",
+                    "pasta",
+                    "pizza"
+                ],
+                "answer": "There are some Italy restaurant worth to try:\n\nLaurin - Pasta & Pizza: https://www.laurin-deggendorf.de/\n\nMama Mia Da Max : https://mamamia-max.de/"
+            },
+            {
+                "keywords": [
+                    "local",
+                    "german",
+                    "traditional",
+                    "bavarian",
+                    "european"
+                ],
+                "answer": "Here are top 3 restaurants of german style in Deggendorf (according to Tripadvisor):\n\nGasthaus Zur Knodelwerferin: https://www.knoedelwerferin-deggendorf.de/\n\nHotel Gasthof Hottl: https://www.hoettl.de/\n\nSchober Otto Gaststaette: https://www.schober-otto.de/\n\n"
+            },
+            {
+                "keywords": [
+                    "cafe",
+                    "tea",
+                    "snack",
+                    "cake",
+                    "coffee",
+                    "break"
+                ],
+                "answer": "There are many cafés and coffee shops in Deggendorf where you can enjoy coffee, tea, and snacks.\n\nMost cafés are located in the city center and shopping areas."
+            },
+            {
+                "keywords": [
+                    "fast",
+                    "burger",
+                    "fried",
+                    "sandwich"
+                ],
+                "answer": "We have McDonald's, Subway, Kochloffel and Burger King in Deggendorf."
+            }
+        ]
+    },
+    {
+        "intent": "school",
+        "topic": "thd",
+        "defaultForIntent": false,
+        "keywords": [
+            "university",
+            "thd",
+            "dit",
+            "applied sciences",
+            "technology",
+            "th deg",
+            "deggendorf institute of technology",
+            "degree",
+            "bachelor",
+            "master",
+            "campus",
+            "lecture",
+            "semester",
+            "student card",
+            "enrollment",
+            "enrolment",
+            "admission",
+            "application",
+            "introduce thd",
+            "introduce university"
+        ],
+        "answer": "The Deggendorf Institute of Technology (THD) offers Bachelor's and Master's degree programmes in the fields of civil and environmental engineering, natural sciences, electrical engineering and computer science, mechanical engineering, media as well as health and economics\n\nThe THD has 45% international students. 3 study locations. The main campus of THD is located in the center of Deggendorf.\n\nLocation: Dieter-Görlitz-Platz 1, 94469 Deggendorf",
+        "followUps": [
+            {
+                "keywords": [
+                    "program",
+                    "programme",
+                    "graduate",
+                    "degree",
+                    "bachelor",
+                    "master"
+                ],
+                "answer": "Here you can find all study programmes at THD: https://www.th-deg.de/study-programmes"
+            },
+            {
+                "keywords": [
+                    "apply",
+                    "join",
+                    "admission",
+                    "application"
+                ],
+                "answer": "To begin your studies at the Deggendorf Institute of Technology, you need to apply to study.\n\nStep by step to a successful application from here: https://th-deg.de/en/apply"
+            },
+            {
+                "keywords": [
+                    "event",
+                    "activity",
+                    "party",
+                    "club"
+                ],
+                "answer": "THD is holding a variety of activities, including diversity week, international week, online consultation, career development, sports, party, cinema night, etc.\n\nHere you can find event calendar here: https://th-deg.de/en/dit/events"
+            },
+            {
+                "keywords": [
+                    "contact",
+                    "email",
+                    "phone",
+                    "advice",
+                    "support"
+                ],
+                "answer": "If you need any advice or support, you can reach us from here: https://th-deg.de/en/advice"
+            }
+        ]
+    }
 ]
