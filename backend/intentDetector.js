@@ -23,6 +23,7 @@ const allowedIntents = new Set([
     'mobilenetwork',
     'school',
     'planningatrip',
+    'library',
     'unknown'
 ]);
 
@@ -61,6 +62,7 @@ async function detectIntent(message) {
                - mobilenetwork: SIM card, mobile plan, phone contract, prepaid, internet provider
                - school: THD, DIT, university, study, bachelor, master, admission, application, campus, lecture, semester, student topics
                - planningatrip: itinerary, travel plan, trip plan, visit plan, day schedule, weekend plan, route, help planning a visit
+               - Library: library, bibliothek, Stadtbibliothek, THD library, books, borrowing books, reading, study place, eBooks, loan period, library fees, and library opening hours.
 
                Use unknown only if no intent reasonably fits.`
 

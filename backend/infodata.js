@@ -46,6 +46,7 @@ function replyTopic (message, session, intent){
    if (intent === 'accommodation') AIReply = Accomdation(text, session, intent);
    if (intent === 'restaurant') AIReply = Restaurant(text, session, intent);
    if (intent === 'activity') AIReply = Activity(text, session, intent);
+   if (intent === 'library') AIReply = Library(text, session, true);
    if (intent === 'cityregistration') AIReply = CityRegistration(text, session, intent);
    if (intent === 'emergency') AIReply = Emergency(text, session, intent);
    if (intent === 'school') AIReply = School(text, session, intent);
@@ -86,6 +87,7 @@ function replyTopic (message, session, intent){
       Activity (text,session, false) ||
       CityRegistration(text, session, false) ||
       School(text, session, false) ||
+      Library(text, session, false) ||
       NearbyCities(text, session, false) ||
       ExtraAnswers(text, session, intent) ||
       NearbyCities(text, session, false) ||
@@ -113,6 +115,7 @@ function SetTopicFromIntent(intent, text, session) {
    if (intent === 'cityregistration') session.topic = 'registration';
    if (intent === 'emergency') session.topic = 'emergency';
    if (intent === 'nearbycities') session.topic = 'nearbycities';
+   if (intent === 'library') session.topic = 'library';
    if (intent === 'banking') session.topic = 'banking';
    if (intent === 'mobilenetwork') session.topic = 'mobilenetwork';
 
@@ -164,6 +167,7 @@ function ContinueCurrentTopic(text, session) {
    if (session.topic === 'emergency') return Emergency(text, session, false);
    if (session.topic === 'visitplan') return PlanVisit(text, session, false);
    if (session.topic === 'school') return School(text, session, false);
+   if (session.topic === 'library') return Library(text, session, false);
    if (session.topic === 'thd') return School(text, session, false);
    if (session.topic === 'nearbycities') return NearbyCities(text, session, false); 
    if (session.topic === 'banking') AIReply = Banking(text, session, false);
@@ -1812,6 +1816,387 @@ function Banking(text, session, fromIntent = false) {
    return null;
 }
 
+
+function Library(text, session, fromIntent = false) {
+
+   if (fromIntent) {
+      session.topic = 'library';
+   }
+
+   if (
+      text.includes('borrow book') ||
+      text.includes('borrow') ||
+      text.includes('book') ||
+      text.includes('library') ||
+      text.includes('bibliothek') ||
+      text.includes('reading') ||
+      text.includes('magazine') ||
+      text.includes('books') ||
+      text.includes('read') ||
+      text.includes('study place') ||
+      text.includes('loan book') ||
+      text.includes('ebook') ||
+      text.includes('ebooks') ||
+      text.includes('digital resources')
+   ) {
+      session.topic = 'library';
+   }
+
+   if (
+      session.topic === 'library' &&
+      (
+         text.includes('stadtbibliothek deggendorf') ||
+         text.includes('stadtbibliothek') ||
+         text.includes('city library') ||
+         text.includes('public library') ||
+         text.includes('stadt')
+      )
+   ) {
+      session.subtopic = 'stadtbibliothek';
+   }
+
+   if (
+      session.topic === 'library' &&
+      (
+         text.includes('thd') ||
+         text.includes('technology') ||
+         text.includes('technische') ||
+         text.includes('dit') ||
+         text.includes('university library') ||
+         text.includes('thd library')
+      )
+   ) {
+      session.subtopic = 'thdbibliothek';
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'stadtbibliothek' &&
+      (
+         text.includes('open') ||
+         text.includes('time') ||
+         text.includes('hours') ||
+         text.includes('hour') ||
+         text.includes('when') ||
+         text.includes('close') ||
+         text.includes('opening')
+      )
+   ) {
+      return "The opening hour of stadtbibliothek Deggendorf is from Tuesday to Saturday, 10:00 - 18:00.\n\n" +
+             "It is closed on Sunday and Monday\n\n" +
+             "Please notice, in the following dates the library is also closed: \n\n" +
+             "Saturday, 15.08.2026 // Saturday, 03.10.2026 // Thursday, 24.12.2026 // Friday, 25.12.2026 // Saturday, 26.12.2026 // Tuesday, 29.12.2026 // Wednesday, 30.12.2026 // Thursday, 31.12.2026 // Friday, 01.01.2027 // Saturday, 02.01.2027";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'stadtbibliothek' &&
+      (
+         text.includes('where') ||
+         text.includes('address') ||
+         text.includes('location') ||
+         text.includes('find')
+      )
+   ) {
+      return "The Stadtbibliothek Deggendorf is located at Rosengasse 10, 94469 Deggendorf.\n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'stadtbibliothek' &&
+      (
+         text.includes('contact') ||
+         text.includes('phone') ||
+         text.includes('call') ||
+         text.includes('email')
+      )
+   ) {
+      return "You can reach the Stadtbibliothek team by visiting their website: https://stadtbibliothek.deggendorf.de/ \n\n" +
+             "Send us a email if any question: stadtbibliothek@deggendorf.de\n\n" +
+             "And you can find the contact information from here: https://stadtbibliothek.deggendorf.de/unser-team \n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'stadtbibliothek' &&
+      (
+         text.includes('fee') ||
+         text.includes('cost') ||
+         text.includes('money') ||
+         text.includes('spend') ||
+         text.includes('fees')
+      )
+   ) {
+      return "Registration fee/replacement card: Adults is 2.5€, Minors is 1.5€. \n\n " +
+             "Annual fee/ monthly fee : Adults  €10.00 / €2.50, Minors  €5.00 / €2.50\n\n" +
+             "We also provide the family cards: adults and all minor children with same place of residence: Annual fee is €18.\n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'stadtbibliothek' &&
+      (
+         text.includes('period') ||
+         text.includes('loan periods') ||
+         text.includes('periods') ||
+         text.includes('how long') ||
+         text.includes('keep') ||
+         text.includes('renew') ||
+         text.includes('due')
+      ) &&
+      !text.includes('borrow') &&
+      !text.includes('borrowing')
+   ) {
+      return "For books, languages courses, audio books: 4 weeks\n\n" +
+             "For magazines, CDs, CD-ROMs: 2 weeks\n\n" +
+             "For BluRays, DVDs: 1 week \n\n" +
+             "You can renew your media up to 3x by phone or via the Internet (BluRays, DVDs, Tonies and Edurinos only 1x). To do this, you will need your ID number and password.\n\n" +
+             "The renew period will be calculated from the date of renewal, not the due date. Onleihe media cannot be renewed.\n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'stadtbibliothek' &&
+      (
+         text.includes('late') ||
+         text.includes('over time') ||
+         text.includes('exceed')
+      )
+   ) {
+      return "If you return an item after the loan period, a late fee of €0.50 per item per week will be charged.\n\n" +
+             "each written reminder costs €1.50, and the maximum fee per returned item is €7.70.\n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'stadtbibliothek' &&
+      (
+         text.includes('activity') ||
+         text.includes('event') ||
+         text.includes('happen')
+      )
+   ) {
+      return "The library offers regular events such as children's activities, workshops, readings, and cultural programs.\n\n" +
+             "Check the online event calendar for upcoming events and registration.\n\n" +
+             "Click here: https://sb-deggendorf.lmscloud.net/events?_order_by=start_time&_page=1&_per_page=20&q=%7B%7D&open_registration=true \n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'stadtbibliothek' &&
+      (
+         text.includes('ebook') ||
+         text.includes('ebooks') ||
+         text.includes('online') ||
+         text.includes('elibrary') ||
+         text.includes('digit') ||
+         text.includes('digital resources')
+      )
+   ) {
+      return "The Stadtbibliothek Deggendorf also provides digital resources, including eBooks, eAudiobooks, ePapers, and eVideos, which members can access online anytime.\n\n" +
+             "Click here to find more: https://stadtbibliothek.deggendorf.de/ebibliothek \n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'stadtbibliothek' &&
+      (
+         text.includes('borrow') ||
+         text.includes('books') ||
+         text.includes('cd') ||
+         text.includes('cds') ||
+         text.includes('magazine') ||
+         text.includes('magazines') ||
+         text.includes('journals') ||
+         text.includes('registration') ||
+         text.includes('registed') ||
+         text.includes('regisrate') ||
+         text.includes('return') ||
+         text.includes('loan') ||
+         text.includes('loaning')
+      )
+   ) {
+      return "At the Stadtbibliothek Deggendorf, you can borrow books, DVDs, CDs, audiobooks and other media.\n\n" +
+             "Anyone who wants to borrow media must first register. Bring a valid photo ID and fill out a registration form and then you can borrow immediately.\n\n " +
+             "The borrowing and returning of the media will be carried by you independently at the booking terminals.\n\n" +
+             "Outside the opening hours, the book return box is available to you.\n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'stadtbibliothek'
+   ) {
+      return "The Stadtbibliothek Deggendorf is the city's public library, providing books, digital resources, study areas, and community events.\n\n" +
+             "I can provide the information about opening hours, contact, address, borrow media, registration, fees and events.\n\n" +
+             "what would you like to know?";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'thdbibliothek' &&
+      (
+         text.includes('open') ||
+         text.includes('time') ||
+         text.includes('hours') ||
+         text.includes('hour') ||
+         text.includes('when') ||
+         text.includes('close') ||
+         text.includes('opening')
+      )
+   ) {
+      return "During the semester: Monday to Thursday 8:00-20:00 and Friday is 8:30- 18:00.\n\n" +
+             "During the semester break: Monday to Thursday 9:30-16:30 and Friday is 9:30- 13:00.\n\n" +
+             "For upcoming exam prepatation we offer extended opening hour from 22.06.2026 to 31.07.2026\n\n" +
+             "Monday to Friday: 8:30- 23:45, Saturday to Sunday: 8:00 - 23:45\n\n" +
+             "Exception: On July 3, the library will close at 6 p.m. due to the summer festival!\n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'thdbibliothek' &&
+      (
+         text.includes('where') ||
+         text.includes('address') ||
+         text.includes('location') ||
+         text.includes('find')
+      )
+   ) {
+      return "The Bibliothek of THD is located at Dieter-Görlitz-Platz 1, 94469 Deggendorf.\n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'thdbibliothek' &&
+      (
+         text.includes('contact') ||
+         text.includes('phone') ||
+         text.includes('call') ||
+         text.includes('email') ||
+         text.includes('question')
+      )
+   ) {
+      return "You can reach us by sending us an email:  bib-service@th-deg.de \n\n" +
+             "You can find frequently asked questions from here: https://www.th-deg.de/en/students/library \n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'thdbibliothek' &&
+      (
+         text.includes('fee') ||
+         text.includes('cost') ||
+         text.includes('money') ||
+         text.includes('spend') ||
+         text.includes('fees') ||
+         text.includes('late') ||
+         text.includes('over time') ||
+         text.includes('exceed') ||
+         text.includes('pay')
+      ) &&
+      !text.includes('registrate') &&
+      !text.includes('registration')
+   ) {
+      return "Books are not returned in time must be reminded with costs:\n\n" +
+             "Costs for the 1st reminder: € 7.50\n\n" +
+             "Costs for the 2nd reminder: € 10\n\n" +
+             "Costs for the 3rd reminder: € 20 +€ 3.45 shipping fee\n\n" +
+             "Costs for the value replacement(notification): additional € 30 +€ 3.45 shipping fee\n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'thdbibliothek' &&
+      (
+         text.includes('period') ||
+         text.includes('loan periods') ||
+         text.includes('periods') ||
+         text.includes('how long') ||
+         text.includes('keep') ||
+         text.includes('renew') ||
+         text.includes('due')
+      ) &&
+      !text.includes('borrow') &&
+      !text.includes('borrowing')
+   ) {
+      return "The loan period is determined by the lending classification, which is part of the book signature.\n\n" +
+             "Click here to check the detail: https://www.th-deg.de/en/students/library \n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'thdbibliothek' &&
+      (
+         text.includes('activity') ||
+         text.includes('event') ||
+         text.includes('happen') ||
+         text.includes('courses')
+      )
+   ) {
+      return "The library offers different library introduction courses, including databases, literature research, literature management zotero, fit for the bachelor thesis, etc.\n\n" +
+             "Click here to learn more: https://www.th-deg.de/en/students/library#introduction-courses\n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'thdbibliothek' &&
+      (
+         text.includes('ebook') ||
+         text.includes('ebooks') ||
+         text.includes('online') ||
+         text.includes('elibrary') ||
+         text.includes('digit') ||
+         text.includes('digital resources') ||
+         text.includes('digtal resources')
+      )
+   ) {
+      return "The library of THD is also providing ebooks. Access to e-book is free of charge for university members. \n\n" +
+             "A VPN connection is required with the private devices and all other WLAN connections. And access is only possible with a VPN connection.\n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'thdbibliothek' &&
+      (
+         text.includes('borrow') ||
+         text.includes('books') ||
+         text.includes('cd') ||
+         text.includes('cds') ||
+         text.includes('magazine') ||
+         text.includes('magazines') ||
+         text.includes('journals') ||
+         text.includes('registration') ||
+         text.includes('registed') ||
+         text.includes('regisrate') ||
+         text.includes('return') ||
+         text.includes('loan') ||
+         text.includes('loaning')
+      )
+   ) {
+      return "Books are borrowed by self-service using the student ID and password.\n\n" +
+             "You can return your book at the counter during opening hours.\n\n " +
+             "Outside opening hours, returns can be put in the returns box.\n\n" +
+             "The books must be returned on the deadline day at the latest.\n\n";
+   }
+
+   if (
+      session.topic === 'library' &&
+      session.subtopic === 'thdbibliothek'
+   ) {
+      return "The THD Library provides books, ebooks, study spaces, and research support for students and staff at Deggendorf Institute of Technology.\n\n" +
+             "I can provide the information about opening hours, contact, address, borrow and return rules, registration, fees and research courses.\n\n" +
+             "what would you like to know?";
+   }
+
+   if (session.topic === 'library' || fromIntent) {
+      session.topic = 'library';
+
+      return "There are two libraries in the Deggendorf, the Stadtbibliothek Deggendorf and the library of THD.\n\n" +
+             "I can help you to check the general information, the opening time, address, contact and how to borrow a book in the library \n\n" +
+             "Which library would you like to know more about?\n\n";
+   }
+
+   return null;
+}
 
 function HardFallback(session){
         session.failCount++;
