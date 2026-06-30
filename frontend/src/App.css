@@ -4,8 +4,13 @@ body {
 
 .page-background{
   min-height: 100vh;
-  background-image: url("./stadtrundgang-ueberblick-2000x1125.webp");
   background-size: cover;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.45)
+    ),
+    url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Stadtplatz_von_Deggendorf_-01.JPG/3840px-Stadtplatz_von_Deggendorf_-01.JPG");
+  background-color: #8ea5b3;
   background-position: center;
   justify-content: center;
   background-repeat: no-repeat;

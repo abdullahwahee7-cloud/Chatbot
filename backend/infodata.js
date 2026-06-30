@@ -236,6 +236,7 @@ function Transportation (text,session) {
        text.includes('how to arrive to deggendorf')||
        text.includes('how do i get there')||
        text.includes('how can i get there')||
+       text.includes("how do I get to deggendorf?") ||
        text.includes('how do i travel')||
        text.includes('how can i travel')
 
@@ -862,6 +863,7 @@ function Activity (text, session) {
        text.includes('family')||
        text.includes('tour')||
        text.includes('motor')||
+       text.includes("activities") ||
        text.includes('what can i do')||
        text.includes('things to do')||
        text.includes('do in deggendorf'))
