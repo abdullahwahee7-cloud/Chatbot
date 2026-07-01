@@ -20,13 +20,13 @@ function replyTopic (message, session){
       Accomdation (text,session) ||
       Restaurant (text,session) ||
       Activity (text,session) ||
+      Library(text,session)||
       School (text,session) ||
       CityRegistration(text,session)||
       Emergency(text,session)||
       NearbyCities(text,session) ||
       Banking(text,session)||
-      MobileNetwork(text, session)||
-      Library(text,session)||
+      MobileNetwork(text,session)||
       Museum(text, session);
 
    if (reply) {
@@ -614,6 +614,7 @@ function Restaurant (text, session){
 
  /*School & THD*/
 function School (text,session){
+
         if (text.includes('school')||
             text.includes('education')||
             text.includes('college')||
@@ -655,11 +656,10 @@ function School (text,session){
 
              if (session.topic == 'thd' &&
                 ( text.includes('introduce')||
-                text.includes('thd')||
-                text.includes('dit')||
-                text.includes('where')||
-                text.includes('local')||
-                text.includes('location')))
+                  text.includes('dit')||
+                  text.includes('where')||
+                  text.includes('local')||
+                  text.includes('location')))
            
                 {return "The Deggendorf Institute of Technology (THD) offers Bachelor's and Master's degree programs in the fields of civil and environmental engineering, natural sciences, electrical engineering and computer science, mechanical engineering, media as well as health and economics\n\n"+
                    "The THD has 45% international students. 3 study locations. The main campus of THD is located in the center of Deggendorf.\n\n"+
@@ -703,12 +703,155 @@ function School (text,session){
 
                 {return "If you need any advice or support, you can reach us from here: https://th-deg.de/en/advice"
                 } 
-           
+             
+               
+   if ((session.topic === 'thd' && session.subtopic == 'thdbibliothek') &&
+     (text.includes('library')||
+      text.includes('borrow')||
+      text.includes('book')||
+      text.includes('study splaces')||
+      text.includes('study')||
+      text.includes('loan')||
+      text.includes('ebook')))
 
-        if (text.includes('school')||
-            text.includes('education')||
-            text.includes('college')||
-            text.includes('study'))
+      {  session.topic = 'thd';
+         session.subtopic = 'thdbibliothek'}
+ 
+      if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('open')||
+           text.includes('time')||
+           text.includes('hours')||
+           text.includes('hour')||
+           text.includes('when')||
+           text.includes('close')||
+           text.includes('opening')||
+           text.includes('study'))
+         )
+         {return "The library provides study spaces for every student to read, learn and work quietly.\n\n "+
+                 "During the semester: Monday to Thursday 8:00-20:00 and Friday is 8:30- 18:00.\n\n"+
+                 "During the semester break: Monday to Thursday 9:30-16:30 and Friday is 9:30- 13:00.\n\n"+
+                 "For upcoming exam preparation we offer extended opening hour from 22.06.2026 to 31.07.2026\n\n"+
+                 "Monday to Friday: 8:30- 23:45, Saturday to Sunday: 8:00 - 23:45\n\n"+
+                 "Exception: On July 3, the library will close at 6 p.m. due to the summer festival!\n\n"
+         }
+
+         
+         if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('where')||
+           text.includes('where is the library')||
+           text.includes('address')||
+           text.includes('location')||
+           text.includes('find'))
+         )
+         {return "The Bibliothek of THD is located at Dieter-Görlitz-Platz 1, 94469 Deggendorf.\n\n"
+         }
+
+         if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('contact')||
+           text.includes('phone')||
+           text.includes('call')||
+           text.includes('email')||
+           text.includes('question'))
+         )
+         {return "You can reach us by sending us an email:  bib-service@th-deg.de \n\n"+ 
+                 "You can find frequently asked questions from here: https://www.th-deg.de/en/students/library \n\n"
+         }
+
+         if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('borrow')||
+           text.includes('books')||
+           text.includes('cd')||
+           text.includes('cds')||
+           text.includes('magazine')||
+           text.includes('boook')||
+           text.includes('journals')||
+           text.includes('registration')||
+           text.includes('register')||
+           text.includes('regisrate')||
+           text.includes('return')||
+           text.includes('loan')||
+           text.includes('loaning'))
+         )
+         {return "Books are borrowed by self-service using the student ID and password.\n\n"+
+                 "You can return your book at the counter during opening hours.\n\n"+
+                 "Outside opening hours, returns can be put in the returns box.\n\n"+
+                 "The books must be returned on the deadline day at the latest.\n\n"
+         }
+         
+         if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (!text.includes('register')&&
+           !text.includes('registration')) &&
+          (text.includes('fee')||
+           text.includes('cost')||
+           text.includes('money')||
+           text.includes('spend')||
+           text.includes('fees')||
+           text.includes('late')||
+           text.includes('over time')||
+           text.includes('exceed')||
+           text.includes('pay'))
+         )
+         {return "Books are not returned in time must be reminded with costs:\n\n"+
+                 "Costs for the 1st reminder: € 7.50\n\n"+
+                 "Costs for the 2nd reminder: € 10\n\n"+
+                 "Costs for the 3rd reminder: € 20 +€ 3.45 shipping fee\n\n"+
+                 "Costs for the value replacement(notification): additional € 30 +€ 3.45 shipping fee\n\n"
+         }
+
+          if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (!text.includes('borrow')&&
+           !text.includes('borrowing')) &&
+          (text.includes('period')||
+           text.includes('loan periods')||
+           text.includes('periods')||
+           text.includes('how long')||
+           text.includes('keep')||
+           text.includes('renew')||
+           text.includes('due')))
+      
+         {return "The loan period is determined by the lending classification, which is part of the book signature.\n\n"+
+                 "Click here to check the detail: https://www.th-deg.de/en/students/library \n\n"
+         }
+
+         
+         if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('activity')||
+           text.includes('event')||
+           text.includes('happen')||
+           text.includes('courses')||
+           text.includes('research'))
+         )
+         {return "The library offers different library introduction courses, including databases, literature research, literature management zotero, fit for the bachelor thesis, etc.\n\n"+
+                 "Click here to learn more: https://www.th-deg.de/en/students/library#introduction-courses\n\n"}
+
+         
+          if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('ebook')||
+           text.includes('ebooks')||
+           text.includes('online')||
+           text.includes('elibrary')||
+           text.includes('digit')||
+           text.includes('digital resources'))
+         )
+         {return "The library of THD is also providing ebooks. Access to e-book is free of charge for university members. \n\n"+
+                 "A VPN connection is required with the private devices and all other WLAN connections. And access is only possible with a VPN connection.\n\n" }
+
+       if (session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek')
+         {return "The THD Library provides books, ebooks, study spaces, and research support for students and staff at Deggendorf Institute of Technology.\n\n"+
+              "I can provide the information about opening hours, contact, address, borrow and return rules, registration, fees and research courses.\n\n"+
+              "what would you like to know?"}
+
+            
+        if (session.topic =='thd')
   
             {return "In the district of Deggendorf, probably one of the most school-friendly in Bavaria, there are almost 80 state, municipal and private institutions for the training, further education and further education of the population in school and work\n\n"+
                "There are schools of general education, Vocation schools, adult education, technical colleges, primary and secondary schools, university, continuing education and special schools\n\n" +
@@ -1385,11 +1528,17 @@ function Library(text, session){
       text.includes('books')||
       text.includes('reading')||
       text.includes('read')||
-      text.includes('study place')||
+      text.includes('study spaces')||
       text.includes('loan book')
    ){
       session.topic = 'library';
    }
+
+   
+   if (session.topic == 'library' && text.includes('thd'))
+         {  session.topic = 'thd';
+            session.subtopic = 'thdbibliothek';
+            return School(text,session) } 
 
    if(session.topic === 'library' &&
      (text.includes('Stadtbibliothek Deggendorf')||
@@ -1537,146 +1686,7 @@ function Library(text, session){
               "I can provide the information about opening hours, contact, address, borrow media, registration, fees and events.\n\n"+
               "what would you like to know?"
       }
-
       
-   if(session.topic === 'library' &&
-     (text.includes('thd')||
-      text.includes('technology')||
-      text.includes('technische')||
-      text.includes('dit')))
-      {  session.subtopic = 'thdbibliothek'
-      }
-
-      
-      if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('open')||
-           text.includes('time')||
-           text.includes('hours')||
-           text.includes('hour')||
-           text.includes('when')||
-           text.includes('close')||
-           text.includes('opening'))
-         )
-         {return "During the semester: Monday to Thursday 8:00-20:00 and Friday is 8:30- 18:00.\n\n"+
-                 "During the semester break: Monday to Thursday 9:30-16:30 and Friday is 9:30- 13:00.\n\n"+
-                 "For upcoming exam preparation we offer extended opening hour from 22.06.2026 to 31.07.2026\n\n"+
-                 "Monday to Friday: 8:30- 23:45, Saturday to Sunday: 8:00 - 23:45\n\n"+
-                 "Exception: On July 3, the library will close at 6 p.m. due to the summer festival!\n\n"
-         }
-
-         
-         if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('where')||
-           text.includes('address')||
-           text.includes('location')||
-           text.includes('find'))
-         )
-         {return "The Bibliothek of THD is located at Dieter-Görlitz-Platz 1, 94469 Deggendorf.\n\n"
-         }
-
-         if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('contact')||
-           text.includes('phone')||
-           text.includes('call')||
-           text.includes('email')||
-           text.includes('question'))
-         )
-         {return "You can reach us by sending us an email:  bib-service@th-deg.de \n\n"+ 
-                 "You can find frequently asked questions from here: https://www.th-deg.de/en/students/library \n\n"
-         }
-
-         if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('borrow')||
-           text.includes('books')||
-           text.includes('cd')||
-           text.includes('cds')||
-           text.includes('magazine')||
-           text.includes('magazines')||
-           text.includes('journals')||
-           text.includes('registration')||
-           text.includes('register')||
-           text.includes('regisrate')||
-           text.includes('return')||
-           text.includes('loan')||
-           text.includes('loaning'))
-         )
-         {return "Books are borrowed by self-service using the student ID and password.\n\n"+
-                 "You can return your book at the counter during opening hours.\n\n "+
-                 "Outside opening hours, returns can be put in the returns box.\n\n"+
-                 "The books must be returned on the deadline day at the latest.\n\n"
-         }
-         
-         if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (!text.includes('register')&&
-           !text.includes('registration')) &&
-          (text.includes('fee')||
-           text.includes('cost')||
-           text.includes('money')||
-           text.includes('spend')||
-           text.includes('fees')||
-           text.includes('late')||
-           text.includes('over time')||
-           text.includes('exceed')||
-           text.includes('pay'))
-         )
-         {return "Books are not returned in time must be reminded with costs:\n\n"+
-                 "Costs for the 1st reminder: € 7.50\n\n"+
-                 "Costs for the 2nd reminder: € 10\n\n"+
-                 "Costs for the 3rd reminder: € 20 +€ 3.45 shipping fee\n\n"+
-                 "Costs for the value replacement(notification): additional € 30 +€ 3.45 shipping fee\n\n"
-         }
-
-          if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (!text.includes('borrow')&&
-           !text.includes('borrowing')) &&
-          (text.includes('period')||
-           text.includes('loan periods')||
-           text.includes('periods')||
-           text.includes('how long')||
-           text.includes('keep')||
-           text.includes('renew')||
-           text.includes('due'))
-         )
-         {return "The loan period is determined by the lending classification, which is part of the book signature.\n\n"+
-                 "Click here to check the detail: https://www.th-deg.de/en/students/library \n\n"
-         }
-
-         
-         if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('activity')||
-           text.includes('event')||
-           text.includes('happen')||
-           text.includes('courses'))
-         )
-         {return "The library offers different library introduction courses, including databases, literature research, literature management zotero, fit for the bachelor thesis, etc.\n\n"+
-                 "Click here to learn more: https://www.th-deg.de/en/students/library#introduction-courses\n\n"}
-
-         
-          if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('ebook')||
-           text.includes('ebooks')||
-           text.includes('online')||
-           text.includes('elibrary')||
-           text.includes('digit')||
-           text.includes('digital resources'))
-         )
-         {return "The library of THD is also providing ebooks. Access to e-book is free of charge for university members. \n\n"+
-                 "A VPN connection is required with the private devices and all other WLAN connections. And access is only possible with a VPN connection.\n\n" }
-
-       if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek')
-      {return "The THD Library provides books, ebooks, study spaces, and research support for students and staff at Deggendorf Institute of Technology.\n\n"+
-              "I can provide the information about opening hours, contact, address, borrow and return rules, registration, fees and research courses.\n\n"+
-              "what would you like to know?"}
-
        if (session.topic == 'library')
   { return "There are two libraries in the Deggendorf, the Stadtbibliothek Deggendorf and the library of THD.\n\n"+ 
              "I can help you to check the general information, the opening time, address, contact and how to borrow a book in the library \n\n"+
@@ -1701,7 +1711,9 @@ function Museum(text, session){
                 "For more information, please visit our website: https://stadtmuseum.deggendorf.de "}
 
    if (session.topic == 'museum' &&
-       (text.includes('handwerkmuseum')))
+       (text.includes('handwerkmuseum')|| 
+        text.includes('handwerk')||
+        text.includes('hand')))
         {return "The Handwerksmuseum shows traditional crafts and handmade tools from the region.\n\n"+
                 "Address: Maria-Ward-Platz 1, 94469 Deggendorf \n\n"+
                 "The opening hours: Tuesday to Saturday: 10:00- 16:00, Sunday & holidays: 10:00-17:00, Monday close\n\n"+
@@ -1710,7 +1722,7 @@ function Museum(text, session){
         }
    
    if (session.topic == 'museum')
-   {return "Deggendorf has three museums in the city, the Deggendorf City Museum, the Handwerksmuseum and the Schiffmeisterhaus Deggendorf\n\n"+
+   {return "Deggendorf has two museums in the city, the Deggendorf City Museum and the Handwerksmuseum \n\n"+
            "Which would you like to know?"
    }
 }
