@@ -26,7 +26,8 @@ function replyTopic (message, session){
       NearbyCities(text,session) ||
       Banking(text,session)||
       MobileNetwork(text, session)||
-      Library(text,session);
+      Library(text,session)||
+      Museum(text, session);
 
    if (reply) {
         session.failCount = 0;
@@ -127,7 +128,9 @@ function Basicinfo(text,session){
                 "• Plan Visit\n" +
                 "• Bank\n" + +
                 "• Mobile Network\n" +
-                "• Library\n" ;
+                "• Library\n" +
+                "• Museum\n" 
+                ;
       }
 
     if (text.includes('introduce deggendorf') ||
@@ -1666,26 +1669,50 @@ function Library(text, session){
            text.includes('digital resources'))
          )
          {return "The library of THD is also providing ebooks. Access to e-book is free of charge for university members. \n\n"+
-                 "A VPN connection is required with the private devices and all other WLAN connections. And access is only possible with a VPN connection.\n\n"
-         }
+                 "A VPN connection is required with the private devices and all other WLAN connections. And access is only possible with a VPN connection.\n\n" }
 
        if (session.topic == 'library' &&
           session.subtopic =='thdbibliothek')
       {return "The THD Library provides books, ebooks, study spaces, and research support for students and staff at Deggendorf Institute of Technology.\n\n"+
               "I can provide the information about opening hours, contact, address, borrow and return rules, registration, fees and research courses.\n\n"+
-              "what would you like to know?"
-      }
+              "what would you like to know?"}
 
        if (session.topic == 'library')
-  {
-     return "There are two libraries in the Deggendorf, the Stadtbibliothek Deggendorf and the library of THD.\n\n"+ 
+  { return "There are two libraries in the Deggendorf, the Stadtbibliothek Deggendorf and the library of THD.\n\n"+ 
              "I can help you to check the general information, the opening time, address, contact and how to borrow a book in the library \n\n"+
-             "Which library would you like to know more about?\n\n"
-   }
+             "Which library would you like to know more about?\n\n"}
 }
 
+/*Museum*/
 function Museum(text, session){
+ if( text.includes('museum')||
+     text.includes('handwerkmuseum')
+   ){
+      session.topic = 'museum';}
 
+   if (session.topic == 'museum' &&
+       (text.includes('Stadtmuseum') ||
+        text.includes('city')||
+        text.includes('stadt')))
+        {return "The Deggendorf City Museum tells the story of the city's history and culture.\n\n"+
+                "Address: Östlicher Stadtgraben 28, 94469 Deggendorf \n\n"+
+                "The opening hours: Tuesday to Saturday: 10:00- 16:00, Sunday & holidays: 10:00-17:00, Monday close\n\n"+
+                "The entrance fee: Adults: € 4.0 children from 6 to 18, disabled people: € 2.0 \n\n" +
+                "For more information, please visit our website: https://stadtmuseum.deggendorf.de "}
+
+   if (session.topic == 'museum' &&
+       (text.includes('handwerkmuseum')))
+        {return "The Handwerksmuseum shows traditional crafts and handmade tools from the region.\n\n"+
+                "Address: Maria-Ward-Platz 1, 94469 Deggendorf \n\n"+
+                "The opening hours: Tuesday to Saturday: 10:00- 16:00, Sunday & holidays: 10:00-17:00, Monday close\n\n"+
+                "The entrance fee: Adults: € 4.0 children from 6 to 18, disabled people: € 4.0 \n\n" +
+                "For more information, please visit our website: https://handwerksmuseum.deggendorf.de/"
+        }
+   
+   if (session.topic == 'museum')
+   {return "Deggendorf has three museums in the city, the Deggendorf City Museum, the Handwerksmuseum and the Schiffmeisterhaus Deggendorf\n\n"+
+           "Which would you like to know?"
+   }
 }
 
 
@@ -1704,7 +1731,17 @@ function HardFallback(session){
                 "• Shopping\n" +
                 "• Restaurants\n" +
                 "• THD\n" +
-                "• Activities";
+                "• Activities\n" +
+                "• Accommodation\n" +
+                "• Healthcare\n" +
+                "• Resident Registration\n"
+                "• Emergency\n" +
+                "• Plan Visit\n" +
+                "• Bank\n" + +
+                "• Mobile Network\n" +
+                "• Library\n"  +
+                "• Museum\n" ;
+                ;
         }
 
         return "I am sorry, I'm not sure if I understand what you're looking for.Could you please try it again with a few words? \n\n"+
