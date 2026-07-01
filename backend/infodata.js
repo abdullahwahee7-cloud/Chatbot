@@ -1705,7 +1705,7 @@ function Museum(text, session){
         {return "The Handwerksmuseum shows traditional crafts and handmade tools from the region.\n\n"+
                 "Address: Maria-Ward-Platz 1, 94469 Deggendorf \n\n"+
                 "The opening hours: Tuesday to Saturday: 10:00- 16:00, Sunday & holidays: 10:00-17:00, Monday close\n\n"+
-                "The entrance fee: Adults: € 4.0 children from 6 to 18, disabled people: € 4.0 \n\n" +
+                "The entrance fee: Adults: € 4.0 children from 6 to 18, disabled people: € 2.0 \n\n" +
                 "For more information, please visit our website: https://handwerksmuseum.deggendorf.de/"
         }
    
