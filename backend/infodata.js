@@ -1,4 +1,4 @@
-/*We are using the keywords strategy to insure the bot understand and reply the message*/
+/*We are using the keywords strategy to ensure the bot understand and reply the message*/
 const extraAnswersData = require('./extraAnswers.json');
 
 /*The topics*/
@@ -104,7 +104,7 @@ function Greeting (text,session) {
        )
        {
         return "Hello! Welcome to Deggendorf. What do you want to know about our beautiful city?\n\n"+
-               "You can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation and healthcare"
+               "You can ask me about basic information of Deggendorf, the history, weather, transportation, shopping, tourism, accommodations, restaurants, local events, education institution and healthcare"
        }
 }
 
@@ -121,7 +121,13 @@ function Basicinfo(text,session){
                 "• Restaurants\n" +
                 "• Activities\n" +
                 "• Accommodation\n" +
-                "• Healthcare";
+                "• Healthcare\n" +
+                "• Resident Registration\n"
+                "• Emergency\n" +
+                "• Plan Visit\n" +
+                "• Bank\n" + +
+                "• Mobile Network\n" +
+                "• Library\n" ;
       }
 
     if (text.includes('introduce deggendorf') ||
@@ -182,7 +188,7 @@ function Basicinfo(text,session){
         text.includes('office')||
         text.includes('new here'))
        )
-       {return "Welcome to Deggendorf. https://www.deggendorf.de is the offical internet Portal for Deggendorf. You can find useful information here. "}
+       {return "Welcome to Deggendorf. https://www.deggendorf.de is the official internet Portal for Deggendorf. You can find useful information here. "}
 }
        
 /*Climate*/
@@ -371,7 +377,7 @@ function Healthcare (text,session) {
        text.includes('medical')||
        text.includes('ill'))
       {session.topic = 'health';
-       return  "There are varieties healthcare insitituation in Deggendorf.\n\n"+
+       return  "There are varieties healthcare institution in Deggendorf.\n\n"+
                " For general medical care, you can visit DONAU ISAR Klinikum Deggendorf, the largest general hospital in Deggendorf\n\n"+
                " Please call 112 if any emergency medical needs"
       }
@@ -387,7 +393,7 @@ function Healthcare (text,session) {
 function Accomdation(text, session){
    
    if (text.includes('hotel')||
-       text.includes('touris')||
+       text.includes('tourist')||
        text.includes('accommodation')|| 
        text.includes('stay')||
        text.includes('hostel')||
@@ -466,6 +472,7 @@ function Accomdation(text, session){
            "Immobilienscout24:\n" +
            "https://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html";
    }     
+
 }
 
 /*Restaurant*/
@@ -540,7 +547,7 @@ function Restaurant (text, session){
          )
          {return "There are some Asian food restaurant worth to try:\n\n"+
                  "Hai Pai Cuisine: https://haipaicuisine.de/\n\n"+
-                 "Sen Resraurant: https://www.sen-deggendorf.de/\n\n"+
+                 "Sen Restaurant: https://www.sen-deggendorf.de/\n\n"+
                  "SAIKYO Restaurant - Asian Fusion & Sushi: https://www.saikyo.de/ \n\n"
          }
 
@@ -589,27 +596,7 @@ function Restaurant (text, session){
          {return "We have McDonald's, Subway, Kochloffel and Burger King in Deggendorf."
          }
 
-       if (text.includes('restaurant')||
-          text.includes('food')||
-          text.includes('meal')||
-          text.includes('dinner')||
-          text.includes('breakfast')||
-          text.includes('lunch')||
-          text.includes('eat')||
-          text.includes('pizza') ||
-          text.includes('pasta') ||
-          text.includes('burger')||
-          text.includes('cafe')||
-          text.includes('hungry') ||
-          text.includes('cuisine') ||
-          text.includes('coffee')||
-          text.includes('indian')||
-          text.includes('mensa')||
-          text.includes('italian')||
-          text.includes('german')||
-          text.includes('syrian')||
-          text.includes('turkish')
-         )
+       if (session.topic == 'restaurant')
          {return "Deggendorf has many food options.\n\n" +
                  "Available categories:\n\n" +
                  "• Indian\n" +
@@ -668,9 +655,10 @@ function School (text,session){
                 text.includes('thd')||
                 text.includes('dit')||
                 text.includes('where')||
-                text.includes('loca')))
+                text.includes('local')||
+                text.includes('location')))
            
-                {return "The Deggendorf Institute of Technology (THD) offers Bachelor's and Master's degree programmes in the fields of civil and environmental engineering, natural sciences, electrical engineering and computer science, mechanical engineering, media as well as health and economics\n\n"+
+                {return "The Deggendorf Institute of Technology (THD) offers Bachelor's and Master's degree programs in the fields of civil and environmental engineering, natural sciences, electrical engineering and computer science, mechanical engineering, media as well as health and economics\n\n"+
                    "The THD has 45% international students. 3 study locations. The main campus of THD is located in the center of Deggendorf.\n\n"+
                    "Location: Dieter-Görlitz-Platz 1, 94469 Deggendorf"
                 }
@@ -682,7 +670,7 @@ function School (text,session){
                  text.includes('bachelor') ||
                  text.includes('master')))
 
-                {return "Here you can find all study programmes at THD: https://www.th-deg.de/study-programmes"}
+                {return "Here you can find all study programs at THD: https://www.th-deg.de/study-programmes"}
 
               if (session.topic == 'thd' &&
                 (text.includes('apply') ||
@@ -735,7 +723,7 @@ function Activity (text, session) {
        text.includes('show')||
        text.includes('happening')||
        text.includes('exchange')||
-       text.includes('exhibi')||
+       text.includes('exhibition')||
        text.includes('free time')||
        text.includes('leisure')||
        text.includes('fun')||
@@ -769,14 +757,14 @@ function Activity (text, session) {
        if (session.topic == 'activity' &&
            text.includes('fish'))
            {return "Fishing enthusiasts will find optimal conditions in lakes and river of deggendorf\n\n"+
-                    "Further information and booking options can be found on here:https://angeln-in-deggendorf.de/"
+                    "Further information and booking options can be found on here: https://angeln-in-deggendorf.de/"
            }
 
            
        if (session.topic == 'activity' &&
            (text.includes('camp')||
            text.includes('motorhome')))
-           {return "We have four campsite for you:\n\n"+
+           {return "We have four campsites for you:\n\n"+
                    "Campsite Donaustrandhaus, located Eginger Str. 42, 94469 Deggendorf. Tel: 0991 4324\n\n"+
                    "Camping on the farm: Tel: 0991 22027\n\n"+
                    "Motorhome pitches, located Sandnerhofweg 4-6, 94469 Deggendorf. Tel: 0991 28960\n\n"+
@@ -849,27 +837,9 @@ function Activity (text, session) {
                    "Click here to know more: https://eisstadion.deggendorf.de/"
            }  
 
-    if (text.includes('activity') ||
-       text.includes('event')||
-       text.includes('festival')||
-       text.includes('concert')||
-       text.includes('show')||
-       text.includes('happening')||
-       text.includes('exchange')||
-       text.includes('exhibi')||
-       text.includes('free time')||
-       text.includes('leisure')||
-       text.includes('fun')||
-       text.includes('nature')||
-       text.includes('family')||
-       text.includes('tour')||
-       text.includes('motor')||
-       text.includes("activities") ||
-       text.includes('what can i do')||
-       text.includes('things to do')||
-       text.includes('do in deggendorf'))
+    if (session.topic == 'activity')
 
-       {return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events,hiking, cycling, ski, golf and picnic.\n\n"+
+       {return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events, hiking, cycling, ski, golf and picnic.\n\n"+
                "What would you like to know more?\n\n"+
                "You can find more details through our website: https://www.deggendorf.de/veranstaltungen "
            }
@@ -898,7 +868,7 @@ function CityRegistration(text,session) {
                        "4. Bring your landlord confirmation form here, called Wohnungsgeberbestätigung.\n" +
                        "5. Go to the Bürgeramt in person and sign the registration form there.\n\n" +
                        "Official Information:  https://www.deggendorf.de/rathaus/rechts-ordnungsverwaltung/buergeramt/wohnsitz-anmelden.\n\n" +
-                       "You can also ask me about required documents, appointment or locaton.";
+                       "You can also ask me about required documents, appointment or location.";
         }
 
         if (session.topic == 'registration' &&
@@ -1013,7 +983,7 @@ function NearbyCities(text,session){
              "1. Plattling - about 10 minutes by regional train\n" +
              "Travel: Take RB35 from Deggendorf Hbf to Plattling.\n\n" +
              "2. Passau - about 45 to 60 minutes\n" + 
-             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Passua\n\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Passau\n\n" + 
              "3. Regensburg - about 60 to 90 minutes\n" + 
              "Travel: Take the train from Deggendorf to Plattling, then change to a train to Regensburg\n\n" + 
              "4. Munich - about 2 to 2.5 hours\n" + 
@@ -1032,7 +1002,7 @@ function NearbyCities(text,session){
    {
       return "Plattling is the closet major railway connection from Deggendorf.\n\n" + 
              "Time: about 10 minutes by RB35 train.\n " + 
-             "Good For: Train connections, short visit, changing ot ICE or regional trains.";
+             "Good For: Train connections, short visit, changing to ICE or regional trains.";
    }
 
    if (session.topic == 'nearbycities' &&
@@ -1227,7 +1197,7 @@ function Banking(text,session){
              "Deutsche Bank\n" +
              "Online Banks such as N26, Wise or Revolut.\n\n" +
              "If you are international student, you may also need a block account for visa purposes.\n\n" + 
-             "What would like to know more about?.\n\n" +
+             "What would like to know more about?\n\n" +
              "Sparkasse.\n" +
              "Blocked Account.\n" +
              "Online Banks.\n" +
@@ -1350,7 +1320,7 @@ function MobileNetwork(text, session){
               "Major mobile network providers in Germany include Telekom, Vodafone, O2 and Freenet. \n\n"+
               "Customers can visit their local stores in Deggendorf to purchase SIM cards, sign a contract or get support. \n\n"+
               "Telekom: Luitpoldplatz 16, 94469 Deggendorf\n\n"+
-              "Vodafone: Oberer Staadtplatz 2, 94469 Deggendorf\n\n"+
+              "Vodafone: Oberer Stadtplatz 2, 94469 Deggendorf\n\n"+
               "O2: Oberer Stadtplatz 10, 94469, Deggendorf\n\n"+
               "Freenet: Oberer Stadtplatz 11, 94469, Deggendorf. \n\n"+
               "If you want to purchase SIM card and sign a contract, please bring following documents:\n\n"+
@@ -1379,7 +1349,7 @@ function MobileNetwork(text, session){
       text.includes('best')||
       text.includes('provider')||
       text.includes('prefer')||
-      text.includes('topone')||
+      text.includes('top')||
       text.includes('suggestion')||
       text.includes('suggest')))
       {return "Telekom generally offers the best network coverage in Germany.\n\n"+
@@ -1389,16 +1359,7 @@ function MobileNetwork(text, session){
 
 
 
-    if( text.includes('mobile')||
-      text.includes('telephone')||
-      text.includes('sim')||
-      text.includes('prepaid')||
-      text.includes('simcard')||
-      text.includes('esim')||
-      text.includes('internet')||
-      text.includes('wifi')||
-      text.includes('phone')||
-      text.includes('cell')
+    if(  session.topic == 'mobilenet'
    ){
 
       return "There are several mobile network providers are available in Deggendorf, including Telekom, O2 and Vodafone, Ja mobile, Lidl Connect, Aldi Talk.\n\n" +
@@ -1470,7 +1431,7 @@ function Library(text, session){
            text.includes('email'))
          )
          {return "You can reach the Stadtbibliothek team by visiting their website: https://stadtbibliothek.deggendorf.de/ \n\n"+
-                 "Send us a email if any question: stadtbibliothek@deggendorf.de\n\n"+ 
+                 "Send us an email if any question: stadtbibliothek@deggendorf.de\n\n"+ 
                  "And you can find the contact information from here: https://stadtbibliothek.deggendorf.de/unser-team \n\n"
          }
 
@@ -1484,8 +1445,7 @@ function Library(text, session){
            text.includes('magazines')||
            text.includes('journals')||
            text.includes('registration')||
-           text.includes('registed')||
-           text.includes('regisrate')||
+           text.includes('register')||
            text.includes('return')||
            text.includes('loan')||
            text.includes('loaning'))
@@ -1498,7 +1458,7 @@ function Library(text, session){
          
          if (session.topic == 'library' &&
           session.subtopic =='stadtbibliothek' &&
-          (!text.includes('registrate') &&
+          (!text.includes('register') &&
            !text.includes('registration')) &&
           (text.includes('fee')||
            text.includes('cost')||
@@ -1527,7 +1487,7 @@ function Library(text, session){
                  "For magazines, CDs, CD-ROMs: 2 weeks\n\n"+
                  "For BluRays, DVDs: 1 week \n\n"+
                  "You can renew your media up to 3x by phone or via the Internet (BluRays, DVDs, Tonies and Edurinos only 1x). To do this, you will need your ID number and password.\n\n"+
-                 "The renew period will be calculated from the date of renewal, not the due date. Onleihe media cannot be renewed.\n\n"
+                 "The renew period will be calculated from the date of renewal, not the due date. Online media cannot be renewed.\n\n"
          }
 
          
@@ -1597,7 +1557,7 @@ function Library(text, session){
          )
          {return "During the semester: Monday to Thursday 8:00-20:00 and Friday is 8:30- 18:00.\n\n"+
                  "During the semester break: Monday to Thursday 9:30-16:30 and Friday is 9:30- 13:00.\n\n"+
-                 "For upcoming exam prepatation we offer extended opening hour from 22.06.2026 to 31.07.2026\n\n"+
+                 "For upcoming exam preparation we offer extended opening hour from 22.06.2026 to 31.07.2026\n\n"+
                  "Monday to Friday: 8:30- 23:45, Saturday to Sunday: 8:00 - 23:45\n\n"+
                  "Exception: On July 3, the library will close at 6 p.m. due to the summer festival!\n\n"
          }
@@ -1635,7 +1595,7 @@ function Library(text, session){
            text.includes('magazines')||
            text.includes('journals')||
            text.includes('registration')||
-           text.includes('registed')||
+           text.includes('register')||
            text.includes('regisrate')||
            text.includes('return')||
            text.includes('loan')||
@@ -1649,7 +1609,7 @@ function Library(text, session){
          
          if (session.topic == 'library' &&
           session.subtopic =='thdbibliothek' &&
-          (!text.includes('registrate')&&
+          (!text.includes('register')&&
            !text.includes('registration')) &&
           (text.includes('fee')||
            text.includes('cost')||
@@ -1703,7 +1663,7 @@ function Library(text, session){
            text.includes('online')||
            text.includes('elibrary')||
            text.includes('digit')||
-           text.includes('digtal resources'))
+           text.includes('digital resources'))
          )
          {return "The library of THD is also providing ebooks. Access to e-book is free of charge for university members. \n\n"+
                  "A VPN connection is required with the private devices and all other WLAN connections. And access is only possible with a VPN connection.\n\n"
@@ -1724,7 +1684,9 @@ function Library(text, session){
    }
 }
 
+function Museum(text, session){
 
+}
 
 
 function HardFallback(session){
@@ -1734,7 +1696,7 @@ function HardFallback(session){
                 session.failCount = 0;
                 session.topic = null;
 
-                return "I am still having trouble understanding..\n\n"+
+                return "I am still having trouble understanding.\n\n"+
                 "Let's start over.\n\n" +
                 "What would you like to know about Deggendorf?\n\n" +
                 "• Transportation\n" +
@@ -1746,7 +1708,7 @@ function HardFallback(session){
         }
 
         return "I am sorry, I'm not sure if I understand what you're looking for.Could you please try it again with a few words? \n\n"+
-                "Or you can find us by phone: +49 991 2960 5055 or send us a email: tourismus@deggendorf.de. We will be very happy to help you! :-)"
+                "Or you can find us by phone: +49 991 2960 5055 or send us an email: tourismus@deggendorf.de. We will be very happy to help you! :-)"
 }
 
 module.exports = { replyTopic };
