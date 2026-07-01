@@ -9,6 +9,6 @@ function test(input) {
     console.log("Session:", session);
 }
 
-test("library");
-test("thd");
-test("opening hours");
+test("food");
+test("asian food");
+test("fast");

@@ -505,7 +505,11 @@ function Restaurant (text, session){
           text.includes('good food') ||
           text.includes('takeaway') ||
           text.includes('take away') ||
-          text.includes('delivery'))
+          text.includes('delivery')||
+          text.includes('aisa')||
+          text.includes('asian')||
+          text.includes('chinese')||
+          text.includes('sushi'))
          {session.topic = 'restaurant'}
 
       if(session.topic == 'restaurant'&&
@@ -538,10 +542,9 @@ function Restaurant (text, session){
                   "Google Maps:  https://www.google.com/maps/search/turkish+restaurant+Deggendorf"
           }
 
-
-
       if (session.topic == 'restaurant' &&
           (text.includes('asia')||
+           text.includes('asian')||
            text.includes('chinese')||
            text.includes('china')||
            text.includes('japan')||
@@ -607,7 +610,9 @@ function Restaurant (text, session){
                  "• Mensa\n" +
                  "• German\n" +
                  "• Syrian\n" +
-                 "• Turkish\n\n" +
+                 "• Turkish\n" +
+                 "• Asian\n" +
+                 "• Fast Food\n\n"
                  "Which one would you like?";}
  }
 
@@ -729,9 +734,9 @@ function School (text,session){
            text.includes('study'))
          )
          {return "The library provides study spaces for every student to read, learn and work quietly.\n\n "+
-                 "During the semester: Monday to Thursday 8:00-20:00 and Friday is 8:30- 18:00.\n\n"+
+                 "During the semester: Monday to Thursday 8:00-20:00 and Friday is 8:30- 18:00.\n"+
                  "During the semester break: Monday to Thursday 9:30-16:30 and Friday is 9:30- 13:00.\n\n"+
-                 "For upcoming exam preparation we offer extended opening hour from 22.06.2026 to 31.07.2026\n\n"+
+                 "For upcoming exam preparation we offer extended opening hour from 22.06.2026 to 31.07.2026\n"+
                  "Monday to Friday: 8:30- 23:45, Saturday to Sunday: 8:00 - 23:45\n\n"+
                  "Exception: On July 3, the library will close at 6 p.m. due to the summer festival!\n\n"
          }
@@ -776,10 +781,10 @@ function School (text,session){
            text.includes('loan')||
            text.includes('loaning'))
          )
-         {return "Books are borrowed by self-service using the student ID and password.\n\n"+
-                 "You can return your book at the counter during opening hours.\n\n"+
+         {return "Books are borrowed by self-service using the student ID and password.\n"+
+                 "You can return your book at the counter during opening hours.\n"+
                  "Outside opening hours, returns can be put in the returns box.\n\n"+
-                 "The books must be returned on the deadline day at the latest.\n\n"
+                 "The books must be returned on the deadline day at the latest."
          }
          
          if ((session.topic == 'thd' &&
@@ -796,10 +801,10 @@ function School (text,session){
            text.includes('exceed')||
            text.includes('pay'))
          )
-         {return "Books are not returned in time must be reminded with costs:\n\n"+
-                 "Costs for the 1st reminder: € 7.50\n\n"+
-                 "Costs for the 2nd reminder: € 10\n\n"+
-                 "Costs for the 3rd reminder: € 20 +€ 3.45 shipping fee\n\n"+
+         {return "Books are not returned in time must be reminded with costs:\n"+
+                 "Costs for the 1st reminder: € 7.50\n"+
+                 "Costs for the 2nd reminder: € 10\n"+
+                 "Costs for the 3rd reminder: € 20 +€ 3.45 shipping fee\n"+
                  "Costs for the value replacement(notification): additional € 30 +€ 3.45 shipping fee\n\n"
          }
 
@@ -815,7 +820,7 @@ function School (text,session){
            text.includes('renew')||
            text.includes('due')))
       
-         {return "The loan period is determined by the lending classification, which is part of the book signature.\n\n"+
+         {return "The loan period is determined by the lending classification, which is part of the book signature.\n"+
                  "Click here to check the detail: https://www.th-deg.de/en/students/library \n\n"
          }
 
@@ -828,7 +833,7 @@ function School (text,session){
            text.includes('courses')||
            text.includes('research'))
          )
-         {return "The library offers different library introduction courses, including databases, literature research, literature management zotero, fit for the bachelor thesis, etc.\n\n"+
+         {return "The library offers different library introduction courses, including databases, literature research, literature management zotero, fit for the bachelor thesis, etc.\n"+
                  "Click here to learn more: https://www.th-deg.de/en/students/library#introduction-courses\n\n"}
 
          
@@ -841,19 +846,19 @@ function School (text,session){
            text.includes('digit')||
            text.includes('digital resources'))
          )
-         {return "The library of THD is also providing ebooks. Access to e-book is free of charge for university members. \n\n"+
+         {return "The library of THD is also providing ebooks. Access to e-book is free of charge for university members. \n"+
                  "A VPN connection is required with the private devices and all other WLAN connections. And access is only possible with a VPN connection.\n\n" }
 
        if (session.topic == 'thd' &&
           session.subtopic =='thdbibliothek')
-         {return "The THD Library provides books, ebooks, study spaces, and research support for students and staff at Deggendorf Institute of Technology.\n\n"+
+         {return "The THD Library provides books, ebooks, study spaces, and research support for students and staff at Deggendorf Institute of Technology\n"+
               "I can provide the information about opening hours, contact, address, borrow and return rules, registration, fees and research courses.\n\n"+
               "what would you like to know?"}
 
             
         if (session.topic =='thd')
   
-            {return "In the district of Deggendorf, probably one of the most school-friendly in Bavaria, there are almost 80 state, municipal and private institutions for the training, further education and further education of the population in school and work\n\n"+
+            {return "In the district of Deggendorf, probably one of the most school-friendly in Bavaria, there are almost 80 state, municipal and private institutions for the training, further education and further education of the population in school and work\n"+
                "There are schools of general education, Vocation schools, adult education, technical colleges, primary and secondary schools, university, continuing education and special schools\n\n" +
                "For more information, please click: https://www.landkreis-deggendorf.de/leben-arbeiten/bildung/schulen-weiterbildung/"}
 
@@ -1558,9 +1563,9 @@ function Library(text, session){
            text.includes('close')||
            text.includes('opening'))
          )
-         {return "The opening hour of stadtbibliothek Deggendorf is from Tuesday to Saturday, 10:00 - 18:00.\n\n"+
+         {return "The opening hour of stadtbibliothek Deggendorf is from Tuesday to Saturday, 10:00 - 18:00.\n"+
                   "It is closed on Sunday and Monday\n\n"+
-                  "Please notice, in the following dates the library is also closed: \n\n"+
+                  "Please notice, in the following dates the library is also closed: \n"+
                   "Saturday, 15.08.2026 // Saturday, 03.10.2026 // Thursday, 24.12.2026 // Friday, 25.12.2026 // Saturday, 26.12.2026 // Tuesday, 29.12.2026 // Wednesday, 30.12.2026 // Thursday, 31.12.2026 // Friday, 01.01.2027 // Saturday, 02.01.2027"
          }
 
@@ -1618,7 +1623,7 @@ function Library(text, session){
            text.includes('spend')||
            text.includes('fees'))
          )
-         {return "Registration fee/replacement card: Adults is 2.5€, Minors is 1.5€. \n\n "+
+         {return "Registration fee/replacement card: Adults is 2.5€, Minors is 1.5€. \n "+
                  "Annual fee/ monthly fee : Adults  €10.00 / €2.50, Minors  €5.00 / €2.50\n\n"+
                  "We also provide the family cards: adults and all minor children with same place of residence: Annual fee is €18.\n\n"
          }
@@ -1682,14 +1687,14 @@ function Library(text, session){
       if (session.topic == 'library' &&
           session.subtopic =='stadtbibliothek')
       
-      {return "The Stadtbibliothek Deggendorf is the city's public library, providing books, digital resources, study areas, and community events.\n\n"+
-              "I can provide the information about opening hours, contact, address, borrow media, registration, fees and events.\n\n"+
+      {return "The Stadtbibliothek Deggendorf is the city's public library, providing books, digital resources, study areas, and community events.\n"+
+              "I can provide the information about opening hours, contact, address, borrow media, registration, fees and events.\n"+
               "what would you like to know?"
       }
       
        if (session.topic == 'library')
-  { return "There are two libraries in the Deggendorf, the Stadtbibliothek Deggendorf and the library of THD.\n\n"+ 
-             "I can help you to check the general information, the opening time, address, contact and how to borrow a book in the library \n\n"+
+  { return "There are two libraries in the Deggendorf, the Stadtbibliothek Deggendorf and the library of THD.\n"+ 
+             "I can help you to check the general information, the opening time, address, contact and how to borrow a book in the library \n"+
              "Which library would you like to know more about?\n\n"}
 }
 
@@ -1706,7 +1711,7 @@ function Museum(text, session){
         text.includes('stadt')))
         {return "The Deggendorf City Museum tells the story of the city's history and culture.\n\n"+
                 "Address: Östlicher Stadtgraben 28, 94469 Deggendorf \n\n"+
-                "The opening hours: Tuesday to Saturday: 10:00- 16:00, Sunday & holidays: 10:00-17:00, Monday close\n\n"+
+                "The opening hours: Tuesday to Saturday: 10:00- 16:00, Sunday & holidays: 10:00-17:00, Monday close\n"+
                 "The entrance fee: Adults: € 4.0 children from 6 to 18, disabled people: € 2.0 \n\n" +
                 "For more information, please visit our website: https://stadtmuseum.deggendorf.de "}
 
