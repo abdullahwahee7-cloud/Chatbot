@@ -9,6 +9,3 @@ function test(input) {
     console.log("Session:", session);
 }
 
-test("food");
-test("asian food");
-test("fast");
