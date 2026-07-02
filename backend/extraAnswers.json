@@ -360,9 +360,13 @@
       "good food",
       "takeaway",
       "take away",
-      "delivery"
+      "delivery",
+      "asia",
+      "asian",
+      "chinese",
+      "sushi"
     ],
-    "answer": "Deggendorf has many food options.\n\nAvailable categories:\n\n• Indian\n• Italian\n• Mensa\n• German\n• Syrian\n• Turkish\n\nWhich one would you like?",
+    "answer": "Deggendorf has many food options.\n\nAvailable categories:\n\n• Indian\n• Italian\n• Mensa\n• German\n• Syrian\n• Turkish\n• Asian\n• Fast Food\n\nWhich one would you like?",
     "followUps": [
       {
         "keywords": [
@@ -453,7 +457,6 @@
     "defaultForIntent": false,
     "keywords": [
       "university",
-      "thd",
       "dit",
       "applied sciences",
       "technology",

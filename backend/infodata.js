@@ -1,4 +1,4 @@
-/*We are using the keywords strategy to insure the bot understand and reply the message*/
+/*We are using the keywords strategy to ensure the bot understand and reply the message*/
 const extraAnswersData = require('./extraAnswers.json');
 
 /*The topics*/
@@ -20,13 +20,14 @@ function replyTopic (message, session){
       Accomdation (text,session) ||
       Restaurant (text,session) ||
       Activity (text,session) ||
+      Library(text,session)||
       School (text,session) ||
       CityRegistration(text,session)||
       Emergency(text,session)||
       NearbyCities(text,session) ||
       Banking(text,session)||
-      MobileNetwork(text, session)||
-      Library(text,session);
+      MobileNetwork(text,session)||
+      Museum(text, session);
 
    if (reply) {
         session.failCount = 0;
@@ -104,7 +105,7 @@ function Greeting (text,session) {
        )
        {
         return "Hello! Welcome to Deggendorf. What do you want to know about our beautiful city?\n\n"+
-               "You can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation and healthcare"
+               "You can ask me about basic information of Deggendorf, the history, weather, transportation, shopping, tourism, accommodations, restaurants, local events, education institution and healthcare"
        }
 }
 
@@ -121,7 +122,15 @@ function Basicinfo(text,session){
                 "• Restaurants\n" +
                 "• Activities\n" +
                 "• Accommodation\n" +
-                "• Healthcare";
+                "• Healthcare\n" +
+                "• Resident Registration\n"
+                "• Emergency\n" +
+                "• Plan Visit\n" +
+                "• Bank\n" + +
+                "• Mobile Network\n" +
+                "• Library\n" +
+                "• Museum\n" 
+                ;
       }
 
     if (text.includes('introduce deggendorf') ||
@@ -182,7 +191,7 @@ function Basicinfo(text,session){
         text.includes('office')||
         text.includes('new here'))
        )
-       {return "Welcome to Deggendorf. https://www.deggendorf.de is the offical internet Portal for Deggendorf. You can find useful information here. "}
+       {return "Welcome to Deggendorf. https://www.deggendorf.de is the official internet Portal for Deggendorf. You can find useful information here. "}
 }
        
 /*Climate*/
@@ -371,7 +380,7 @@ function Healthcare (text,session) {
        text.includes('medical')||
        text.includes('ill'))
       {session.topic = 'health';
-       return  "There are varieties healthcare insitituation in Deggendorf.\n\n"+
+       return  "There are varieties healthcare institution in Deggendorf.\n\n"+
                " For general medical care, you can visit DONAU ISAR Klinikum Deggendorf, the largest general hospital in Deggendorf\n\n"+
                " Please call 112 if any emergency medical needs"
       }
@@ -387,7 +396,7 @@ function Healthcare (text,session) {
 function Accomdation(text, session){
    
    if (text.includes('hotel')||
-       text.includes('touris')||
+       text.includes('tourist')||
        text.includes('accommodation')|| 
        text.includes('stay')||
        text.includes('hostel')||
@@ -466,6 +475,7 @@ function Accomdation(text, session){
            "Immobilienscout24:\n" +
            "https://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html";
    }     
+
 }
 
 /*Restaurant*/
@@ -495,7 +505,11 @@ function Restaurant (text, session){
           text.includes('good food') ||
           text.includes('takeaway') ||
           text.includes('take away') ||
-          text.includes('delivery'))
+          text.includes('delivery')||
+          text.includes('aisa')||
+          text.includes('asian')||
+          text.includes('chinese')||
+          text.includes('sushi'))
          {session.topic = 'restaurant'}
 
       if(session.topic == 'restaurant'&&
@@ -528,10 +542,9 @@ function Restaurant (text, session){
                   "Google Maps:  https://www.google.com/maps/search/turkish+restaurant+Deggendorf"
           }
 
-
-
       if (session.topic == 'restaurant' &&
           (text.includes('asia')||
+           text.includes('asian')||
            text.includes('chinese')||
            text.includes('china')||
            text.includes('japan')||
@@ -540,7 +553,7 @@ function Restaurant (text, session){
          )
          {return "There are some Asian food restaurant worth to try:\n\n"+
                  "Hai Pai Cuisine: https://haipaicuisine.de/\n\n"+
-                 "Sen Resraurant: https://www.sen-deggendorf.de/\n\n"+
+                 "Sen Restaurant: https://www.sen-deggendorf.de/\n\n"+
                  "SAIKYO Restaurant - Asian Fusion & Sushi: https://www.saikyo.de/ \n\n"
          }
 
@@ -589,27 +602,7 @@ function Restaurant (text, session){
          {return "We have McDonald's, Subway, Kochloffel and Burger King in Deggendorf."
          }
 
-       if (text.includes('restaurant')||
-          text.includes('food')||
-          text.includes('meal')||
-          text.includes('dinner')||
-          text.includes('breakfast')||
-          text.includes('lunch')||
-          text.includes('eat')||
-          text.includes('pizza') ||
-          text.includes('pasta') ||
-          text.includes('burger')||
-          text.includes('cafe')||
-          text.includes('hungry') ||
-          text.includes('cuisine') ||
-          text.includes('coffee')||
-          text.includes('indian')||
-          text.includes('mensa')||
-          text.includes('italian')||
-          text.includes('german')||
-          text.includes('syrian')||
-          text.includes('turkish')
-         )
+       if (session.topic == 'restaurant')
          {return "Deggendorf has many food options.\n\n" +
                  "Available categories:\n\n" +
                  "• Indian\n" +
@@ -617,13 +610,16 @@ function Restaurant (text, session){
                  "• Mensa\n" +
                  "• German\n" +
                  "• Syrian\n" +
-                 "• Turkish\n\n" +
+                 "• Turkish\n" +
+                 "• Asian\n" +
+                 "• Fast Food\n\n"
                  "Which one would you like?";}
  }
 
 
  /*School & THD*/
 function School (text,session){
+
         if (text.includes('school')||
             text.includes('education')||
             text.includes('college')||
@@ -665,12 +661,12 @@ function School (text,session){
 
              if (session.topic == 'thd' &&
                 ( text.includes('introduce')||
-                text.includes('thd')||
-                text.includes('dit')||
-                text.includes('where')||
-                text.includes('loca')))
+                  text.includes('dit')||
+                  text.includes('where')||
+                  text.includes('local')||
+                  text.includes('location')))
            
-                {return "The Deggendorf Institute of Technology (THD) offers Bachelor's and Master's degree programmes in the fields of civil and environmental engineering, natural sciences, electrical engineering and computer science, mechanical engineering, media as well as health and economics\n\n"+
+                {return "The Deggendorf Institute of Technology (THD) offers Bachelor's and Master's degree programs in the fields of civil and environmental engineering, natural sciences, electrical engineering and computer science, mechanical engineering, media as well as health and economics\n\n"+
                    "The THD has 45% international students. 3 study locations. The main campus of THD is located in the center of Deggendorf.\n\n"+
                    "Location: Dieter-Görlitz-Platz 1, 94469 Deggendorf"
                 }
@@ -682,7 +678,7 @@ function School (text,session){
                  text.includes('bachelor') ||
                  text.includes('master')))
 
-                {return "Here you can find all study programmes at THD: https://www.th-deg.de/study-programmes"}
+                {return "Here you can find all study programs at THD: https://www.th-deg.de/study-programmes"}
 
               if (session.topic == 'thd' &&
                 (text.includes('apply') ||
@@ -712,14 +708,157 @@ function School (text,session){
 
                 {return "If you need any advice or support, you can reach us from here: https://th-deg.de/en/advice"
                 } 
-           
+             
+               
+   if ((session.topic === 'thd' && session.subtopic == 'thdbibliothek') &&
+     (text.includes('library')||
+      text.includes('borrow')||
+      text.includes('book')||
+      text.includes('study splaces')||
+      text.includes('study')||
+      text.includes('loan')||
+      text.includes('ebook')))
 
-        if (text.includes('school')||
-            text.includes('education')||
-            text.includes('college')||
-            text.includes('study'))
+      {  session.topic = 'thd';
+         session.subtopic = 'thdbibliothek'}
+ 
+      if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('open')||
+           text.includes('time')||
+           text.includes('hours')||
+           text.includes('hour')||
+           text.includes('when')||
+           text.includes('close')||
+           text.includes('opening')||
+           text.includes('study'))
+         )
+         {return "The library provides study spaces for every student to read, learn and work quietly.\n\n "+
+                 "During the semester: Monday to Thursday 8:00-20:00 and Friday is 8:30- 18:00.\n"+
+                 "During the semester break: Monday to Thursday 9:30-16:30 and Friday is 9:30- 13:00.\n\n"+
+                 "For upcoming exam preparation we offer extended opening hour from 22.06.2026 to 31.07.2026\n"+
+                 "Monday to Friday: 8:30- 23:45, Saturday to Sunday: 8:00 - 23:45\n\n"+
+                 "Exception: On July 3, the library will close at 6 p.m. due to the summer festival!\n\n"
+         }
+
+         
+         if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('where')||
+           text.includes('where is the library')||
+           text.includes('address')||
+           text.includes('location')||
+           text.includes('find'))
+         )
+         {return "The Bibliothek of THD is located at Dieter-Görlitz-Platz 1, 94469 Deggendorf.\n\n"
+         }
+
+         if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('contact')||
+           text.includes('phone')||
+           text.includes('call')||
+           text.includes('email')||
+           text.includes('question'))
+         )
+         {return "You can reach us by sending us an email:  bib-service@th-deg.de \n\n"+ 
+                 "You can find frequently asked questions from here: https://www.th-deg.de/en/students/library \n\n"
+         }
+
+         if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('borrow')||
+           text.includes('books')||
+           text.includes('cd')||
+           text.includes('cds')||
+           text.includes('magazine')||
+           text.includes('boook')||
+           text.includes('journals')||
+           text.includes('registration')||
+           text.includes('register')||
+           text.includes('regisrate')||
+           text.includes('return')||
+           text.includes('loan')||
+           text.includes('loaning'))
+         )
+         {return "Books are borrowed by self-service using the student ID and password.\n"+
+                 "You can return your book at the counter during opening hours.\n"+
+                 "Outside opening hours, returns can be put in the returns box.\n\n"+
+                 "The books must be returned on the deadline day at the latest."
+         }
+         
+         if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (!text.includes('register')&&
+           !text.includes('registration')) &&
+          (text.includes('fee')||
+           text.includes('cost')||
+           text.includes('money')||
+           text.includes('spend')||
+           text.includes('fees')||
+           text.includes('late')||
+           text.includes('over time')||
+           text.includes('exceed')||
+           text.includes('pay'))
+         )
+         {return "Books are not returned in time must be reminded with costs:\n"+
+                 "Costs for the 1st reminder: € 7.50\n"+
+                 "Costs for the 2nd reminder: € 10\n"+
+                 "Costs for the 3rd reminder: € 20 +€ 3.45 shipping fee\n"+
+                 "Costs for the value replacement(notification): additional € 30 +€ 3.45 shipping fee\n\n"
+         }
+
+          if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (!text.includes('borrow')&&
+           !text.includes('borrowing')) &&
+          (text.includes('period')||
+           text.includes('loan periods')||
+           text.includes('periods')||
+           text.includes('how long')||
+           text.includes('keep')||
+           text.includes('renew')||
+           text.includes('due')))
+      
+         {return "The loan period is determined by the lending classification, which is part of the book signature.\n"+
+                 "Click here to check the detail: https://www.th-deg.de/en/students/library \n\n"
+         }
+
+         
+         if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('activity')||
+           text.includes('event')||
+           text.includes('happen')||
+           text.includes('courses')||
+           text.includes('research'))
+         )
+         {return "The library offers different library introduction courses, including databases, literature research, literature management zotero, fit for the bachelor thesis, etc.\n"+
+                 "Click here to learn more: https://www.th-deg.de/en/students/library#introduction-courses\n\n"}
+
+         
+          if ((session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek') &&
+          (text.includes('ebook')||
+           text.includes('ebooks')||
+           text.includes('online')||
+           text.includes('elibrary')||
+           text.includes('digit')||
+           text.includes('digital resources'))
+         )
+         {return "The library of THD is also providing ebooks. Access to e-book is free of charge for university members. \n"+
+                 "A VPN connection is required with the private devices and all other WLAN connections. And access is only possible with a VPN connection.\n\n" }
+
+       if (session.topic == 'thd' &&
+          session.subtopic =='thdbibliothek')
+         {return "The THD Library provides books, ebooks, study spaces, and research support for students and staff at Deggendorf Institute of Technology\n"+
+              "I can provide the information about opening hours, contact, address, borrow and return rules, registration, fees and research courses.\n\n"+
+              "what would you like to know?"}
+
+            
+        if (session.topic =='thd')
   
-            {return "In the district of Deggendorf, probably one of the most school-friendly in Bavaria, there are almost 80 state, municipal and private institutions for the training, further education and further education of the population in school and work\n\n"+
+            {return "In the district of Deggendorf, probably one of the most school-friendly in Bavaria, there are almost 80 state, municipal and private institutions for the training, further education and further education of the population in school and work\n"+
                "There are schools of general education, Vocation schools, adult education, technical colleges, primary and secondary schools, university, continuing education and special schools\n\n" +
                "For more information, please click: https://www.landkreis-deggendorf.de/leben-arbeiten/bildung/schulen-weiterbildung/"}
 
@@ -735,7 +874,7 @@ function Activity (text, session) {
        text.includes('show')||
        text.includes('happening')||
        text.includes('exchange')||
-       text.includes('exhibi')||
+       text.includes('exhibition')||
        text.includes('free time')||
        text.includes('leisure')||
        text.includes('fun')||
@@ -769,14 +908,14 @@ function Activity (text, session) {
        if (session.topic == 'activity' &&
            text.includes('fish'))
            {return "Fishing enthusiasts will find optimal conditions in lakes and river of deggendorf\n\n"+
-                    "Further information and booking options can be found on here:https://angeln-in-deggendorf.de/"
+                    "Further information and booking options can be found on here: https://angeln-in-deggendorf.de/"
            }
 
            
        if (session.topic == 'activity' &&
            (text.includes('camp')||
            text.includes('motorhome')))
-           {return "We have four campsite for you:\n\n"+
+           {return "We have four campsites for you:\n\n"+
                    "Campsite Donaustrandhaus, located Eginger Str. 42, 94469 Deggendorf. Tel: 0991 4324\n\n"+
                    "Camping on the farm: Tel: 0991 22027\n\n"+
                    "Motorhome pitches, located Sandnerhofweg 4-6, 94469 Deggendorf. Tel: 0991 28960\n\n"+
@@ -849,27 +988,9 @@ function Activity (text, session) {
                    "Click here to know more: https://eisstadion.deggendorf.de/"
            }  
 
-    if (text.includes('activity') ||
-       text.includes('event')||
-       text.includes('festival')||
-       text.includes('concert')||
-       text.includes('show')||
-       text.includes('happening')||
-       text.includes('exchange')||
-       text.includes('exhibi')||
-       text.includes('free time')||
-       text.includes('leisure')||
-       text.includes('fun')||
-       text.includes('nature')||
-       text.includes('family')||
-       text.includes('tour')||
-       text.includes('motor')||
-       text.includes("activities") ||
-       text.includes('what can i do')||
-       text.includes('things to do')||
-       text.includes('do in deggendorf'))
+    if (session.topic == 'activity')
 
-       {return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events,hiking, cycling, ski, golf and picnic.\n\n"+
+       {return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events, hiking, cycling, ski, golf and picnic.\n\n"+
                "What would you like to know more?\n\n"+
                "You can find more details through our website: https://www.deggendorf.de/veranstaltungen "
            }
@@ -898,7 +1019,7 @@ function CityRegistration(text,session) {
                        "4. Bring your landlord confirmation form here, called Wohnungsgeberbestätigung.\n" +
                        "5. Go to the Bürgeramt in person and sign the registration form there.\n\n" +
                        "Official Information:  https://www.deggendorf.de/rathaus/rechts-ordnungsverwaltung/buergeramt/wohnsitz-anmelden.\n\n" +
-                       "You can also ask me about required documents, appointment or locaton.";
+                       "You can also ask me about required documents, appointment or location.";
         }
 
         if (session.topic == 'registration' &&
@@ -1013,7 +1134,7 @@ function NearbyCities(text,session){
              "1. Plattling - about 10 minutes by regional train\n" +
              "Travel: Take RB35 from Deggendorf Hbf to Plattling.\n\n" +
              "2. Passau - about 45 to 60 minutes\n" + 
-             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Passua\n\n" + 
+             "Travel: Take the train from Deggendorf to Plattling, then change to a train to Passau\n\n" + 
              "3. Regensburg - about 60 to 90 minutes\n" + 
              "Travel: Take the train from Deggendorf to Plattling, then change to a train to Regensburg\n\n" + 
              "4. Munich - about 2 to 2.5 hours\n" + 
@@ -1032,7 +1153,7 @@ function NearbyCities(text,session){
    {
       return "Plattling is the closet major railway connection from Deggendorf.\n\n" + 
              "Time: about 10 minutes by RB35 train.\n " + 
-             "Good For: Train connections, short visit, changing ot ICE or regional trains.";
+             "Good For: Train connections, short visit, changing to ICE or regional trains.";
    }
 
    if (session.topic == 'nearbycities' &&
@@ -1227,7 +1348,7 @@ function Banking(text,session){
              "Deutsche Bank\n" +
              "Online Banks such as N26, Wise or Revolut.\n\n" +
              "If you are international student, you may also need a block account for visa purposes.\n\n" + 
-             "What would like to know more about?.\n\n" +
+             "What would like to know more about?\n\n" +
              "Sparkasse.\n" +
              "Blocked Account.\n" +
              "Online Banks.\n" +
@@ -1350,7 +1471,7 @@ function MobileNetwork(text, session){
               "Major mobile network providers in Germany include Telekom, Vodafone, O2 and Freenet. \n\n"+
               "Customers can visit their local stores in Deggendorf to purchase SIM cards, sign a contract or get support. \n\n"+
               "Telekom: Luitpoldplatz 16, 94469 Deggendorf\n\n"+
-              "Vodafone: Oberer Staadtplatz 2, 94469 Deggendorf\n\n"+
+              "Vodafone: Oberer Stadtplatz 2, 94469 Deggendorf\n\n"+
               "O2: Oberer Stadtplatz 10, 94469, Deggendorf\n\n"+
               "Freenet: Oberer Stadtplatz 11, 94469, Deggendorf. \n\n"+
               "If you want to purchase SIM card and sign a contract, please bring following documents:\n\n"+
@@ -1379,7 +1500,7 @@ function MobileNetwork(text, session){
       text.includes('best')||
       text.includes('provider')||
       text.includes('prefer')||
-      text.includes('topone')||
+      text.includes('top')||
       text.includes('suggestion')||
       text.includes('suggest')))
       {return "Telekom generally offers the best network coverage in Germany.\n\n"+
@@ -1389,16 +1510,7 @@ function MobileNetwork(text, session){
 
 
 
-    if( text.includes('mobile')||
-      text.includes('telephone')||
-      text.includes('sim')||
-      text.includes('prepaid')||
-      text.includes('simcard')||
-      text.includes('esim')||
-      text.includes('internet')||
-      text.includes('wifi')||
-      text.includes('phone')||
-      text.includes('cell')
+    if(  session.topic == 'mobilenet'
    ){
 
       return "There are several mobile network providers are available in Deggendorf, including Telekom, O2 and Vodafone, Ja mobile, Lidl Connect, Aldi Talk.\n\n" +
@@ -1421,11 +1533,17 @@ function Library(text, session){
       text.includes('books')||
       text.includes('reading')||
       text.includes('read')||
-      text.includes('study place')||
+      text.includes('study spaces')||
       text.includes('loan book')
    ){
       session.topic = 'library';
    }
+
+   
+   if (session.topic == 'library' && text.includes('thd'))
+         {  session.topic = 'thd';
+            session.subtopic = 'thdbibliothek';
+            return School(text,session) } 
 
    if(session.topic === 'library' &&
      (text.includes('Stadtbibliothek Deggendorf')||
@@ -1445,9 +1563,9 @@ function Library(text, session){
            text.includes('close')||
            text.includes('opening'))
          )
-         {return "The opening hour of stadtbibliothek Deggendorf is from Tuesday to Saturday, 10:00 - 18:00.\n\n"+
+         {return "The opening hour of stadtbibliothek Deggendorf is from Tuesday to Saturday, 10:00 - 18:00.\n"+
                   "It is closed on Sunday and Monday\n\n"+
-                  "Please notice, in the following dates the library is also closed: \n\n"+
+                  "Please notice, in the following dates the library is also closed: \n"+
                   "Saturday, 15.08.2026 // Saturday, 03.10.2026 // Thursday, 24.12.2026 // Friday, 25.12.2026 // Saturday, 26.12.2026 // Tuesday, 29.12.2026 // Wednesday, 30.12.2026 // Thursday, 31.12.2026 // Friday, 01.01.2027 // Saturday, 02.01.2027"
          }
 
@@ -1470,7 +1588,7 @@ function Library(text, session){
            text.includes('email'))
          )
          {return "You can reach the Stadtbibliothek team by visiting their website: https://stadtbibliothek.deggendorf.de/ \n\n"+
-                 "Send us a email if any question: stadtbibliothek@deggendorf.de\n\n"+ 
+                 "Send us an email if any question: stadtbibliothek@deggendorf.de\n\n"+ 
                  "And you can find the contact information from here: https://stadtbibliothek.deggendorf.de/unser-team \n\n"
          }
 
@@ -1484,8 +1602,7 @@ function Library(text, session){
            text.includes('magazines')||
            text.includes('journals')||
            text.includes('registration')||
-           text.includes('registed')||
-           text.includes('regisrate')||
+           text.includes('register')||
            text.includes('return')||
            text.includes('loan')||
            text.includes('loaning'))
@@ -1498,7 +1615,7 @@ function Library(text, session){
          
          if (session.topic == 'library' &&
           session.subtopic =='stadtbibliothek' &&
-          (!text.includes('registrate') &&
+          (!text.includes('register') &&
            !text.includes('registration')) &&
           (text.includes('fee')||
            text.includes('cost')||
@@ -1506,7 +1623,7 @@ function Library(text, session){
            text.includes('spend')||
            text.includes('fees'))
          )
-         {return "Registration fee/replacement card: Adults is 2.5€, Minors is 1.5€. \n\n "+
+         {return "Registration fee/replacement card: Adults is 2.5€, Minors is 1.5€. \n "+
                  "Annual fee/ monthly fee : Adults  €10.00 / €2.50, Minors  €5.00 / €2.50\n\n"+
                  "We also provide the family cards: adults and all minor children with same place of residence: Annual fee is €18.\n\n"
          }
@@ -1527,7 +1644,7 @@ function Library(text, session){
                  "For magazines, CDs, CD-ROMs: 2 weeks\n\n"+
                  "For BluRays, DVDs: 1 week \n\n"+
                  "You can renew your media up to 3x by phone or via the Internet (BluRays, DVDs, Tonies and Edurinos only 1x). To do this, you will need your ID number and password.\n\n"+
-                 "The renew period will be calculated from the date of renewal, not the due date. Onleihe media cannot be renewed.\n\n"
+                 "The renew period will be calculated from the date of renewal, not the due date. Online media cannot be renewed.\n\n"
          }
 
          
@@ -1570,161 +1687,50 @@ function Library(text, session){
       if (session.topic == 'library' &&
           session.subtopic =='stadtbibliothek')
       
-      {return "The Stadtbibliothek Deggendorf is the city's public library, providing books, digital resources, study areas, and community events.\n\n"+
-              "I can provide the information about opening hours, contact, address, borrow media, registration, fees and events.\n\n"+
+      {return "The Stadtbibliothek Deggendorf is the city's public library, providing books, digital resources, study areas, and community events.\n"+
+              "I can provide the information about opening hours, contact, address, borrow media, registration, fees and events.\n"+
               "what would you like to know?"
       }
-
       
-   if(session.topic === 'library' &&
-     (text.includes('thd')||
-      text.includes('technology')||
-      text.includes('technische')||
-      text.includes('dit')))
-      {  session.subtopic = 'thdbibliothek'
-      }
-
-      
-      if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('open')||
-           text.includes('time')||
-           text.includes('hours')||
-           text.includes('hour')||
-           text.includes('when')||
-           text.includes('close')||
-           text.includes('opening'))
-         )
-         {return "During the semester: Monday to Thursday 8:00-20:00 and Friday is 8:30- 18:00.\n\n"+
-                 "During the semester break: Monday to Thursday 9:30-16:30 and Friday is 9:30- 13:00.\n\n"+
-                 "For upcoming exam prepatation we offer extended opening hour from 22.06.2026 to 31.07.2026\n\n"+
-                 "Monday to Friday: 8:30- 23:45, Saturday to Sunday: 8:00 - 23:45\n\n"+
-                 "Exception: On July 3, the library will close at 6 p.m. due to the summer festival!\n\n"
-         }
-
-         
-         if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('where')||
-           text.includes('address')||
-           text.includes('location')||
-           text.includes('find'))
-         )
-         {return "The Bibliothek of THD is located at Dieter-Görlitz-Platz 1, 94469 Deggendorf.\n\n"
-         }
-
-         if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('contact')||
-           text.includes('phone')||
-           text.includes('call')||
-           text.includes('email')||
-           text.includes('question'))
-         )
-         {return "You can reach us by sending us an email:  bib-service@th-deg.de \n\n"+ 
-                 "You can find frequently asked questions from here: https://www.th-deg.de/en/students/library \n\n"
-         }
-
-         if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('borrow')||
-           text.includes('books')||
-           text.includes('cd')||
-           text.includes('cds')||
-           text.includes('magazine')||
-           text.includes('magazines')||
-           text.includes('journals')||
-           text.includes('registration')||
-           text.includes('registed')||
-           text.includes('regisrate')||
-           text.includes('return')||
-           text.includes('loan')||
-           text.includes('loaning'))
-         )
-         {return "Books are borrowed by self-service using the student ID and password.\n\n"+
-                 "You can return your book at the counter during opening hours.\n\n "+
-                 "Outside opening hours, returns can be put in the returns box.\n\n"+
-                 "The books must be returned on the deadline day at the latest.\n\n"
-         }
-         
-         if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (!text.includes('registrate')&&
-           !text.includes('registration')) &&
-          (text.includes('fee')||
-           text.includes('cost')||
-           text.includes('money')||
-           text.includes('spend')||
-           text.includes('fees')||
-           text.includes('late')||
-           text.includes('over time')||
-           text.includes('exceed')||
-           text.includes('pay'))
-         )
-         {return "Books are not returned in time must be reminded with costs:\n\n"+
-                 "Costs for the 1st reminder: € 7.50\n\n"+
-                 "Costs for the 2nd reminder: € 10\n\n"+
-                 "Costs for the 3rd reminder: € 20 +€ 3.45 shipping fee\n\n"+
-                 "Costs for the value replacement(notification): additional € 30 +€ 3.45 shipping fee\n\n"
-         }
-
-          if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (!text.includes('borrow')&&
-           !text.includes('borrowing')) &&
-          (text.includes('period')||
-           text.includes('loan periods')||
-           text.includes('periods')||
-           text.includes('how long')||
-           text.includes('keep')||
-           text.includes('renew')||
-           text.includes('due'))
-         )
-         {return "The loan period is determined by the lending classification, which is part of the book signature.\n\n"+
-                 "Click here to check the detail: https://www.th-deg.de/en/students/library \n\n"
-         }
-
-         
-         if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('activity')||
-           text.includes('event')||
-           text.includes('happen')||
-           text.includes('courses'))
-         )
-         {return "The library offers different library introduction courses, including databases, literature research, literature management zotero, fit for the bachelor thesis, etc.\n\n"+
-                 "Click here to learn more: https://www.th-deg.de/en/students/library#introduction-courses\n\n"}
-
-         
-          if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek' &&
-          (text.includes('ebook')||
-           text.includes('ebooks')||
-           text.includes('online')||
-           text.includes('elibrary')||
-           text.includes('digit')||
-           text.includes('digtal resources'))
-         )
-         {return "The library of THD is also providing ebooks. Access to e-book is free of charge for university members. \n\n"+
-                 "A VPN connection is required with the private devices and all other WLAN connections. And access is only possible with a VPN connection.\n\n"
-         }
-
-       if (session.topic == 'library' &&
-          session.subtopic =='thdbibliothek')
-      {return "The THD Library provides books, ebooks, study spaces, and research support for students and staff at Deggendorf Institute of Technology.\n\n"+
-              "I can provide the information about opening hours, contact, address, borrow and return rules, registration, fees and research courses.\n\n"+
-              "what would you like to know?"
-      }
-
        if (session.topic == 'library')
-  {
-     return "There are two libraries in the Deggendorf, the Stadtbibliothek Deggendorf and the library of THD.\n\n"+ 
-             "I can help you to check the general information, the opening time, address, contact and how to borrow a book in the library \n\n"+
-             "Which library would you like to know more about?\n\n"
-   }
+  { return "There are two libraries in the Deggendorf, the Stadtbibliothek Deggendorf and the library of THD.\n"+ 
+             "I can help you to check the general information, the opening time, address, contact and how to borrow a book in the library \n"+
+             "Which library would you like to know more about?\n\n"}
 }
 
+/*Museum*/
+function Museum(text, session){
+ if( text.includes('museum')||
+     text.includes('handwerkmuseum')
+   ){
+      session.topic = 'museum';}
 
+   if (session.topic == 'museum' &&
+       (text.includes('Stadtmuseum') ||
+        text.includes('city')||
+        text.includes('stadt')))
+        {return "The Deggendorf City Museum tells the story of the city's history and culture.\n\n"+
+                "Address: Östlicher Stadtgraben 28, 94469 Deggendorf \n\n"+
+                "The opening hours: Tuesday to Saturday: 10:00- 16:00, Sunday & holidays: 10:00-17:00, Monday close\n"+
+                "The entrance fee: Adults: € 4.0 children from 6 to 18, disabled people: € 2.0 \n\n" +
+                "For more information, please visit our website: https://stadtmuseum.deggendorf.de "}
+
+   if (session.topic == 'museum' &&
+       (text.includes('handwerkmuseum')|| 
+        text.includes('handwerk')||
+        text.includes('hand')))
+        {return "The Handwerksmuseum shows traditional crafts and handmade tools from the region.\n\n"+
+                "Address: Maria-Ward-Platz 1, 94469 Deggendorf \n\n"+
+                "The opening hours: Tuesday to Saturday: 10:00- 16:00, Sunday & holidays: 10:00-17:00, Monday close\n\n"+
+                "The entrance fee: Adults: € 4.0 children from 6 to 18, disabled people: € 2.0 \n\n" +
+                "For more information, please visit our website: https://handwerksmuseum.deggendorf.de/"
+        }
+   
+   if (session.topic == 'museum')
+   {return "Deggendorf has two museums in the city, the Deggendorf City Museum and the Handwerksmuseum \n\n"+
+           "Which would you like to know?"
+   }
+}
 
 
 function HardFallback(session){
@@ -1734,7 +1740,7 @@ function HardFallback(session){
                 session.failCount = 0;
                 session.topic = null;
 
-                return "I am still having trouble understanding..\n\n"+
+                return "I am still having trouble understanding.\n\n"+
                 "Let's start over.\n\n" +
                 "What would you like to know about Deggendorf?\n\n" +
                 "• Transportation\n" +
@@ -1742,11 +1748,21 @@ function HardFallback(session){
                 "• Shopping\n" +
                 "• Restaurants\n" +
                 "• THD\n" +
-                "• Activities";
+                "• Activities\n" +
+                "• Accommodation\n" +
+                "• Healthcare\n" +
+                "• Resident Registration\n"
+                "• Emergency\n" +
+                "• Plan Visit\n" +
+                "• Bank\n" + +
+                "• Mobile Network\n" +
+                "• Library\n"  +
+                "• Museum\n" ;
+                ;
         }
 
         return "I am sorry, I'm not sure if I understand what you're looking for.Could you please try it again with a few words? \n\n"+
-                "Or you can find us by phone: +49 991 2960 5055 or send us a email: tourismus@deggendorf.de. We will be very happy to help you! :-)"
+                "Or you can find us by phone: +49 991 2960 5055 or send us an email: tourismus@deggendorf.de. We will be very happy to help you! :-)"
 }
 
 module.exports = { replyTopic };
