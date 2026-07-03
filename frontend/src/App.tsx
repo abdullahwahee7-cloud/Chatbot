@@ -128,7 +128,7 @@ const App: React.FC = () => {
               <option value="Where can I find accommodation?">Where can I find accommodation?</option>
               <option value="What are the activities in Deggendorf?">What are the activity in Deggendorf?</option>
               <option value="Where can I eat?">Where can I eat?</option>
-              <option value="library">THD Library?</option>
+              <option value="Library">Library?</option>
               <option value="Emergency numbers">Emergency numbers?</option>
               <option value="plan visit">Can you help me plan my visit?</option>
             </select>
