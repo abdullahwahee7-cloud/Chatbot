@@ -1,6 +1,23 @@
 /*We are using the keywords strategy to ensure the bot understand and reply the message*/
 const extraAnswersData = require('./extraAnswers.json');
 
+/*We are using hasWord function because some texts are getting mixed*/
+function hasWord(text, word) {
+   const safeWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+   const pattern = new RegExp("(^|[^a-zA-ZäöüÄÖÜß0-9])" + safeWord + "($|[^a-zA-ZäöüÄÖÜß0-9])", "i");
+   return pattern.test(text);
+}
+
+function keywordMatches(text, keyword) {
+   keyword = keyword.toLowerCase().trim();
+
+   if (keyword.length <= 3) {
+      return hasWord(text, keyword);
+   }
+
+   return text.includes(keyword);
+}
+
 /*The topics*/
 function replyTopic (message, session){
    const text = message.toLowerCase().trim();
@@ -8,15 +25,15 @@ function replyTopic (message, session){
    session.failCount = session.failCount || 0;
 
    const reply = 
-      ExtraAnswers(text, session) ||
+      /*ExtraAnswers(text, session) It is just to show that we can add new functions without changing source code*/
       Greeting(text, session) ||
       PlanVisit(text, session) ||
       Basicinfo(text, session) ||
       Weather(text,session) ||
       Historyinfo (text,session) ||
+      Healthcare (text,session) ||
       Transportation (text,session) ||
       Shopping (text,session) ||
-      Healthcare (text,session) ||
       Accomdation (text,session) ||
       Restaurant (text,session) ||
       Activity (text,session) ||
@@ -50,9 +67,9 @@ function ExtraAnswers(text, session) {
                let followUpMatch = false;
                
                for (let k = 0; k < followUp.keywords.length; k++) {
-                  if (text.includes(followUp.keywords[k].toLowerCase())) {
-                     followUpMatch = true;
-                  }
+                  if (keywordMatches(text, followUp.keywords[k])) {
+                       followUpMatch = true;
+                     }
                }
                
                if (followUpMatch == true) {
@@ -65,9 +82,9 @@ function ExtraAnswers(text, session) {
       
       let keywordMatch = false;
       for (let j = 0; j < item.keywords.length; j++) {
-         if (text.includes(item.keywords[j].toLowerCase())) {
-            keywordMatch = true;
-         }
+          if (keywordMatches(text, item.keywords[j])) {
+               keywordMatch = true;
+            }
       }
       
       if (keywordMatch == true) {
@@ -263,9 +280,8 @@ function Transportation (text,session) {
       }
 
       if (session.topic == 'transportation' &&
-          (text.includes('car') ||
-           text.includes('auto'))
-          )
+             (hasWord(text, 'car') ||
+              hasWord(text, 'auto')))
          {return "A3: Cologne - Frankfurt - Nuremberg - Regensburg - Deggendorf\n\n"+
                  "A92: Munich - Deggendorf"
          }
@@ -324,6 +340,16 @@ function Shopping (text,session) {
              "• Rewe\n" +
              "• Edeka";
    }
+ 
+        if (text.includes('local market') || text.includes('farmers market')) {
+            session.topic = 'shop';
+        {return "We also have the Deggendorf farmers' market. You can buy not only vegetables, fruit, juices,\n\n"+
+                 " but also meat, sausage specialties, flowers. Herbs and baked goods are also offered.\n\n"+
+                 " The vegetables usually come from organic farming.\n\n"+
+                 " Time: Saturday 08:00- 13:00\n\n"+
+                 " Location: Stadtplatz Deggendorf, Oberer Stadtplatz"
+         } 
+      }
 
 
    if (
@@ -353,17 +379,7 @@ function Shopping (text,session) {
          }
 
            
-      if (session.topic == 'shop' &&
-          (text.includes('local market') ||
-           text.includes('farm')||
-           text.includes('local')) 
-          )
-         {return "We also have the Deggendorf farmers' market. You can buy not only vegetables, fruit, juices,\n\n"+
-                 " but also meat, sausage specialties, flowers. Herbs and baked goods are also offered.\n\n"+
-                 " The vegetables usually come from organic farming.\n\n"+
-                 " Time: Saturday 08:00- 13:00\n\n"+
-                 " Location: Stadtplatz Deggendorf, Oberer Stadtplatz"
-         } 
+   
 }
 
 /*Healthcare*/
@@ -378,7 +394,7 @@ function Healthcare (text,session) {
        text.includes('pharmacy')||
        text.includes('healthcare')||
        text.includes('medical')||
-       text.includes('ill'))
+       hasWord(text, 'ill'))
       {session.topic = 'health';
        return  "There are varieties healthcare institution in Deggendorf.\n\n"+
                " For general medical care, you can visit DONAU ISAR Klinikum Deggendorf, the largest general hospital in Deggendorf\n\n"+
@@ -394,6 +410,92 @@ function Healthcare (text,session) {
 
 /*Accomdation*/
 function Accomdation(text, session){
+
+   if (
+      text.includes('student accommodation') ||
+      text.includes('student accomodation') ||
+      text.includes('student housing') ||
+      text.includes('student dormitory') ||
+      text.includes('student room') ||
+      text.includes('student apartment') ||
+      text.includes('student flat') ||
+      text.includes('wg') ||
+      text.includes('wg gesucht') ||
+      text.includes('shared flat') ||
+      text.includes('shared apartment') ||
+      (session.topic == 'hotel' && text.includes('student'))
+   ) {
+      session.topic = 'studdor';
+
+      return "Finding a place to stay in Deggendorf is very important for students.\n\n" +
+             "You can apply for dormitories or private offers.\n\n" +
+             "Which would you like to know more about?\n\n" +
+             "• Dormitory\n" +
+             "• Private Accommodation\n" +
+             "• Public Websites";
+   }
+
+   if (
+      session.topic == 'studdor' &&
+      (
+         text.includes('dormitory') ||
+         text.includes('dorm')
+      )
+   ) {
+      return "All apartments are located within easy walking distance of Deggendorf town and the campus of DIT.\n\n" +
+             "View your options here:\n\n" +
+             "https://www.th-deg.de/accommodation#deggendorf";
+   }
+
+   if (
+      session.topic == 'studdor' &&
+      (
+         text.includes('private') ||
+         text.includes('share') ||
+         text.includes('shared')
+      )
+   ) {
+      return "DIT has its own flat exchange platform where students and landlords offer apartments for sublease or permanent rent.\n\n" +
+             "Flat Exchange:\n" +
+             "https://pmit-ext.th-deg.de/wb/search?lang=en\n\n" +
+             "You can also ask about public websites.";
+   }
+
+   if (
+      session.topic == 'studdor' &&
+      (
+         text.includes('public') ||
+         text.includes('website') ||
+         text.includes('websites') ||
+         text.includes('wg') ||
+         text.includes('wg gesucht')
+      )
+   ) {
+      return "Public accommodation websites:\n\n" +
+             "WG-Gesucht:\n" +
+             "https://www.wg-gesucht.de/en/\n\n" +
+             "Ebay Kleinanzeigen:\n" +
+             "https://www.ebay-kleinanzeigen.de/simmobilien/94469/c195l16909\n\n" +
+             "Immobilienscout24:\n" +
+             "https://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html";
+   }
+
+   if (
+      session.topic == 'studdor' &&
+      (
+         text.includes('option') ||
+         text.includes('options') ||
+         text.includes('what') ||
+         text.includes('help')
+      )
+   ) {
+      return "For student accommodation, you can choose between:\n\n" +
+             "• Dormitory\n" +
+             "• Private Accommodation\n" +
+             "• Public Websites\n\n" +
+             "Which one would you like to know more about?";
+   }
+
    
    if (text.includes('hotel')||
        text.includes('tourist')||
@@ -415,70 +517,8 @@ function Accomdation(text, session){
        
        return "Welcome to Deggendorf! Most accommodations in Deggendorf can be found in our booking portal:\n\n"+
               " https://tportal.tomas.travel/StadtDeggendorf/ukv?globalreset=1\n\n"+
-              " If you are a student and looking for a place to stay during your study, please reply 'student accomodation' or 'student housing' "
+              " If you are a student and looking for a place to stay during your study, please reply 'student accommodation' "
       }
-
-    
-      if (text.includes('student accommodation') || 
-          text.includes('student housing') || 
-          text.includes('student dormitory') ||
-          text.includes('student room') ||
-          text.includes('student apartment')) {
-          session.topic = 'studdor';
-         }
-
-      if (
-         session.topic == 'studdor' &&
-         text.includes('student') &&
-         !text.includes('dorm') &&
-         !text.includes('private') &&
-         !text.includes('share') &&
-         !text.includes('public') &&
-         !text.includes('wg')
-
-      ) { 
-         return "Finding a place to stay in Deggendorf is very important for students.\n\n" +
-           "You can apply for dormitories or private offers.\n\n" +
-           "Which would you like to know more about?\n\n" +
-           "• Dormitory\n" +
-           "• Private Accommodation\n" +
-           "• Public Websites";
-      }
-
-      if (
-           session.topic == 'studdor' &&
-           (text.includes('student dormitory') ||
-            text.includes('dorm'))
-      ) {
-           return "All apartments are located within easy walking distance of Deggendorf town and the campus of DIT.\n\n" +
-           "View your options here:\n\n" +
-           "https://www.th-deg.de/accommodation#deggendorf";
-      }
-
-      if (
-          session.topic == 'studdor' &&
-          (text.includes('private') ||
-           text.includes('share'))
-      ) {
-          return "DIT has its own flat exchange platform where students and landlords offer apartments for sublease or permanent rent.\n\n" +
-           "Flat Exchange:\n" +
-           "https://pmit-ext.th-deg.de/wb/search?lang=en\n\n" +
-           "You can also ask about public websites.";
-      } 
-
-   if (
-       session.topic == 'studdor' &&
-       (text.includes('public') ||
-       text.includes('wg'))
-   ) {
-       return "Public accommodation websites:\n\n" +
-           "WG-Gesucht:\n" +
-           "https://www.wg-gesucht.de/en/\n\n" +
-           "Ebay Kleinanzeigen:\n" +
-           "https://www.ebay-kleinanzeigen.de/simmobilien/94469/c195l16909\n\n" +
-           "Immobilienscout24:\n" +
-           "https://www.immobilienscout24.de/wohnen/bayern,deggendorfkreis/wohnungen.html";
-   }     
 
 }
 
@@ -938,14 +978,9 @@ function School (text,session){
               "what would you like to know?"}
       
       if (session.topic == 'thd') {
-         return "The Deggendorf Institute of Technology (THD) is a university of applied sciences in Deggendorf.\n\n" +
-                "I can help you with:\n\n" +
-                "• Study programs\n" +
-                "• Application\n" +
-                "• Events\n" +
-                "• Contact and support\n" +
-                "• THD Library\n\n" +
-                "What would you like to know about THD?";
+         return "The Deggendorf Institute of Technology (THD) offers Bachelor's and Master's degree programs in the fields of civil and environmental engineering, natural sciences, electrical engineering and computer science, mechanical engineering, media as well as health and economics\n\n"+
+                   "The THD has 45% international students. 3 study locations. The main campus of THD is located in the center of Deggendorf.\n\n"+
+                   "Location: Dieter-Görlitz-Platz 1, 94469 Deggendorf"
                }
 
 
@@ -1079,8 +1114,8 @@ function Activity(text, session) {
         if (session.topic == 'activity' &&
             (text.includes('bike')||
              text.includes('cycle')||
-             text.includes('bicycle'))||
-             text.includes('cycling')
+             text.includes('bicycle')||
+             text.includes('cycling'))
            )
            {return "Whether leisurely family bike tours, sport bike tours or challenging two-wheeler tours and fitness pedal knights\n\n"+
                    "the many cycle paths in and around Deggendorf will make every 'cyclist's heart' beat faster.\n\n"+
@@ -1726,8 +1761,8 @@ function Library(text, session){
             return School(text,session) } 
 
    if(session.topic === 'library' &&
-     (text.includes('Stadtbibliothek Deggendorf')||
-      text.includes('Stadtbibliothek')||
+     (text.includes('stadtbibliothek Deggendorf')||
+      text.includes('stadtbibliothek')||
       text.includes('Stadt')))
       {  session.subtopic = 'stadtbibliothek'
       }
@@ -1925,7 +1960,7 @@ function Museum(text, session){
    if (session.topic == 'museum' &&
        (text.includes('handwerkmuseum')|| 
         text.includes('handwerk')||
-        text.includes('hand')))
+        hasWord(text, 'handwerk')))
         {return "The Handwerksmuseum shows traditional crafts and handmade tools from the region.\n\n"+
                 "Address: Maria-Ward-Platz 1, 94469 Deggendorf \n\n"+
                 "The opening hours: Tuesday to Saturday: 10:00- 16:00, Sunday & holidays: 10:00-17:00, Monday close\n\n"+
@@ -1961,7 +1996,7 @@ function HardFallback(session){
                 "• Resident Registration\n"
                 "• Emergency\n" +
                 "• Plan Visit\n" +
-                "• Bank\n" + +
+                "• Bank\n" + 
                 "• Mobile Network\n" +
                 "• Library\n"  +
                 "• Museum\n" ;
