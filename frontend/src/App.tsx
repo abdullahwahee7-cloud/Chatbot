@@ -97,15 +97,15 @@ const App: React.FC = () => {
                <option value="" disabled>
                    Choose a Topics
                </option>
-               <option value="Basic Information">ℹ️ Deggendorf Info</option>
+               <option value="Basic Information about Deggendorf">ℹ️ Deggendorf Info</option>
                <option value="Transportation">🚆 Transportation</option>
-               <option value="Weather">🌤 Weather</option>
+               <option value="Weather in Deggenorf">🌤 Weather</option>
                <option value="Healthcare in Deggendorf">🏥 Healthcare</option>
-               <option value="Student accommodation in Deggendorf">🏠 Accommodation</option>
+               <option value="Accommodation in Deggendorf">🏠 Accommodation</option>
                <option value="Restaurants in Deggendorf">🍽 Restaurants</option>
                <option value="Introduce THD">🎓 THD</option>
                <option value="Activities in Deggendorf">🎉 Activities</option>
-               <option value="library">📚 Library</option>
+               <option value="Library">📚 Library</option>
                <option value="plan visit">📝 Plan My Visit</option>
                </select>
            </div>
@@ -127,10 +127,10 @@ const App: React.FC = () => {
               <option value="How do I get to Deggendorf?">How do I get to Deggendorf?</option>
               <option value="Where can I find accommodation?">Where can I find accommodation?</option>
               <option value="What are the activities in Deggendorf?">What are the activity in Deggendorf?</option>
-              <option value="library">THD Library?</option>
+              <option value="Any Library in Deggendorf?">Any Library nearby?</option>
               <option value="Where can I eat?">Where can I eat?</option>
               <option value="Emergency numbers">Emergency numbers?</option>
-              <option value="plan visit">Can you help me plan my visit?</option>
+              <option value="Can you help me plan my visit?">Can you help me plan my visit?</option>
             </select>
            </div>
 
