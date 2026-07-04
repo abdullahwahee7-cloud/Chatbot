@@ -43,8 +43,8 @@ function replyTopic (message, session){
       Emergency(text,session)||
       NearbyCities(text,session) ||
       Banking(text,session)||
-      MobileNetwork(text,session)||
-      Museum(text, session);
+      MobileNetwork(text,session);
+      /*Museum(text, session)*/
 
    if (reply) {
         session.failCount = 0;
@@ -107,7 +107,7 @@ function Greeting (text,session) {
     )
     {
     return "I am a chatbot representing the City of Deggendorf.\n\n" +
-           "I can provide information about transportation, weather, shopping, accommodation, restaurants, activities, healthcare, education and THD.";
+           "I can provide information about basic infomation of Deggendorf, the history, transportation, weather, shopping, accommodation, restaurants, activities, healthcare, mobile network, banking, and THD. :)"
     }
 
     if (text.includes('how are you') ||
@@ -116,7 +116,7 @@ function Greeting (text,session) {
       )
       {
          return "I am good, thanks for asking. What do you want to know about our beautiful city?\n\n" +
-               "You can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation, banking, mobilenetwork and healthcare"
+               "You can ask me about about basic infomation of Deggendorf, the history, transportation, weather, shopping, accommodation, restaurants, activities, healthcare, mobile network, banking, and THD. :)"
       }
 
     if (text.includes('hello') ||
@@ -131,7 +131,7 @@ function Greeting (text,session) {
        )
        {
         return "Hello! Welcome to Deggendorf. What do you want to know about our beautiful city?\n\n"+
-               "You can ask me about basic information of Deggendorf, the history, weather, transportation, shopping, tourism, accommodations, restaurants, local events, education institution and healthcare"
+               "You can ask me about about basic infomation of Deggendorf, the history, transportation, weather, shopping, accommodation, restaurants, activities, healthcare, mobile network, banking, and THD. :)"
        }
 }
 
@@ -1475,16 +1475,8 @@ function PlanVisit(text, session) {
 /*Banking*/
 function Banking(text,session){
    if(
-      text.includes('bank')||
       text.includes('banking')||
-      text.includes('bank account')||
-      text.includes('open bank account')||
-      text.includes('sparkasse')||
-      text.includes('vr bank')||
-      text.includes('blocked account')||
-      text.includes('blocked bank account')||
-      text.includes('online bank')||
-      text.includes('student account')
+      text.includes('bank account')
    ){
       session.topic = 'banking';
 
@@ -2000,7 +1992,7 @@ function HardFallback(session){
                 ;
         }
 
-        return "I am sorry, I'm not sure if I understand what you're looking for.Could you please try it again with a few words? \n\n"+
+        return "I am sorry, I'm not sure if I understand what you're looking for. Could you please try it again with a few words? \n\n"+
                 "Or you can find us by phone: +49 991 2960 5055 or send us an email: tourismus@deggendorf.de. We will be very happy to help you! :-)"
 }
 
