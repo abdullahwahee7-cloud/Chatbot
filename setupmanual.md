@@ -1,4 +1,4 @@
-Deggendorf Chatbot Setup Manual
+Deggendorf Chatbot Project Setup Manual
 
 
 1) OVERVIEW AND REQUIREMENTS
