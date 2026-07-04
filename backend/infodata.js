@@ -479,38 +479,67 @@ function Accomdation(text, session){
 }
 
 /*Restaurant*/
-function Restaurant (text, session){
-   if (text.includes('restaurant')||
-          text.includes('food')||
-          text.includes('meal')||
-          text.includes('dinner')||
-          text.includes('breakfast')||
-          text.includes('lunch')||
-          text.includes('eat')||
-          text.includes('pizza') ||
-          text.includes('pasta') ||
-          text.includes('burger')||
-          text.includes('cafe')||
-          text.includes('hungry') ||
-          text.includes('cuisine') ||
-          text.includes('coffee')||
-          text.includes('indian')||
-          text.includes('mensa')||
-          text.includes('italian')||
-          text.includes('german')||
-          text.includes('syrian')||
-          text.includes('turkish') ||
-          text.includes('restaurant near me') ||
-          text.includes('where to eat') ||
-          text.includes('good food') ||
-          text.includes('takeaway') ||
-          text.includes('take away') ||
-          text.includes('delivery')||
-          text.includes('aisa')||
-          text.includes('asian')||
-          text.includes('chinese')||
-          text.includes('sushi'))
-         {session.topic = 'restaurant'}
+function Restaurant(text, session) {
+
+    const restaurantIntent =
+      text.includes('restaurant') ||
+      text.includes('food') ||
+      text.includes('meal') ||
+      text.includes('dinner') ||
+      text.includes('breakfast') ||
+      text.includes('lunch') ||
+      text.includes('eat') ||
+      text.includes('pizza') ||
+      text.includes('pasta') ||
+      text.includes('burger') ||
+      text.includes('cafe') ||
+      text.includes('hungry') ||
+      text.includes('cuisine') ||
+      text.includes('coffee') ||
+      text.includes('restaurant near me') ||
+      text.includes('where to eat') ||
+      text.includes('good food') ||
+      text.includes('takeaway') ||
+      text.includes('take away') ||
+      text.includes('delivery');
+
+    const restaurantFollowUp =
+      text.includes('indian') ||
+      text.includes('curry') ||
+      text.includes('mensa') ||
+      text.includes('campus') ||
+      text.includes('italian') ||
+      text.includes('german') ||
+      text.includes('syrian') ||
+      text.includes('arabic') ||
+      text.includes('shawarma') ||
+      text.includes('turkish') ||
+      text.includes('kebab') ||
+      text.includes('doner') ||
+      text.includes('döner') ||
+      text.includes('asian') ||
+      text.includes('asia') ||
+      text.includes('chinese') ||
+      text.includes('sushi') ||
+      text.includes('fast') ||
+      text.includes('burger') ||
+      text.includes('cafe') ||
+      text.includes('coffee') ||
+      text.includes('tea') ||
+      text.includes('cake');
+
+      if (restaurantIntent) {
+      session.topic = 'restaurant';
+      }
+
+      if (session.topic !== 'restaurant') {
+       return null;
+      }
+
+      if (!restaurantIntent && !restaurantFollowUp) {
+      return null;
+      }
+
 
       if(session.topic == 'restaurant'&&
              (text.includes('indian')||text.includes('curry'))
@@ -612,13 +641,62 @@ function Restaurant (text, session){
                  "• Syrian\n" +
                  "• Turkish\n" +
                  "• Asian\n" +
-                 "• Fast Food\n\n"
+                 "• Fast Food\n\n" +
                  "Which one would you like?";}
  }
 
 
  /*School & THD*/
 function School (text,session){
+
+   const schoolIntent =
+   text.includes('school') ||
+   text.includes('education') ||
+   text.includes('college') ||
+   text.includes('study') ||
+   text.includes('thd') ||
+   text.includes('dit') ||
+   text.includes('technology') ||
+   text.includes('university') ||
+   text.includes('uni') ||
+   text.includes('deggendorf institute of technology') ||
+   text.includes('degree') ||
+   text.includes('bachelor') ||
+   text.includes('master') ||
+   text.includes('campus') ||
+   text.includes('semester') ||
+   text.includes('student card') ||
+   text.includes('enrollment') ||
+   text.includes('enrolment') ||
+   text.includes('admission') ||
+   text.includes('application');
+
+  const schoolFollowUp =
+   text.includes('program') ||
+   text.includes('apply') ||
+   text.includes('join') ||
+   text.includes('event') ||
+   text.includes('activity') ||
+   text.includes('party') ||
+   text.includes('club') ||
+   text.includes('contact') ||
+   text.includes('email') ||
+   text.includes('phone') ||
+   text.includes('support') ||
+   text.includes('library') ||
+   text.includes('borrow') ||
+   text.includes('book') ||
+   text.includes('ebook') ||
+   text.includes('opening') ||
+   text.includes('hours');
+
+  if (!schoolIntent && session.topic !== 'thd' && session.topic !== 'school') {
+   return null;
+   }
+
+   if ((session.topic === 'thd' || session.topic === 'school') && !schoolIntent && !schoolFollowUp) {
+   return null;
+   }
 
         if (text.includes('school')||
             text.includes('education')||
@@ -865,45 +943,70 @@ function School (text,session){
 }
 
  
- /*Activity & sightseeing*/
-function Activity (text, session) {
-   if (text.includes('activity') ||
-       text.includes('event')||
-       text.includes('festival')||
-       text.includes('concert')||
-       text.includes('show')||
-       text.includes('happening')||
-       text.includes('exchange')||
-       text.includes('exhibition')||
-       text.includes('free time')||
-       text.includes('leisure')||
-       text.includes('fun')||
-       text.includes('hike')||
-       text.includes('hiking')||
-       text.includes('cycling')||
-       text.includes('park')||
-       text.includes('nature')||
-       text.includes('ski')||
-       text.includes('bike')||
-       text.includes('family')||
-       text.includes('fish')||
-       text.includes('picnic')||
-       text.includes('camp')||
-       text.includes('golf')||
-       text.includes('dsc')||
-       text.includes('ice')||
-       text.includes('tour')||
-       text.includes('motor')||
-       text.includes('skat')||
-       text.includes('what can i do')||
-       text.includes('what can we do')||
-       text.includes('things to do')||
-       text.includes('do in deggendorf')||
-       text.includes('sport')||
-       text.includes('activities')||
-       text.includes('bored'))
+/*Activity & sightseeing*/
+function Activity(text, session) {
 
-       {session.topic = 'activity'}
+   const activityIntent =
+      text.includes('activity') ||
+      text.includes('activities') ||
+      text.includes('event') ||
+      text.includes('festival') ||
+      text.includes('concert') ||
+      text.includes('show') ||
+      text.includes('happening') ||
+      text.includes('exchange') ||
+      text.includes('exhibition') ||
+      text.includes('free time') ||
+      text.includes('leisure') ||
+      text.includes('fun') ||
+      text.includes('what can i do') ||
+      text.includes('what can we do') ||
+      text.includes('things to do') ||
+      text.includes('do in deggendorf') ||
+      text.includes('bored') ||
+      text.includes('sport') ||
+      text.includes('tour');
+
+    const activityFollowUp =
+      text.includes('hike') ||
+      text.includes('hiking') ||
+      text.includes('walk') ||
+      text.includes('trail') ||
+      text.includes('route') ||
+      text.includes('cycling') ||
+      text.includes('cycle') ||
+      text.includes('bike') ||
+      text.includes('bicycle') ||
+      text.includes('park') ||
+      text.includes('nature') ||
+      text.includes('ski') ||
+      text.includes('family') ||
+      text.includes('fish') ||
+      text.includes('fishing') ||
+      text.includes('picnic') ||
+      text.includes('camp') ||
+      text.includes('motorhome') ||
+      text.includes('golf') ||
+      text.includes('dsc') ||
+      text.includes('ice') ||
+      text.includes('skat') ||
+      text.includes('skating') ||
+      text.includes('hockey') ||
+      text.includes('winter');
+
+    if (activityIntent) {
+      session.topic = 'activity';
+    }
+
+ 
+    if (session.topic !== 'activity') {
+      return null;
+    }
+
+    if (!activityIntent && !activityFollowUp) {
+      return null;
+    }
+
 
        if (session.topic == 'activity' &&
            text.includes('fish'))
@@ -1439,6 +1542,46 @@ function Banking(text,session){
 
 /*mobile network*/
 function MobileNetwork(text, session){
+
+   const mobileIntent =
+   text.includes('mobile') ||
+   text.includes('telephone') ||
+   text.includes('sim') ||
+   text.includes('prepaid') ||
+   text.includes('simcard') ||
+   text.includes('esim') ||
+   text.includes('internet') ||
+   text.includes('wifi') ||
+   text.includes('phone') ||
+   text.includes('cell');
+
+   const mobileFollowUp =
+   text.includes('visitor') ||
+   text.includes('visitors') ||
+   text.includes('temporary') ||
+   text.includes('short-term') ||
+   text.includes('contract') ||
+   text.includes('student') ||
+   text.includes('long-term') ||
+   text.includes('top up') ||
+   text.includes('recharge') ||
+   text.includes('balance') ||
+   text.includes('voucher') ||
+   text.includes('provider') ||
+   text.includes('recommend') ||
+   text.includes('best');
+
+   if (mobileIntent) {
+   session.topic = 'mobilenet';
+   }
+
+   if (session.topic !== 'mobilenet') {
+   return null;
+   }
+
+        if (!mobileIntent && !mobileFollowUp) {
+       return null;
+     }  
       if( text.includes('mobile')||
       text.includes('telephone')||
       text.includes('sim')||
@@ -1523,22 +1666,46 @@ function MobileNetwork(text, session){
 
 /*library*/
 function Library(text, session){
-   if( text.includes('borrow book')||
-      text.includes('borrow')||
-      text.includes('book')||
-      text.includes('library')||
-      text.includes('bibliothek')||
-      text.includes('reading')||
-      text.includes('magazine')||
-      text.includes('books')||
-      text.includes('reading')||
-      text.includes('read')||
-      text.includes('study spaces')||
-      text.includes('loan book')
-   ){
-      session.topic = 'library';
+
+   const libraryIntent =
+   text.includes('library') ||
+   text.includes('bibliothek') ||
+   text.includes('borrow book') ||
+   text.includes('loan book') ||
+   text.includes('study spaces');
+
+  const libraryFollowUp =
+   text.includes('thd') ||
+   text.includes('stadtbibliothek') ||
+   text.includes('stadt') ||
+   text.includes('open') ||
+   text.includes('time') ||
+   text.includes('hours') ||
+   text.includes('where') ||
+   text.includes('address') ||
+   text.includes('contact') ||
+   text.includes('borrow') ||
+   text.includes('books') ||
+   text.includes('registration') ||
+   text.includes('fee') ||
+   text.includes('cost') ||
+   text.includes('period') ||
+   text.includes('renew') ||
+   text.includes('late') ||
+   text.includes('event') ||
+   text.includes('ebook');
+
+  if (libraryIntent) {
+   session.topic = 'library';
+  }
+
+  if (session.topic !== 'library') {
+   return null;
    }
 
+  if (!libraryIntent && !libraryFollowUp) {
+   return null;
+   }
    
    if (session.topic == 'library' && text.includes('thd'))
          {  session.topic = 'thd';
@@ -1700,7 +1867,34 @@ function Library(text, session){
 
 /*Museum*/
 function Museum(text, session){
- if( text.includes('museum')||
+   const museumIntent =
+   text.includes('museum') ||
+   text.includes('stadtmuseum') ||
+   text.includes('handwerkmuseum');
+
+  const museumFollowUp =
+   text.includes('city') ||
+   text.includes('stadt') ||
+   text.includes('handwerk') ||
+   text.includes('hand') ||
+   text.includes('opening') ||
+   text.includes('hours') ||
+   text.includes('fee') ||
+   text.includes('address');
+
+   if (museumIntent) {
+   session.topic = 'museum';
+   }
+
+  if (session.topic !== 'museum') {
+   return null;
+   }
+
+  if (!museumIntent && !museumFollowUp) {
+   return null;
+  }
+
+   if( text.includes('museum')||
      text.includes('handwerkmuseum')
    ){
       session.topic = 'museum';}
