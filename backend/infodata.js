@@ -991,7 +991,7 @@ function School (text,session){
        if (session.topic == 'thd' &&
           session.subtopic =='thdbibliothek')
          {return "The THD Library provides books, ebooks, study spaces, and research support for students and staff at Deggendorf Institute of Technology\n"+
-              "I can provide the information about opening hours, contact, address, borrow and return rules, registration, fees and research courses.\n\n"+
+              "I can provide the information about opening hours, contact, and borrow.\n\n"+
               "what would you like to know?"}
       
       if (session.topic == 'thd') {
@@ -1246,8 +1246,7 @@ function Emergency(text,session){
              "Address: Hans-Krämer-Straße 65, 94469 Deggendorf.\n" +
              "Phone: +49 991 3896-0\n\n" +
              "In an emergency, call 110 for police.\n" + 
-             "For medical or fire emergency, call 112.\n\n" +
-             "You can ask me about emergency, lost items, theft or police station location.";
+             "For medical or fire emergency, call 112.\n\n";
    }
 
    if (session.topic == 'Emergency' &&
@@ -1901,7 +1900,7 @@ function Library(text, session){
           session.subtopic =='stadtbibliothek')
       
       {return "The Stadtbibliothek Deggendorf is the city's public library, providing books, digital resources, study areas, and community events.\n"+
-              "I can provide the information about opening hours, contact, address, borrow media, registration, fees and events.\n"+
+              "I can provide the information about opening hours, contact, address, borrow media, and fees.\n"+
               "what would you like to know?"
       }
       
@@ -1911,7 +1910,7 @@ function Library(text, session){
              "Which library would you like to know more about?\n\n"}
 }
 
-/*Museum*/
+/*Museum On Backup if we will need to use it later
 function Museum(text, session){
    const museumIntent =
    text.includes('museum') ||
@@ -1971,7 +1970,7 @@ function Museum(text, session){
            "Which would you like to know?"
    }
 }
-
+*/
 
 function HardFallback(session){
         session.failCount++;
