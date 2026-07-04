@@ -415,11 +415,15 @@ function Accomdation(text, session){
        
        return "Welcome to Deggendorf! Most accommodations in Deggendorf can be found in our booking portal:\n\n"+
               " https://tportal.tomas.travel/StadtDeggendorf/ukv?globalreset=1\n\n"+
-              " If you are a student and looking for a place to stay during your study, please reply 'student' "
+              " If you are a student and looking for a place to stay during your study, please reply 'student accomodation' or 'student housing' "
       }
 
     
-      if (text.includes('student')) {
+      if (text.includes('student accommodation') || 
+          text.includes('student housing') || 
+          text.includes('student dormitory') ||
+          text.includes('student room') ||
+          text.includes('student apartment')) {
           session.topic = 'studdor';
          }
 
@@ -932,14 +936,23 @@ function School (text,session){
          {return "The THD Library provides books, ebooks, study spaces, and research support for students and staff at Deggendorf Institute of Technology\n"+
               "I can provide the information about opening hours, contact, address, borrow and return rules, registration, fees and research courses.\n\n"+
               "what would you like to know?"}
+      
+      if (session.topic == 'thd') {
+         return "The Deggendorf Institute of Technology (THD) is a university of applied sciences in Deggendorf.\n\n" +
+                "I can help you with:\n\n" +
+                "• Study programs\n" +
+                "• Application\n" +
+                "• Events\n" +
+                "• Contact and support\n" +
+                "• THD Library\n\n" +
+                "What would you like to know about THD?";
+               }
 
-            
-        if (session.topic =='thd')
-  
-            {return "In the district of Deggendorf, probably one of the most school-friendly in Bavaria, there are almost 80 state, municipal and private institutions for the training, further education and further education of the population in school and work\n"+
-               "There are schools of general education, Vocation schools, adult education, technical colleges, primary and secondary schools, university, continuing education and special schools\n\n" +
-               "For more information, please click: https://www.landkreis-deggendorf.de/leben-arbeiten/bildung/schulen-weiterbildung/"}
 
+      if (session.topic == 'school') {
+         return "In the district of Deggendorf, there are many educational institutions, including general schools, vocational schools, adult education, technical colleges, primary and secondary schools, universities, continuing education institutions and special schools.\n\n" +
+                "For more information, please click: https://www.landkreis-deggendorf.de/leben-arbeiten/bildung/schulen-weiterbildung/";
+}
 }
 
  
