@@ -1124,6 +1124,7 @@ function Activity (text, session, fromIntent = false) {
              text.includes('skat')||
              text.includes('hockey')||
              text.includes('dsc')||
+             text.includes('ski')||
              text.includes('winter'))
            )
            {return "There are plenty of fun for cold and winter at Deggendorf ice stadium. For example: classic ice skating, disco or themed ice skating \n\n" +
@@ -1183,7 +1184,7 @@ function Activity (text, session, fromIntent = false) {
       text.includes('games') ||
       fromIntent
    ) {
-      return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events,hiking, cycling, ski, golf and picnic.\n\n" +
+      return "There are a variety of activities in Deggendorf, hiking, cycling, ski, golf, park and picnic.\n\n" +
              "What would you like to know more?\n\n" +
              "You can find more details through our website: https://www.deggendorf.de/veranstaltungen ";
    }
