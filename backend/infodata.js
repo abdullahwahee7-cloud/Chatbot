@@ -110,6 +110,15 @@ function Greeting (text,session) {
            "I can provide information about transportation, weather, shopping, accommodation, restaurants, activities, healthcare, education and THD.";
     }
 
+    if (text.includes('how are you') ||
+       text.includes('how you doing') ||
+       text.includes('how are you doing') 
+      )
+      {
+         return "I am good, thanks for asking. What do you want to know about our beautiful city?\n\n" +
+               "You can ask me about basic infomation of Deggendorf, the history, weather, transportation, shopping, tourism, accomdations, restaurants, local events, education insitituation, banking, mobilenetwork and healthcare"
+      }
+
     if (text.includes('hello') ||
        text.includes('hallo') ||
        text === 'hi'||
@@ -214,6 +223,26 @@ function Basicinfo(text,session){
 /*Climate*/
 function Weather (text, session){
 
+   if (
+      text.includes('weather today') ||
+      text.includes('today weather') ||
+      text.includes('today') ||
+      text.includes('temperature') ||
+      text.includes('current weather') ||
+      text.includes('current temperature') ||
+      text.includes('sunny') ||
+      text.includes('raining') ||
+      text.includes('cloudy') ||
+      text.includes('snowing') ||
+      hasWord(text, 'hot') ||
+      hasWord(text, 'cold')) {
+      session.topic = 'weather';
+
+      return "For today's weather in Deggendorf, you can check here:\n\n" +
+             "https://openweathermap.org/city/2938540";
+
+      }
+
     if (text.includes('climate')||
         text.includes('weather'))
        { session.topic = 'weather';
@@ -224,19 +253,8 @@ function Weather (text, session){
        }
  
     /*if we have time we can update this by using API*/
-    if (session.topic == 'weather' &&
-        (text.includes('today')||
-        text.includes('temperature')||
-        text.includes('current')||
-        text.includes('sunny')||
-        text.includes('raining')||
-        text.includes('cloudy')||
-        text.includes('snowing')||
-        text.includes('hot')||
-        text.includes('cold'))
-       )
-       {return "For today's weather, you can check from here: https://openweathermap.org/city/2938540"
-       }
+
+    return null;
 }
 
 /*History*/
@@ -260,10 +278,11 @@ function Transportation (text,session) {
    if (text.includes('how to get to deggendorf?')||
        text.includes('travel')||
        text.includes('transportation')||
+       text.includes('react to deggendorf')||
        text.includes('how to arrive to deggendorf')||
        text.includes('how do i get there')||
        text.includes('how can i get there')||
-       text.includes("how do I get to deggendorf?") ||
+       text.includes("how do i get to deggendorf?") ||
        text.includes('how do i travel')||
        text.includes('how can i travel')
 
@@ -466,9 +485,7 @@ function Accomdation(text, session){
       (
          text.includes('public') ||
          text.includes('website') ||
-         text.includes('websites') ||
-         text.includes('wg') ||
-         text.includes('wg gesucht')
+         text.includes('websites')
       )
    ) {
       return "Public accommodation websites:\n\n" +
@@ -1132,6 +1149,7 @@ function Activity(text, session) {
              text.includes('skat')||
              text.includes('hockey')||
              text.includes('dsc')||
+             text.includes('ski') ||
              text.includes('winter'))
            )
            {return "There are plenty of fun for cold and winter at Deggendorf ice stadium. For example: classic ice skating, disco or themed ice skating \n\n" +
@@ -1141,7 +1159,7 @@ function Activity(text, session) {
 
     if (session.topic == 'activity')
 
-       {return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events, hiking, cycling, ski, golf and picnic.\n\n"+
+       {return "There are a variety of activities in Deggendorf, including hiking, cycling, ski, golf, park and picnic.\n\n"+
                "What would you like to know more?\n\n"+
                "You can find more details through our website: https://www.deggendorf.de/veranstaltungen "
            }
@@ -1428,9 +1446,9 @@ function PlanVisit(text, session) {
 
     if (session.planStep === 'activity') {
         session.profile.activity = text;
-        session.planStep = 'done';
 
-        return "Here is your Deggendorf visit plan:\n\n" +
+        const finalPlan = 
+               "Here is your Deggendorf visit plan:\n\n" +
                "Visitor type: " + session.profile.visitorType + "\n" +
                "Duration: " + session.profile.duration + "\n" +
                "Accommodation: " + session.profile.accommodation + "\n" +
@@ -1444,32 +1462,12 @@ function PlanVisit(text, session) {
                "4. Eat at a place matching your preference: " + session.profile.food + ".\n" +
                "5. Spend time on: " + session.profile.activity + ".\n\n" +
                "Would you like to make another plan? Type 'plan visit' to start again.";
-    }
 
-    if (session.planStep === 'done') {
-        if (
-            text.includes('again') ||
-            text.includes('new') ||
-            text.includes('another') ||
-            text.includes('restart')
-        ) {
-            session.topic = 'visitplan';
-            session.planStep = 'visitorType';
+          session.topic = null;
+          session.planStep = null;
+          session.profile = null;
 
-            session.profile = {
-                visitorType: null,
-                duration: null,
-                accommodation: null,
-                transport: null,
-                food: null,
-                activity: null
-            };
-
-            return "Sure, let us make a new Deggendorf visit plan.\n\n" +
-                   "Are you a student, tourist, or resident?";
-        }
-
-        return "The visit plan is complete. You can type 'plan visit' to create another plan, or ask me about transportation, restaurants, THD, activities, or accommodation.";
+         return finalPlan;
     }
 
     return null;
