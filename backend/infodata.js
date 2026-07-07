@@ -1035,6 +1035,7 @@ function Activity (text, session, fromIntent = false) {
        text.includes('golf')||
        text.includes('dsc')||
        text.includes('ice')||
+       text.includes('hiking')||
        text.includes('tour')||
        text.includes('motor')||
        text.includes('skat')||
@@ -1153,7 +1154,7 @@ function Activity (text, session, fromIntent = false) {
        text.includes('bored') ||
        text.includes('do in deggendorf'))
 
-       {return "There are a variety of activities in Deggendorf, including family activities, concerts, culture events,hiking, cycling, ski, golf and picnic.\n\n"+
+       {return "There are a variety of activities in Deggendorf hiking, cycling, ski, golf, park and picnic.\n\n"+
                "What would you like to know more?\n\n"+
                "You can find more details through our website: https://www.deggendorf.de/veranstaltungen "
            }
@@ -1289,8 +1290,7 @@ function Emergency(text,session, fromIntent = false){
              "Address: Hans-Krämer-Straße 65, 94469 Deggendorf.\n" +
              "Phone: +49 991 3896-0\n\n" +
              "In an emergency, call 110 for police.\n" + 
-             "For medical or fire emergency, call 112.\n\n" +
-             "You can ask me about emergency, lost items, theft or police station locaation.";
+             "For medical or fire emergency, call 112.";
    }
 
    if (session.topic === 'emergency' &&
@@ -1332,8 +1332,7 @@ function Emergency(text,session, fromIntent = false){
              "Address: Hans-Krämer-Straße 65, 94469 Deggendorf.\n" +
              "Phone: +49 991 3896-0\n\n" +
              "In an emergency, call 110 for police.\n" +
-             "For medical or fire emergency, call 112.\n\n" +
-             "You can ask me about emergency, lost items, theft or police station locaation.";
+             "For medical or fire emergency, call 112.";
    }
 
    return null;
@@ -1456,6 +1455,7 @@ function PlanVisit(text, session, fromIntent = false) {
         text.includes('day plan') ||
         text.includes('itinerary') ||
         text.includes('travel plan') ||
+        text.includes('can you help me plan my visit?') ||
         text.includes('trip itinerary') ||
         text.includes('schedule') ||
         text.includes('day schedule') ||
@@ -1572,7 +1572,11 @@ function PlanVisit(text, session, fromIntent = false) {
                    "Are you a student, tourist, or resident?";
         }
 
-        return "The visit plan is complete. You can type 'plan visit' to create another plan, or ask me about transportation, restaurants, THD, activities, or accommodation.";
+        session.topic = null;
+        session.planStep = null;
+        session.profile = null;
+
+        return null;
     }
 
     return null;
